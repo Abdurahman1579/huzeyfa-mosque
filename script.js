@@ -155,13 +155,11 @@ function setLanguage(lang) {
         document.body.setAttribute('dir', 'ltr');
     }
 
-    // Yeroo afaan jijjiiran data database irra jirus akka hiikamuuf irra deebinee waamna
     reloadAllData(lang);
 }
 
-// Free Translation API (MyMemory) fayyadamuun barreeffama hiikuuf
 async function translateText(text, targetLang) {
-    if (!text || targetLang === 'om') return text; // Yoo Afaan Oromoo ta'e akkamitti jiruun tura
+    if (!text || targetLang === 'om') return text;
     try {
         const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=om|${targetLang}`);
         const data = await res.json();
@@ -174,7 +172,6 @@ async function translateText(text, targetLang) {
     return text;
 }
 
-// Supabase irraa Posts Fiduuf (Afaan filatame wajjin wal-simsiisuun)
 async function fetchPostsByCategory(categoryName, containerId, currentLang) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -212,7 +209,6 @@ async function fetchPostsByCategory(categoryName, containerId, currentLang) {
     container.innerHTML = htmlContent;
 }
 
-// Supabase irraa Staff Fiduuf
 async function fetchStaff(containerId, currentLang) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -250,7 +246,6 @@ async function fetchStaff(containerId, currentLang) {
     container.innerHTML = htmlContent;
 }
 
-// Fuulota hundaaf data fe'uu (Afaan amma filatame irratti hundaa'ee)
 function reloadAllData(lang) {
     fetchPostsByCategory('about', 'about-container', lang);
     fetchPostsByCategory('leadership', 'leadership-container', lang);
@@ -264,16 +259,26 @@ function reloadAllData(lang) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const langSelect = document.getElementById('langSelect');
+    // --- HAMBURGER MENU FIX ---
     const mobileMenu = document.getElementById('mobile-menu');
     const navList = document.querySelector('.nav-list');
 
     if (mobileMenu && navList) {
-        mobileMenu.addEventListener('click', () => {
+        mobileMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
             navList.classList.toggle('active');
         });
-    }
 
+        // Menuuicha alaa yeroo tuqan akka cufamu
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
+                navList.classList.remove('active');
+            }
+        });
+    }
+    // --------------------------
+
+    const langSelect = document.getElementById('langSelect');
     const savedLang = localStorage.getItem('preferredLang') || 'om';
     
     if (langSelect) {

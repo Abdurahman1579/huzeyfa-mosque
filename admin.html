@@ -61,16 +61,128 @@
         margin-bottom: 15px;
         text-align: left;
       }
+      /* Mobile Menu Styles */
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .menu-toggle .bar {
+        width: 25px;
+        height: 3px;
+        background-color: #004d40;
+        transition: 0.3s;
+      }
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+        .nav-list {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background: #fff;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          padding: 10px 0;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-list.active {
+          display: flex;
+        }
+        .nav-list li {
+          text-align: center;
+          padding: 10px 0;
+        }
+      }
     </style>
   </head>
   <body>
-    <header style="direction: ltr; text-align: left">
-      <div class="logo">
-        Masjiida Huzeeyfaa - Admin Panel / የማስጂድ ሁዘይፋ - የፕላትፎርም አስተዳደር
+    <header
+      style="
+        direction: ltr;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      "
+    >
+      <div class="logo" style="font-weight: bold; color: #004d40">
+        Masjiida Huzeeyfaa - Admin Panel
+      </div>
+      <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </div>
       <nav>
-        <ul class="nav-list">
-          <li><a href="index.html">Fuula Duraa / መነሻ ገጽ</a></li>
+        <ul
+          class="nav-list"
+          style="
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+          "
+        >
+          <li>
+            <a href="index.html" style="text-decoration: none; color: #333"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="about.html" style="text-decoration: none; color: #333"
+              >About</a
+            >
+          </li>
+          <li>
+            <a href="leadership.html" style="text-decoration: none; color: #333"
+              >Leadership</a
+            >
+          </li>
+          <li>
+            <a href="waqf.html" style="text-decoration: none; color: #333"
+              >Waqf</a
+            >
+          </li>
+          <li>
+            <a
+              href="development.html"
+              style="text-decoration: none; color: #333"
+              >Development</a
+            >
+          </li>
+          <li>
+            <a href="charity.html" style="text-decoration: none; color: #333"
+              >Charity</a
+            >
+          </li>
+          <li>
+            <a href="madrasah.html" style="text-decoration: none; color: #333"
+              >Madrasah</a
+            >
+          </li>
+          <li>
+            <a href="staff.html" style="text-decoration: none; color: #333"
+              >Staff</a
+            >
+          </li>
+          <li>
+            <a href="lectures.html" style="text-decoration: none; color: #333"
+              >Lectures</a
+            >
+          </li>
+          <li>
+            <a href="news.html" style="text-decoration: none; color: #333"
+              >News</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
@@ -210,12 +322,22 @@
       ></p>
     </main>
 
-    <footer style="direction: ltr; text-align: center">
+    <footer style="direction: ltr; text-align: center; padding: 20px">
       <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
     <script>
+      // Hamburger Menu Toggle Logic
+      const mobileMenu = document.getElementById("mobile-menu");
+      const navList = document.querySelector(".nav-list");
+
+      if (mobileMenu && navList) {
+        mobileMenu.addEventListener("click", () => {
+          navList.classList.toggle("active");
+        });
+      }
+
       const pageSelect = document.getElementById("pageSelect");
       const extraStaffFields = document.getElementById("extraStaffFields");
       const imageFiles = document.getElementById("imageFiles");
@@ -281,8 +403,6 @@
             }
 
             const image_url = imageUrls.length > 0 ? imageUrls[0] : "";
-
-            // Asitti value-wwan sirriitti input irraa qabamaa jiru
             const title = document.getElementById("postTitle").value.trim();
             const content = document.getElementById("postContent").value.trim();
 
