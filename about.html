@@ -47,6 +47,15 @@
         font-size: 1.15rem;
       }
 
+      .lang-switcher select {
+        background: #00332c;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
       /* Mobile Menu Styles */
       @media (max-width: 992px) {
         .nav-list {
@@ -88,7 +97,7 @@
   </head>
   <body>
     <header>
-      <!-- Gama Bitaatiin: Hamburger Menu Dura, Itti aansee Logo (Hiika Amaariffaa wajjin) -->
+      <!-- Gama Bitaatiin: Hamburger Menu fi Logo -->
       <div class="header-left">
         <button
           class="menu-toggle"
@@ -106,8 +115,8 @@
           <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
             >/ መስጂድ ሁዘይፋ</span
           >
-        </div>
-      </div> -->
+        </div> -->
+      </div>
 
       <nav>
         <ul class="nav-list" id="nav-list">
@@ -125,10 +134,11 @@
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
-          <li><a href="admin.html" data-i18n="news">----</a></li>
+          <li><a href="admin.html">----</a></li>
         </ul>
       </nav>
 
+      <!-- Gama Mirgaatiin: Language Switcher -->
       <div class="lang-switcher">
         <select id="langSelect">
           <option value="om">A/Oromoo</option>

@@ -47,7 +47,7 @@
         font-size: 1.15rem;
       }
 
-      /* Navigation List Styles (Skiriinii hunda irratti bifa Hamburgeriin hojjechuuf) */
+      /* Navigation List Styles */
       .nav-list {
         list-style: none;
         display: none;
@@ -64,7 +64,6 @@
         margin: 0;
       }
 
-      /* JavaScript kana fayyadama (active) */
       .nav-list.active {
         display: flex !important;
       }
@@ -88,6 +87,15 @@
 
       .nav-list li a:hover {
         color: #a7f3d0;
+      }
+
+      .lang-switcher select {
+        background: #00332c;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -159,30 +167,13 @@
     <!-- Footer -->
     <footer>
       <p style="text-align: center; padding: 20px">
-        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yaman. All rights reserved.
       </p>
     </footer>
 
-    <!-- JavaScript for Toggle (Using .active class) -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const mobileMenu = document.getElementById("mobile-menu");
-        const navList = document.getElementById("nav-list");
-
-        if (mobileMenu && navList) {
-          mobileMenu.addEventListener("click", (e) => {
-            e.stopPropagation();
-            navList.classList.toggle("active");
-          });
-
-          document.addEventListener("click", (e) => {
-            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
-              navList.classList.remove("active");
-            }
-          });
-        }
-      });
-    </script>
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Your existing script.js file linked here -->
     <script src="script.js"></script>
   </body>
 </html>

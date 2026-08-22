@@ -80,14 +80,16 @@
         gap: 15px;
       }
 
+      /* Admin Panel maqaa gara mirgaatti fiduuf */
       .logo {
         font-weight: bold;
         color: #ffffff;
         font-size: 1.15rem;
+        margin-left: auto;
       }
 
       .menu-toggle {
-        display: none;
+        display: flex;
         cursor: pointer;
         flex-direction: column;
         gap: 5px;
@@ -104,20 +106,43 @@
         border-radius: 2px;
       }
 
+      /* Nav list akka yeroo hunda dhokate, hamburger yeroo tuqamu qofa banamu godhuuf */
       .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #004d40;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 15px 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
         list-style: none;
-        display: flex;
-        gap: 20px;
         margin: 0;
-        padding: 0;
+        z-index: 1000;
+      }
+
+      .nav-list.show-menu {
+        display: flex !important;
+      }
+
+      .nav-list li {
+        text-align: center;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-list li:last-child {
+        border-bottom: none;
       }
 
       .nav-list li a {
-        text-decoration: none;
+        font-size: 1.1rem;
+        display: block;
         color: #ffffff;
+        text-decoration: none;
         font-weight: 500;
-        transition: color 0.2s;
-        font-size: 0.95rem;
       }
 
       .nav-list li a:hover {
@@ -148,46 +173,6 @@
       .auth-box h3 {
         color: #004d40;
         margin-bottom: 15px;
-      }
-
-      /* Mobile & Tablet Styles */
-      @media (max-width: 992px) {
-        .menu-toggle {
-          display: flex;
-        }
-
-        .nav-list {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          background: #004d40;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          padding: 15px 0;
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-list.show-menu {
-          display: flex !important;
-        }
-
-        .nav-list li {
-          text-align: center;
-          padding: 12px 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-list li:last-child {
-          border-bottom: none;
-        }
-
-        .nav-list li a {
-          font-size: 1.1rem;
-          display: block;
-          color: #ffffff;
-        }
       }
     </style>
   </head>
@@ -241,15 +226,9 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
-
-        <div class="logo">
-          Admin Panel
-          <span
-            style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
-          ></span>
-        </div>
       </div>
 
+      <!-- Navigation Links -->
       <nav>
         <ul class="nav-list" id="nav-list">
           <li><a href="index.html">Home</a></li>
@@ -264,6 +243,8 @@
           <li><a href="news.html">News</a></li>
         </ul>
       </nav>
+
+      <div class="logo">Admin Panel</div>
     </header>
 
     <main
@@ -279,7 +260,8 @@
       "
     >
       <h2 style="text-align: left">
-        Odeeffannoo fi Suuraalee Fuula Hojjechuu / መረጃዎችን እና ፎቶዎችን ማስተካከያ ገጽ
+        Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Fuula Hojjechuu / መረጃዎችን፣
+        ፎቶዎችን፣ ቪዲዮዎችን እና ድምጾችን ማስተካከያ ገጽ
       </h2>
 
       <div style="margin: 20px 0; text-align: left">
@@ -304,7 +286,7 @@
         style="display: flex; flex-direction: column; gap: 10px"
       >
         <div class="lang-group">
-          <label>Mata-duree / ርዕስ </label>
+          <label>Mata-duree / ርዕስ</label>
           <input
             type="text"
             id="postTitle"
@@ -336,7 +318,7 @@
               />
             </div>
             <div style="margin-top: 10px">
-              <label>Gahee Hojii / የሥራ መደብ </label>
+              <label>Gahee Hojii / የሥራ መደብ</label>
               <input
                 type="text"
                 id="staffPosition"
@@ -356,8 +338,9 @@
           </div>
         </div>
 
+        <!-- Suuraa (Image Upload) -->
         <div class="lang-group">
-          <label>Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ </label>
+          <label>Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ</label>
           <input
             type="file"
             id="imageFiles"
@@ -366,6 +349,36 @@
             style="margin-top: 5px; display: block"
           />
           <div class="preview-container" id="imagePreview"></div>
+        </div>
+
+        <!-- Viidiyoo (Video Upload) -->
+        <div class="lang-group">
+          <label>Viidiyoo Ol-Fe'uu / ቪዲዮ መጫኛ (Mp4, etc.)</label>
+          <input
+            type="file"
+            id="videoFile"
+            accept="video/*"
+            style="margin-top: 5px; display: block"
+          />
+          <p
+            id="videoStatus"
+            style="font-size: 0.85rem; color: #555; margin-top: 5px"
+          ></p>
+        </div>
+
+        <!-- Sagalee (Audio Upload) -->
+        <div class="lang-group">
+          <label>Sagalee (Audio) Ol-Fe'uu / የድምጽ ፋይል መጫኛ (Mp3, etc.)</label>
+          <input
+            type="file"
+            id="audioFile"
+            accept="audio/*"
+            style="margin-top: 5px; display: block"
+          />
+          <p
+            id="audioStatus"
+            style="font-size: 0.85rem; color: #555; margin-top: 5px"
+          ></p>
         </div>
 
         <button
@@ -382,9 +395,27 @@
             margin-top: 15px;
           "
         >
-          Odeeffannoo fi Suuraalee Galchi / መረጃዎችን እና ፎቶዎችን አስገባ
+          Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Galchi / አስገባ
         </button>
       </form>
+
+      <!-- Logout Button -->
+      <button
+        id="logoutBtn"
+        style="
+          background: #c62828;
+          color: white;
+          padding: 10px;
+          width: 100%;
+          border: none;
+          border-radius: 5px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 30px;
+        "
+      >
+        Ba'i (Logout) / ውጣ
+      </button>
 
       <p
         id="statusMsg"
@@ -401,19 +432,18 @@
     <script src="script.js"></script>
     <script>
       // --- PASSWORD PROTECTION LOGIC ---
-      const ADMIN_PASSWORD = "huzeeyfa123@admin"; // <--- Jecha darbii kana barbaaddetti jijjiiruu dandeessa
+      const ADMIN_PASSWORD = "huzeeyfa123@admin";
 
       const authModal = document.getElementById("auth-modal");
       const adminPasswordInput = document.getElementById("adminPasswordInput");
       const loginBtn = document.getElementById("loginBtn");
-      const authError =
-        document.getElementById("auth-error") ||
-        document.getElementById("authError");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const authError = document.getElementById("authError");
 
       function handleLogin() {
         if (adminPasswordInput.value === ADMIN_PASSWORD) {
           authModal.style.display = "none";
-          sessionStorage.setItem("isAdminAuthenticated", "true");
+          localStorage.setItem("isAdminAuthenticated", "true");
         } else {
           authError.textContent = "Jecha darbiin sirrii miti! / የተሳሳተ የይለፍ ቃል!";
         }
@@ -424,13 +454,18 @@
         if (e.key === "Enter") handleLogin();
       });
 
-      // Yoo kanaan dura login godhee jiraate modalichaa dhoksi
-      if (sessionStorage.getItem("isAdminAuthenticated") === "true") {
+      if (localStorage.getItem("isAdminAuthenticated") === "true") {
         authModal.style.display = "none";
+      } else {
+        authModal.style.display = "flex";
       }
-      // ---------------------------------
 
-      // Clean and Direct Mobile Menu Toggle Script
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("isAdminAuthenticated");
+        location.reload();
+      });
+
+      // Mobile Menu Toggle Script
       document.addEventListener("DOMContentLoaded", () => {
         const mobileMenu = document.getElementById("mobile-menu");
         const navList = document.getElementById("nav-list");
@@ -454,6 +489,8 @@
       const extraStaffFields = document.getElementById("extraStaffFields");
       const imageFiles = document.getElementById("imageFiles");
       const imagePreview = document.getElementById("imagePreview");
+      const videoFile = document.getElementById("videoFile");
+      const audioFile = document.getElementById("audioFile");
 
       pageSelect.addEventListener("change", (e) => {
         const val = e.target.value;
@@ -478,6 +515,20 @@
         }
       });
 
+      videoFile.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) {
+          document.getElementById("videoStatus").textContent =
+            "Viidiyoon filatameera: " + e.target.files[0].name;
+        }
+      });
+
+      audioFile.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) {
+          document.getElementById("audioStatus").textContent =
+            "Sagaleen (Audio) filatameera: " + e.target.files[0].name;
+        }
+      });
+
       document
         .getElementById("adminForm")
         .addEventListener("submit", async (e) => {
@@ -485,17 +536,22 @@
           const statusMsg = document.getElementById("statusMsg");
           const category = pageSelect.value;
           const files = imageFiles.files;
+          const vidFile = videoFile.files[0];
+          const audFile = audioFile.files[0];
 
           statusMsg.style.color = "blue";
           statusMsg.textContent =
-            "Suuraalee fi odeeffannoo fe’aa jira / መረጃዎች እና ፎቶዎች እየተጫኑ ነው...";
+            "Odeeffannoo, suuraa, viidiyoo fi sagalee fe’aa jira / መረጃዎች እና ፋይሎች እየተጫኑ ነው...";
 
           try {
             let imageUrls = [];
+            let videoUrl = "";
+            let audioUrl = "";
 
+            // 1. Suuraalee fe'uu (Yoo filataman qofa)
             for (let file of files) {
               const fileExt = file.name.split(".").pop();
-              const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+              const fileName = `img_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
 
               const { error: uploadError } = await _supabase.storage
                 .from("images")
@@ -503,8 +559,7 @@
 
               if (uploadError) {
                 throw new Error(
-                  "Suuraa fechuun hin dandaamne / ፎቶ መጫን አልተቻለም: " +
-                    uploadError.message,
+                  "Suuraa fechuun hin dandaamne: " + uploadError.message,
                 );
               } else {
                 const { data: publicUrlData } = _supabase.storage
@@ -514,51 +569,87 @@
               }
             }
 
+            // 2. Viidiyoo fe'uu (Yoo filatame qofa)
+            if (vidFile) {
+              const fileExt = vidFile.name.split(".").pop();
+              const fileName = `vid_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+              const { error: vidError } = await _supabase.storage
+                .from("images")
+                .upload(fileName, vidFile);
+
+              if (vidError) {
+                throw new Error(
+                  "Viidiyoo fechuun hin dandaamne: " + vidError.message,
+                );
+              } else {
+                const { data: publicUrlData } = _supabase.storage
+                  .from("images")
+                  .getPublicUrl(fileName);
+                videoUrl = publicUrlData.publicUrl;
+              }
+            }
+
+            // 3. Sagalee (Audio) fe'uu (Yoo filatame qofa)
+            if (audFile) {
+              const fileExt = audFile.name.split(".").pop();
+              const fileName = `aud_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+              const { error: audError } = await _supabase.storage
+                .from("images")
+                .upload(fileName, audFile);
+
+              if (audError) {
+                throw new Error(
+                  "Sagalee fechuun hin dandaamne: " + audError.message,
+                );
+              } else {
+                const { data: publicUrlData } = _supabase.storage
+                  .from("images")
+                  .getPublicUrl(fileName);
+                audioUrl = publicUrlData.publicUrl;
+              }
+            }
+
             const image_url = imageUrls.length > 0 ? imageUrls[0] : "";
             const title = document.getElementById("postTitle").value.trim();
             const content = document.getElementById("postContent").value.trim();
 
             if (category === "staff") {
-              const name = document.getElementById("staffName").value;
-              const position = document.getElementById("staffPosition").value;
-              const phone = document.getElementById("staffPhone").value;
+              const name = document.getElementById("staffName").value.trim();
+              const position = document
+                .getElementById("staffPosition")
+                .value.trim();
+              const phone = document.getElementById("staffPhone").value.trim();
 
               const { error } = await _supabase
                 .from("staff")
                 .insert([{ name, position, phone, image_url }]);
               if (error) throw error;
-            } else if (category === "leadership") {
-              const name = document.getElementById("staffName").value;
-              const position = document.getElementById("staffPosition").value;
-              const phone = document.getElementById("staffPhone").value;
-
-              let fullContent = content;
-              if (name || position || phone) {
-                fullContent += `\nMaqaa: ${name} | Gahee: ${position} | Bilbila: ${phone}`;
-              }
-
-              const { error } = await _supabase
-                .from("posts")
-                .insert([{ category, title, content: fullContent, image_url }]);
-              if (error) throw error;
             } else {
-              const { error } = await _supabase
-                .from("posts")
-                .insert([{ category, title, content, image_url }]);
+              const { error } = await _supabase.from("posts").insert([
+                {
+                  category,
+                  title,
+                  content,
+                  image_url,
+                  video_url: videoUrl,
+                  audio_url: audioUrl,
+                },
+              ]);
               if (error) throw error;
             }
 
             statusMsg.style.color = "green";
-            statusMsg.textContent =
-              "Milkaa’inaan galfameera / በተሳካ ሁኔታ ተመዝግቧል!";
+            statusMsg.textContent = "Milkaa’inaan galfameera! (Successful)";
             document.getElementById("adminForm").reset();
             imagePreview.innerHTML = "";
+            document.getElementById("videoStatus").textContent = "";
+            document.getElementById("audioStatus").textContent = "";
             extraStaffFields.classList.remove("active");
           } catch (err) {
             console.error("Catch error:", err);
             statusMsg.style.color = "red";
             statusMsg.textContent =
-              "Dogoggorri uumameera / ስህተት ተፈጥሯል: " + (err.message || err);
+              "Dogoggorri uumameera: " + (err.message || err);
           }
         });
     </script>
