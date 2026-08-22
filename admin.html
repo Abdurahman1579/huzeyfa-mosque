@@ -124,6 +124,32 @@
         color: #a7f3d0;
       }
 
+      /* Password Modal Styles */
+      #auth-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      .auth-box {
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        width: 350px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .auth-box h3 {
+        color: #004d40;
+        margin-bottom: 15px;
+      }
+
       /* Mobile & Tablet Styles */
       @media (max-width: 992px) {
         .menu-toggle {
@@ -143,7 +169,6 @@
           border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Direct toggle class */
         .nav-list.show-menu {
           display: flex !important;
         }
@@ -163,16 +188,48 @@
           display: block;
           color: #ffffff;
         }
-
-        .nav-list li a:hover {
-          color: #a7f3d0;
-        }
       }
     </style>
   </head>
   <body>
+    <!-- Password Login Modal -->
+    <div id="auth-modal">
+      <div class="auth-box">
+        <h3>Admin Login / መግቢያ</h3>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px">
+          Galchuuf Jecha Darbii (Password) Galchaa
+        </p>
+        <input
+          type="password"
+          id="adminPasswordInput"
+          class="input-box"
+          placeholder="Password..."
+          style="text-align: center"
+        />
+        <button
+          id="loginBtn"
+          style="
+            background: #004d40;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+          "
+        >
+          Seeni / ግባ
+        </button>
+        <p
+          id="authError"
+          style="color: red; font-size: 0.85rem; margin-top: 10px"
+        ></p>
+      </div>
+    </div>
+
     <header>
-      <!-- Gama Bitaatiin: Hamburger Menu Dura, Itti aansee Logo (Hiika Amaariffaa wajjin) -->
       <div class="header-left">
         <button
           class="menu-toggle"
@@ -187,9 +244,9 @@
 
         <div class="logo">
           Admin Panel
-          <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
-            ></span
-          >
+          <span
+            style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
+          ></span>
         </div>
       </div>
 
@@ -343,6 +400,36 @@
 
     <script src="script.js"></script>
     <script>
+      // --- PASSWORD PROTECTION LOGIC ---
+      const ADMIN_PASSWORD = "huzeeyfa123@admin"; // <--- Jecha darbii kana barbaaddetti jijjiiruu dandeessa
+
+      const authModal = document.getElementById("auth-modal");
+      const adminPasswordInput = document.getElementById("adminPasswordInput");
+      const loginBtn = document.getElementById("loginBtn");
+      const authError =
+        document.getElementById("auth-error") ||
+        document.getElementById("authError");
+
+      function handleLogin() {
+        if (adminPasswordInput.value === ADMIN_PASSWORD) {
+          authModal.style.display = "none";
+          sessionStorage.setItem("isAdminAuthenticated", "true");
+        } else {
+          authError.textContent = "Jecha darbiin sirrii miti! / የተሳሳተ የይለፍ ቃል!";
+        }
+      }
+
+      loginBtn.addEventListener("click", handleLogin);
+      adminPasswordInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleLogin();
+      });
+
+      // Yoo kanaan dura login godhee jiraate modalichaa dhoksi
+      if (sessionStorage.getItem("isAdminAuthenticated") === "true") {
+        authModal.style.display = "none";
+      }
+      // ---------------------------------
+
       // Clean and Direct Mobile Menu Toggle Script
       document.addEventListener("DOMContentLoaded", () => {
         const mobileMenu = document.getElementById("mobile-menu");
@@ -354,7 +441,6 @@
             navList.classList.toggle("show-menu");
           });
 
-          // Close menu when clicking outside
           document.addEventListener("click", (e) => {
             if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
               navList.classList.remove("show-menu");
