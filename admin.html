@@ -281,6 +281,8 @@
             }
 
             const image_url = imageUrls.length > 0 ? imageUrls[0] : "";
+            const title = document.getElementById("postTitle").value;
+            const content = document.getElementById("postContent").value;
 
             if (category === "staff") {
               const name = document.getElementById("staffName").value;
@@ -291,10 +293,23 @@
                 .from("staff")
                 .insert([{ name, position, phone, image_url }]);
               if (error) throw error;
-            } else {
-              const title = document.getElementById("postTitle").value;
-              const content = document.getElementById("postContent").value;
+            } else if (category === "leadership") {
+              // Leadership keessattis title, content, fi extra fields yoo barbaadame posts tti ni galcha
+              const name = document.getElementById("staffName").value;
+              const position = document.getElementById("staffPosition").value;
+              const phone = document.getElementById("staffPhone").value;
 
+              // Qabiyyee keessatti dabalata odeeffannoo dhuunfaa qabatamaa taasisuuf
+              let fullContent = content;
+              if (name || position || phone) {
+                fullContent += `\nMaqaa: ${name} | Gahee: ${position} | Bilbila: ${phone}`;
+              }
+
+              const { error } = await _supabase
+                .from("posts")
+                .insert([{ category, title, content: fullContent, image_url }]);
+              if (error) throw error;
+            } else {
               const { error } = await _supabase
                 .from("posts")
                 .insert([{ category, title, content, image_url }]);
@@ -306,6 +321,7 @@
               "Milkaa’inaan galfameera / በተሳካ ሁኔታ ተመዝግቧል!";
             document.getElementById("adminForm").reset();
             imagePreview.innerHTML = "";
+            extraStaffFields.classList.remove("active");
           } catch (err) {
             console.error("Catch error:", err);
             statusMsg.style.color = "red";
