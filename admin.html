@@ -15,6 +15,8 @@
         text-align: left !important;
         background-color: #f4f6f8;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
       }
       .form-section {
         display: none;
@@ -52,6 +54,7 @@
         font-size: 1rem;
         text-align: left;
         direction: ltr;
+        box-sizing: border-box;
       }
       .lang-group {
         background: #f9f9f9;
@@ -61,37 +64,84 @@
         margin-bottom: 15px;
         text-align: left;
       }
-      /* Mobile Menu Styles */
+
+      /* Fixed Header & Mobile Menu Styles */
+      header {
+        position: relative;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+      }
+
+      .logo {
+        font-weight: bold;
+        color: #004d40;
+        font-size: 1.1rem;
+      }
+
       .menu-toggle {
         display: none;
         cursor: pointer;
         flex-direction: column;
         gap: 5px;
+        background: none;
+        border: none;
       }
+
       .menu-toggle .bar {
-        width: 25px;
+        width: 28px;
         height: 3px;
         background-color: #004d40;
         transition: 0.3s;
+        border-radius: 2px;
       }
-      @media (max-width: 768px) {
+
+      .nav-list {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-list li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .nav-list li a:hover {
+        color: #004d40;
+      }
+
+      /* Responsive Styles for Mobile */
+      @media (max-width: 900px) {
         .menu-toggle {
           display: flex;
         }
+
         .nav-list {
           display: none;
           flex-direction: column;
           width: 100%;
           background: #fff;
           position: absolute;
-          top: 60px;
+          top: 100%;
           left: 0;
-          padding: 10px 0;
+          padding: 15px 0;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          border-top: 1px solid #eee;
+          z-index: 1000;
         }
+
         .nav-list.active {
-          display: flex;
+          display: flex !important;
         }
+
         .nav-list li {
           text-align: center;
           padding: 10px 0;
@@ -100,89 +150,32 @@
     </style>
   </head>
   <body>
-    <header
-      style="
-        direction: ltr;
-        text-align: left;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      "
-    >
-      <div class="logo" style="font-weight: bold; color: #004d40">
-        Masjiida Huzeeyfaa - Admin Panel
-      </div>
-      <div class="menu-toggle" id="mobile-menu">
+    <header>
+      <div class="logo">Masjiida Huzeeyfaa - Admin Panel</div>
+
+      <!-- Hamburger Toggle Button -->
+      <button
+        class="menu-toggle"
+        id="mobile-menu"
+        aria-label="Toggle navigation"
+      >
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
-      </div>
+      </button>
+
       <nav>
-        <ul
-          class="nav-list"
-          style="
-            list-style: none;
-            display: flex;
-            gap: 15px;
-            margin: 0;
-            padding: 0;
-          "
-        >
-          <li>
-            <a href="index.html" style="text-decoration: none; color: #333"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a href="about.html" style="text-decoration: none; color: #333"
-              >About</a
-            >
-          </li>
-          <li>
-            <a href="leadership.html" style="text-decoration: none; color: #333"
-              >Leadership</a
-            >
-          </li>
-          <li>
-            <a href="waqf.html" style="text-decoration: none; color: #333"
-              >Waqf</a
-            >
-          </li>
-          <li>
-            <a
-              href="development.html"
-              style="text-decoration: none; color: #333"
-              >Development</a
-            >
-          </li>
-          <li>
-            <a href="charity.html" style="text-decoration: none; color: #333"
-              >Charity</a
-            >
-          </li>
-          <li>
-            <a href="madrasah.html" style="text-decoration: none; color: #333"
-              >Madrasah</a
-            >
-          </li>
-          <li>
-            <a href="staff.html" style="text-decoration: none; color: #333"
-              >Staff</a
-            >
-          </li>
-          <li>
-            <a href="lectures.html" style="text-decoration: none; color: #333"
-              >Lectures</a
-            >
-          </li>
-          <li>
-            <a href="news.html" style="text-decoration: none; color: #333"
-              >News</a
-            >
-          </li>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="leadership.html">Leadership</a></li>
+          <li><a href="waqf.html">Waqf</a></li>
+          <li><a href="development.html">Development</a></li>
+          <li><a href="charity.html">Charity</a></li>
+          <li><a href="madrasah.html">Madrasah</a></li>
+          <li><a href="staff.html">Staff</a></li>
+          <li><a href="lectures.html">Lectures</a></li>
+          <li><a href="news.html">News</a></li>
         </ul>
       </nav>
     </header>
@@ -229,7 +222,7 @@
           text-align: left;
         "
       >
-        <!-- Mata-duree (Title) Afaan Oromoo / Amharic bakkuma tokkotti -->
+        <!-- Mata-duree (Title) -->
         <div class="lang-group">
           <label>Mata-duree / ርዕስ </label>
           <input
@@ -240,7 +233,7 @@
           />
         </div>
 
-        <!-- Qabiyyee (Content) Afaan Oromoo / Amharic bakkuma tokkotti -->
+        <!-- Qabiyyee (Content) -->
         <div class="lang-group">
           <label>Qabiyyee(Ibsa) ይዘት/ማብራሪያ</label>
           <textarea
@@ -251,7 +244,7 @@
           ></textarea>
         </div>
 
-        <!-- Dynamic Fields based on Page type (Staff/Leadership) -->
+        <!-- Dynamic Fields based on Page type -->
         <div id="dynamicFields">
           <div id="extraStaffFields" class="form-section lang-group">
             <h3>Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</h3>
@@ -335,6 +328,13 @@
       if (mobileMenu && navList) {
         mobileMenu.addEventListener("click", () => {
           navList.classList.toggle("active");
+        });
+
+        // Menuuicha alaa yeroo tuqan akka cufamu
+        document.addEventListener("click", (e) => {
+          if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
+            navList.classList.remove("active");
+          }
         });
       }
 
