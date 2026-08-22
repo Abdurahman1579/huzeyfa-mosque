@@ -281,8 +281,10 @@
             }
 
             const image_url = imageUrls.length > 0 ? imageUrls[0] : "";
-            const title = document.getElementById("postTitle").value;
-            const content = document.getElementById("postContent").value;
+
+            // Asitti value-wwan sirriitti input irraa qabamaa jiru
+            const title = document.getElementById("postTitle").value.trim();
+            const content = document.getElementById("postContent").value.trim();
 
             if (category === "staff") {
               const name = document.getElementById("staffName").value;
@@ -294,12 +296,10 @@
                 .insert([{ name, position, phone, image_url }]);
               if (error) throw error;
             } else if (category === "leadership") {
-              // Leadership keessattis title, content, fi extra fields yoo barbaadame posts tti ni galcha
               const name = document.getElementById("staffName").value;
               const position = document.getElementById("staffPosition").value;
               const phone = document.getElementById("staffPhone").value;
 
-              // Qabiyyee keessatti dabalata odeeffannoo dhuunfaa qabatamaa taasisuuf
               let fullContent = content;
               if (name || position || phone) {
                 fullContent += `\nMaqaa: ${name} | Gahee: ${position} | Bilbila: ${phone}`;
