@@ -5,21 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Masjiida Huzeeyfaa Ibnul Yamanii</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Mobile Menu Toggle Direct Fix Style */
+      @media (max-width: 992px) {
+        .nav-list {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background: #004d40;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          padding: 15px 0;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          z-index: 1000;
+        }
+
+        .nav-list.show-menu {
+          display: flex !important;
+        }
+
+        .nav-list li {
+          text-align: center;
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-list li:last-child {
+          border-bottom: none;
+        }
+
+        .nav-list li a {
+          font-size: 1.1rem;
+          display: block;
+          color: #ffffff;
+          text-decoration: none;
+        }
+
+        .menu-toggle {
+          display: flex;
+          cursor: pointer;
+          flex-direction: column;
+          gap: 5px;
+          background: none;
+          border: none;
+          padding: 5px;
+        }
+
+        .menu-toggle .bar {
+          width: 28px;
+          height: 3px;
+          background-color: #ffffff;
+          transition: 0.3s ease;
+          border-radius: 2px;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Header & Navigation Bar -->
-    <header>
-      <div class="logo">Masjiida Huzeeyfaa</div>
-
-      <!-- Hamburger Icon for Mobile & Clean View -->
-      <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+    <header
+      style="
+        position: relative;
+        background: #004d40;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        color: white;
+      "
+    >
+      <div class="logo" style="font-weight: bold; font-size: 1.15rem">
+        Masjiida Huzeeyfaa
       </div>
 
+      <!-- Hamburger Icon for Mobile & Clean View -->
+      <button
+        class="menu-toggle"
+        id="mobile-menu"
+        type="button"
+        aria-label="Toggle Navigation"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+
       <nav>
-        <ul class="nav-list">
+        <ul class="nav-list" id="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
           <li><a href="about.html" data-i18n="about">About</a></li>
           <li>
@@ -65,7 +139,26 @@
       <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript Files -->
+    <!-- JavaScript for Toggle -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navList = document.getElementById("nav-list");
+
+        if (mobileMenu && navList) {
+          mobileMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navList.classList.toggle("show-menu");
+          });
+
+          document.addEventListener("click", (e) => {
+            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
+              navList.classList.remove("show-menu");
+            }
+          });
+        }
+      });
+    </script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -61,11 +61,11 @@
         margin-bottom: 15px;
       }
 
-      /* Professional & Clean Header & UI */
+      /* Professional Matching Header Style (Dark Green) */
       header {
         position: relative;
-        background: #ffffff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        background: #004d40;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -75,7 +75,7 @@
 
       .logo {
         font-weight: bold;
-        color: #004d40;
+        color: #ffffff;
         font-size: 1.15rem;
       }
 
@@ -92,7 +92,7 @@
       .menu-toggle .bar {
         width: 28px;
         height: 3px;
-        background-color: #004d40;
+        background-color: #ffffff;
         transition: 0.3s ease;
         border-radius: 2px;
       }
@@ -107,14 +107,14 @@
 
       .nav-list li a {
         text-decoration: none;
-        color: #333;
+        color: #ffffff;
         font-weight: 500;
         transition: color 0.2s;
         font-size: 0.95rem;
       }
 
       .nav-list li a:hover {
-        color: #004d40;
+        color: #a7f3d0;
       }
 
       /* Mobile & Tablet Styles */
@@ -127,16 +127,16 @@
           display: none;
           flex-direction: column;
           width: 100%;
-          background: #ffffff;
+          background: #004d40;
           position: absolute;
           top: 100%;
           left: 0;
           padding: 15px 0;
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-          border-top: 1px solid #eee;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Direct toggle class using ID */
+        /* Direct toggle class */
         .nav-list.show-menu {
           display: flex !important;
         }
@@ -144,7 +144,7 @@
         .nav-list li {
           text-align: center;
           padding: 12px 0;
-          border-bottom: 1px solid #f4f6f8;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .nav-list li:last-child {
@@ -154,6 +154,11 @@
         .nav-list li a {
           font-size: 1.1rem;
           display: block;
+          color: #ffffff;
+        }
+
+        .nav-list li a:hover {
+          color: #a7f3d0;
         }
       }
     </style>
@@ -214,7 +219,7 @@
           <option value="news">Odeeffannoo Haaraa / ዜና</option>
           <option value="lectures">Darsiilee / ትምህርቶች</option>
           <option value="staff">Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</option>
-          <option value="leadership">Hooggansa / አመራר</option>
+          <option value="leadership">Hooggansa / አመራር</option>
           <option value="development">Misooma / ልማት</option>
           <option value="charity">Tola Ooltummaa / የበጎ አድራጎት ሥራ</option>
           <option value="madrasah">Madrasaa / መድረሳ</option>
