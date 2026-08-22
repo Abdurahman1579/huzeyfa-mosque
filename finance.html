@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="finance_title">
+      Galii fi Baasii - Masjiida Huzeeyfaa
+    </title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f5;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      /* Header Layout */
+      header {
+        position: relative;
+        background: #004d40;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        color: white;
+        z-index: 1000;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        padding: 5px;
+      }
+
+      .menu-toggle .bar {
+        width: 28px;
+        height: 3px;
+        background-color: #ffffff;
+        transition: 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .logo {
+        font-weight: bold;
+        font-size: 1.15rem;
+      }
+
+      /* Navigation List Styles */
+      .nav-list {
+        list-style: none;
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #004d40;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 15px 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 1000;
+        margin: 0;
+      }
+
+      .nav-list.active {
+        display: flex !important;
+      }
+
+      .nav-list li {
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-list li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-list li a {
+        font-size: 1.05rem;
+        display: block;
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      .nav-list li a:hover {
+        color: #a7f3d0;
+      }
+
+      .lang-switcher select {
+        background: #00332c;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      /* Notice Box */
+      .notice-box {
+        background: #e8f8f0;
+        border: 1px solid #b2e8d0;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        color: #1b4d3e;
+      }
+      .notice-box p {
+        margin: 0 0 10px 0;
+        font-weight: bold;
+        line-height: 1.5;
+      }
+
+      /* Action Selection Box */
+      .action-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .action-card h2 {
+        color: #1b4d3e;
+        margin-top: 0;
+        font-size: 24px;
+      }
+      .action-card p {
+        color: #666;
+        margin-bottom: 25px;
+      }
+
+      .btn-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        flex: 1;
+        min-width: 250px;
+        padding: 20px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+      .action-btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn-income {
+        background-color: #0f865f;
+      }
+      .btn-expense {
+        background-color: #d32f2f;
+      }
+
+      /* Modal Overlay */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        padding: 20px 0;
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 30px;
+        width: 90%;
+        max-width: 650px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+      .close-modal {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close-modal:hover {
+        color: #000;
+      }
+
+      /* Form Styles */
+      .form-warning {
+        background: #fffdf0;
+        border: 1px solid #f0e68c;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: #856404;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 18px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+        color: #1b4d3e;
+        font-size: 14px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+      .date-group {
+        display: flex;
+        gap: 10px;
+      }
+      .date-group select {
+        flex: 1;
+      }
+
+      .section-title {
+        background: #f0f8f5;
+        color: #1b4d3e;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin: 20px 0 15px 0;
+        font-size: 14px;
+        border-left: 4px solid #1b4d3e;
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 25px;
+      }
+      .btn-cancel {
+        background: #e2e8f0;
+        color: #333;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .btn-save {
+        background: #0f865f;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      table th,
+      table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        font-size: 14px;
+      }
+      table th {
+        background-color: #1b4d3e;
+        color: white;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #1b4d3e;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header & Navigation Bar -->
+    <header>
+      <div class="header-left">
+        <button
+          class="menu-toggle"
+          id="mobile-menu"
+          type="button"
+          aria-label="Toggle Navigation"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <div class="logo">Masjiida Huzeeyfaa</div>
+      </div>
+
+      <nav>
+        <ul class="nav-list" id="nav-list">
+          <li><a href="index.html" data-i18n="home">Home</a></li>
+          <li><a href="finance.html" data-i18n="finance">Finance</a></li>
+          <li><a href="donation.html" data-i18n="donation">Donation</a></li>
+          <li><a href="about.html" data-i18n="about">About</a></li>
+          <li>
+            <a href="leadership.html" data-i18n="leadership">Leadership</a>
+          </li>
+          <li><a href="waqf.html" data-i18n="waqf">Waqf</a></li>
+          <li>
+            <a href="development.html" data-i18n="development">Development</a>
+          </li>
+          <li><a href="charity.html" data-i18n="charity">Charity</a></li>
+          <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
+          <li><a href="staff.html" data-i18n="staff">Staff</a></li>
+          <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
+          <li><a href="news.html" data-i18n="news">News</a></li>
+          <li><a href="admin.html">----</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-switcher">
+        <select id="langSelect">
+          <option value="om">A/Oromoo</option>
+          <option value="am">አማርኛ</option>
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="container">
+      <a href="index.html" class="back-link" data-i18n="back_home"
+        >← Gara Fuula Duraatti Deebi'i</a
+      >
+
+      <!-- Notice Box -->
+      <div class="notice-box">
+        <p data-i18n="notice_text">
+          Masjiidni Huzeeyfaa Ibnul Yamanii hojii isaa hojjatu keessatti
+          iftoominaa fi amaanaan socho'uuf akkasumas galii fi baasii isaa karaa
+          salphaa ta'een to'achuu akka isa dandeessisuutti weebsaayitii kana
+          qopheessee hojiif banaa godhee jira.
+        </p>
+      </div>
+
+      <!-- Action Cards -->
+      <div class="action-card">
+        <h2 data-i18n="tracker_title">Galmee Hordoffii Galii fi Baasii</h2>
+        <p data-i18n="tracker_desc">
+          Maaloo buttoon armaan gadii keessaa kan barbaaddan filadhaa.
+        </p>
+        <div class="btn-container">
+          <button class="action-btn btn-income" onclick="openModal('income')">
+            <span>📈</span>
+            <span data-i18n="btn_income_text">Galii Galmeessuu</span>
+          </button>
+          <button class="action-btn btn-expense" onclick="openModal('expense')">
+            <span>📉</span>
+            <span data-i18n="btn_expense_text">Baasii Galmeessuu</span>
+          </button>
+        </div>
+      </div>
+
+      <h3 data-i18n="recorded_title">Galii fi Baasii Galmaa'an</h3>
+      <div id="finance-container">
+        <p data-i18n="loading">Odeeffannoon fe'amaa jira...</p>
+      </div>
+    </div>
+
+    <!-- Modal Form -->
+    <div id="financeModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle" style="color: #1b4d3e; margin-top: 0">
+          Galii Galmeessuuf
+        </h2>
+
+        <div class="form-warning" data-i18n="form_warning">
+          ⚠️ Maaloo sanduuqota hundi waldura duubaan guutuu qabdu. Sanduuqi
+          duraa utuu hin guutamne isa itti aanutti darbuu hin dandeessan.
+        </div>
+
+        <form id="detailedFinanceForm">
+          <input type="hidden" id="transType" value="income" />
+
+          <div class="form-group">
+            <label data-i18n="lbl_date">1. Guyyaa itti godhame</label>
+            <div class="date-group">
+              <select id="transYear" required>
+                <option value="" data-i18n="opt_year">Waggaa</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+              </select>
+              <select id="transMonth" required>
+                <option value="" data-i18n="opt_month">Ji'a</option>
+                <option value="Hagayya">Hagayya</option>
+                <option value="Fulbaana">Fulbaana</option>
+              </select>
+              <select id="transDay" required>
+                <option value="" data-i18n="opt_day">Guyyaa</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_source">2. Madda galii / Madda baasii</label>
+            <input
+              type="text"
+              id="transSource"
+              required
+              placeholder="Fakkeenya: Deeggarsa ummataa"
+            />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_payer"
+              >3. Maqaa Nama kaffalee / Kan fudhate</label
+            >
+            <input
+              type="text"
+              id="transPayer"
+              required
+              placeholder="Maqaa guutuu"
+            />
+          </div>
+
+          <div class="section-title" data-i18n="sec_receiver">
+            Odeeffannoo Nama fudhee
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_receiver">4. Maqaa Guutuu Nama fudhee</label>
+            <input
+              type="text"
+              id="receiverName"
+              required
+              placeholder="Fakkeenya: Obbo Ahmad Muhammed"
+            />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_phone">5. Lakkoofsa Bilbilaa</label>
+            <input
+              type="tel"
+              id="receiverPhone"
+              required
+              placeholder="0911234567"
+            />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_role">6. Ga'ee Hojii (Portfolio)</label>
+            <select id="receiverRole" required>
+              <option value="" data-i18n="opt_role">Ga'ee Hojii Filadhu</option>
+              <option value="Bulchaa" data-i18n="role_admin">Bulchaa</option>
+              <option value="Hojjettoota" data-i18n="role_staff">
+                Hojjettoota
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_amount">7. Hamma Maallaqaa (ETB)</label>
+            <input
+              type="number"
+              id="transAmount"
+              step="0.01"
+              required
+              placeholder="0.00"
+            />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_method"
+              >8. Karaa Kaffaltii (Payment Method)</label
+            >
+            <select id="transMethod" required>
+              <option value="Cash" data-i18n="method_cash">
+                Cash / ጥሬ ገንዘብ
+              </option>
+              <option value="CBE" data-i18n="method_cbe">CBE / ንግድ ባንክ</option>
+              <option value="Telebirr" data-i18n="method_telebirr">
+                Telebirr / ቴሌብር
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_file"
+              >Suuraa Nagahee / ሚዲያ (Image/PDF/Video/Audio)</label
+            >
+            <input type="file" id="transFile" />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_desc">Ibsa Dabalataa (Description)</label>
+            <textarea
+              id="transDesc"
+              rows="3"
+              placeholder="Ibsa gabaabaa..."
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="closeModal()"
+              data-i18n="btn_cancel"
+            >
+              Haquuf
+            </button>
+            <button type="submit" class="btn-save" data-i18n="btn_submit">
+              Galmeessuuf
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+      const { createClient } = supabase;
+      const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      // Hamburger Menu Toggle Logic
+      const mobileMenuBtn = document.getElementById("mobile-menu");
+      const navList = document.getElementById("nav-list");
+      if (mobileMenuBtn && navList) {
+        mobileMenuBtn.addEventListener("click", () => {
+          navList.classList.toggle("active");
+        });
+      }
+
+      const translations = {
+        om: {
+          home: "Home",
+          finance: "Finance",
+          donation: "Donation",
+          about: "About",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          finance_title: "Galii fi Baasii - Masjiida Huzeeyfaa",
+          back_home: "← Gara Fuula Duraatti Deebi'i",
+          notice_text:
+            "Masjiidni Huzeeyfaa Ibnul Yamanii hojii isaa hojjatu keessatti iftoominaa fi amaanaan socho'uuf akkasumas galii fi baasii isaa karaa salphaa ta'een to'achuu akka isa dandeessisuutti weebsaayitii kana qopheessee hojiif banaa godhee jira.",
+          tracker_title: "Galmee Hordoffii Galii fi Baasii",
+          tracker_desc:
+            "Maaloo buttoon armaan gadii keessaa kan barbaaddan filadhaa.",
+          btn_income_text: "Galii Galmeessuu",
+          btn_expense_text: "Baasii Galmeessuu",
+          recorded_title: "Galii fi Baasii Galmaa'an",
+          loading: "Odeeffannoon fe'amaa jira...",
+          form_warning:
+            "⚠️ Maaloo sanduuqota hundi waldura duubaan guutuu qabdu. Sanduuqi duraa utuu hin guutamne isa itti aanutti darbuu hin dandeessan.",
+          lbl_date: "1. Guyyaa itti godhame",
+          opt_year: "Waggaa",
+          opt_month: "Ji'a",
+          opt_day: "Guyyaa",
+          lbl_source: "2. Madda galii / Madda baasii",
+          lbl_payer: "3. Maqaa Nama kaffalee / Kan fudhate",
+          sec_receiver: "Odeeffannoo Nama fudhee",
+          lbl_receiver: "4. Maqaa Guutuu Nama fudhee",
+          lbl_phone: "5. Lakkoofsa Bilbilaa",
+          lbl_role: "6. Ga'ee Hojii (Portfolio)",
+          opt_role: "Ga'ee Hojii Filadhu",
+          role_admin: "Bulchaa",
+          role_staff: "Hojjettoota",
+          lbl_amount: "7. Hamma Maallaqaa (ETB)",
+          lbl_method: "8. Karaa Kaffaltii (Payment Method)",
+          method_cash: "Cash / ጥሬ ገንዘብ",
+          method_cbe: "CBE / ንግድ ባንክ",
+          method_telebirr: "Telebirr / ቴሌብር",
+          lbl_file: "Suuraa Nagahee / ሚዲያ (Image/PDF/Video/Audio)",
+          lbl_desc: "Ibsa Dabalataa (Description)",
+          btn_cancel: "Haquuf",
+          btn_submit: "Galmeessuuf",
+          success_msg: "Milkaa'inaan galmeeffame!",
+          tbl_date: "Guyyaa",
+          tbl_type: "Gosa",
+          tbl_source: "Madda / Mata Duree",
+          tbl_amount: "Maallaqa",
+          tbl_payer: "Kaffalaa",
+          income_text: "Galii",
+          expense_text: "Baasii",
+        },
+        am: {
+          home: "ዋና ገጽ",
+          finance: "ገቢ እና ወጪ",
+          donation: "ድጋፍ",
+          about: "ስለ እኛ",
+          leadership: "አስተዳደር",
+          waqf: "ወቅፍ",
+          development: "ልማት",
+          charity: "በጎ አድራጎት",
+          madrasah: "መድረሳ",
+          staff: "ሰራተኞች",
+          lectures: "ደርሶች",
+          news: "ዜና",
+          finance_title: "ገቢ እና ወጪ - የሁዘይፋ መስጊድ",
+          back_home: "← ወደ ዋና ገጽ ተመለስ",
+          notice_text:
+            "የሁዘይፋ ኢብኑል የማን መስጊድ ሥራውን በማከናወን ሂደት ውስጥ በግልጽነትና በታማኝነት ለመንቀሳቀስ እንዲሁም ገቢ እና ወጪውን በቀላል መንገድ ለመቆጣጠር እንዲያስችለው ይህን ድረ-ገጽ አዘጋጅቶ ለሥራ ክፍት አድርጓል።",
+          tracker_title: "የገቢና ወጪ ክትትል መዝገብ",
+          tracker_desc: "እርስዎ ከዚህ በታች ካሉት አማራጮች የሚፈልጉትን ይምረጡ።",
+          btn_income_text: "ገቢ ለመመዝገብ",
+          btn_expense_text: "ወጪ ለመመዝገብ",
+          recorded_title: "የተመዘገቡ ገቢ እና ወጪዎች",
+          loading: "መረጃው እየተጫነ ነው...",
+          form_warning:
+            "⚠️ እባክዎ ሳጥኖቹን በቅደም ተከተል ይሙሉ፤ ቀድሞ ያለው ሳይሞላ ወደሚቀጥለው ማለፍ አይቻልም።",
+          lbl_date: "1. የተደረገበት ቀን",
+          opt_year: "ዓመት",
+          opt_month: "ወር",
+          opt_day: "ቀን",
+          lbl_source: "2. የገቢ/ወጪ ምንጭ",
+          lbl_payer: "3. የከፋይ/ተቀባይ ስም",
+          sec_receiver: "ተቀባይ መረጃ",
+          lbl_receiver: "4. ተቀባይ ሙሉ ስም",
+          lbl_phone: "5. ስልክ ቁጥር",
+          lbl_role: "6. የስራ ኃላፊነት (Portfolio)",
+          opt_role: "ኃላፊነት ይምረጡ",
+          role_admin: "አስተዳዳሪ",
+          role_staff: "ሰራተኛ",
+          lbl_amount: "7. የငንዘብ መጠን (በብር)",
+          lbl_method: "8. የክፍያ መንገድ (Payment Method)",
+          method_cash: "Cash / ጥሬ ገንዘብ",
+          method_cbe: "CBE / ንግድ ባንክ",
+          method_telebirr: "Telebirr / ቴሌብር",
+          lbl_file: "ደረሰኝ ፎቶ / ሚዲያ",
+          lbl_desc: "ተጨማሪ ማብራሪያ",
+          btn_cancel: "ለመሰረዝ",
+          btn_submit: "ለመመዝገብ",
+          success_msg: "በተሳካ ሁኔታ ተመዝግቧል!",
+          tbl_date: "ቀን",
+          tbl_type: "አይነት",
+          tbl_source: "ምንጭ / ርዕስ",
+          tbl_amount: "መጠን",
+          tbl_payer: "ከፋይ",
+          income_text: "ገቢ",
+          expense_text: "ወጪ",
+        },
+        en: {
+          home: "Home",
+          finance: "Finance",
+          donation: "Donation",
+          about: "About",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          finance_title: "Finance - Huzaifa Mosque",
+          back_home: "← Back to Home",
+          notice_text:
+            "Huzaifa Ibn Al-Yaman Mosque has created this website to operate with transparency and trust, and to easily manage its income and expenses.",
+          tracker_title: "Income & Expense Tracking Record",
+          tracker_desc: "Please select an option below.",
+          btn_income_text: "Record Income",
+          btn_expense_text: "Record Expense",
+          recorded_title: "Recorded Income & Expenses",
+          loading: "Loading data...",
+          form_warning:
+            "⚠️ Please fill out fields in order. You cannot proceed without filling the previous field.",
+          lbl_date: "1. Date",
+          opt_year: "Year",
+          opt_month: "Month",
+          opt_day: "Day",
+          lbl_source: "2. Source / Title",
+          lbl_payer: "3. Payer Name",
+          sec_receiver: "Receiver Information",
+          lbl_receiver: "4. Receiver Full Name",
+          lbl_phone: "5. Phone Number",
+          lbl_role: "6. Portfolio / Role",
+          opt_role: "Select Role",
+          role_admin: "Admin",
+          role_staff: "Staff",
+          lbl_amount: "7. Amount (ETB)",
+          lbl_method: "8. Payment Method",
+          method_cash: "Cash",
+          method_cbe: "CBE",
+          method_telebirr: "Telebirr",
+          lbl_file: "Receipt / Media File",
+          lbl_desc: "Description",
+          btn_cancel: "Cancel",
+          btn_submit: "Save",
+          success_msg: "Successfully recorded!",
+          tbl_date: "Date",
+          tbl_type: "Type",
+          tbl_source: "Source / Title",
+          tbl_amount: "Amount",
+          tbl_payer: "Payer",
+          income_text: "Income",
+          expense_text: "Expense",
+        },
+        ar: {
+          home: "الرئيسية",
+          finance: "المالية",
+          donation: "التبرعات",
+          about: "من نحن",
+          leadership: "القيادة",
+          waqf: "الوقف",
+          development: "التطوير",
+          charity: "الخيرية",
+          madrasah: "المدرسة",
+          staff: "الموظفون",
+          lectures: "المحاضرات",
+          news: "الأخبار",
+          finance_title: "المالية - مسجد حذيفة",
+          back_home: "← العودة للرئيسية",
+          notice_text:
+            "أنشأ مسجد حذيفة بن اليمان هذا الموقع للعمل بشفافية وأمانة، ولتسهيل إدارة إيراداته ومصروفاته.",
+          tracker_title: "سجل متابعة الإيرادات والمصروفات",
+          tracker_desc: "يرجى اختيار أحد الخيارات أدناه.",
+          btn_income_text: "تسجيل إيراد",
+          btn_expense_text: "تسجيل مصروف",
+          recorded_title: "الإيرادات والمصروفات المسجلة",
+          loading: "جاري تحميل البيانات...",
+          form_warning:
+            "⚠️ يرجى ملء الحقول بالترتيب. لا يمكنك الانتقال للحقل التالي قبل إكمال السابق.",
+          lbl_date: "1. التاريخ",
+          opt_year: "السنة",
+          opt_month: "الشهر",
+          opt_day: "اليوم",
+          lbl_source: "2. المصدر / العنوان",
+          lbl_payer: "3. اسم الدافع",
+          sec_receiver: "معلومات المستلم",
+          lbl_receiver: "4. الاسم الكامل للمستلم",
+          lbl_phone: "5. رقم الهاتف",
+          lbl_role: "6. المسمى الوظيفي",
+          opt_role: "اختر الدور",
+          role_admin: "مشرف",
+          role_staff: "موظف",
+          lbl_amount: "7. المبلغ (بالبر)",
+          lbl_method: "8. طريقة الدفع",
+          method_cash: "نقداً (Cash)",
+          method_cbe: "البنك التجاري (CBE)",
+          method_telebirr: "تيليبير (Telebirr)",
+          lbl_file: "ملف الإيصال / الوسائط",
+          lbl_desc: "وصف إضافي",
+          btn_cancel: "إلغاء",
+          btn_submit: "حفظ",
+          success_msg: "تم التسجيل بنجاح!",
+          tbl_date: "التاريخ",
+          tbl_type: "النوع",
+          tbl_source: "المصدر / العنوان",
+          tbl_amount: "المبلغ",
+          tbl_payer: "الدافع",
+          income_text: "إيراد",
+          expense_text: "مصروف",
+        },
+      };
+
+      const langSelect = document.getElementById("langSelect");
+      function setLanguage(lang) {
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+          }
+        });
+
+        if (lang === "ar") {
+          document.body.setAttribute("dir", "rtl");
+        } else {
+          document.body.setAttribute("dir", "ltr");
+        }
+
+        if (langSelect) langSelect.value = lang;
+        fetchTransactions(lang);
+      }
+
+      if (langSelect) {
+        langSelect.addEventListener("change", (e) => {
+          const lang = e.target.value;
+          localStorage.setItem("preferredLang", lang);
+          setLanguage(lang);
+        });
+      }
+
+      function openModal(type) {
+        document.getElementById("transType").value = type;
+        const lang = localStorage.getItem("preferredLang") || "om";
+        const t = translations[lang];
+        document.getElementById("modalTitle").textContent =
+          type === "income" ? t.btn_income_text : t.btn_expense_text;
+        document.getElementById("financeModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("financeModal").style.display = "none";
+        document.getElementById("detailedFinanceForm").reset();
+      }
+
+      window.onclick = function (event) {
+        let modal = document.getElementById("financeModal");
+        if (event.target == modal) {
+          closeModal();
+        }
+      };
+
+      document
+        .getElementById("detailedFinanceForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const type = document.getElementById("transType").value;
+          const date = `${document.getElementById("transYear").value}-${document.getElementById("transMonth").value}-${document.getElementById("transDay").value}`;
+          const title = document.getElementById("transSource").value;
+          const amount = parseFloat(
+            document.getElementById("transAmount").value,
+          );
+          const payer = document.getElementById("transPayer").value;
+          const receiver = document.getElementById("receiverName").value;
+          const phone = document.getElementById("receiverPhone").value;
+          const role = document.getElementById("receiverRole").value;
+          const method = document.getElementById("transMethod").value;
+          const desc = document.getElementById("transDesc").value;
+
+          const { error } = await _supabase.from("transactions").insert([
+            {
+              type,
+              title,
+              amount,
+              date,
+              payer,
+              receiver,
+              phone,
+              role,
+              method,
+              desc,
+            },
+          ]);
+
+          const lang = localStorage.getItem("preferredLang") || "om";
+          const t = translations[lang];
+
+          if (error) {
+            alert("Error: " + error.message);
+          } else {
+            alert(t.success_msg);
+            closeModal();
+            fetchTransactions(lang);
+          }
+        });
+
+      async function fetchTransactions(lang) {
+        const container = document.getElementById("finance-container");
+        const { data, error } = await _supabase
+          .from("transactions")
+          .select("*")
+          .order("date", { ascending: false });
+        const t = translations[lang] || translations["om"];
+
+        if (error) {
+          container.innerHTML = `<p style="color:red;">Error loading records.</p>`;
+          return;
+        }
+        if (!data || data.length === 0) {
+          container.innerHTML = `<p>${t.loading.includes("fe'amaa") ? "Galii fi baasii ammaaf galmaa'e hin jiru." : "No records found."}</p>`;
+          return;
+        }
+
+        let html = `<table><thead><tr><th>${t.tbl_date}</th><th>${t.tbl_type}</th><th>${t.tbl_source}</th><th>${t.tbl_amount}</th><th>${t.tbl_payer}</th></tr></thead><tbody>`;
+        for (let item of data) {
+          let color = item.type === "income" ? "green" : "red";
+          let typeText =
+            item.type === "income" ? t.income_text : t.expense_text;
+          html += `<tr><td>${item.date}</td><td style="color:${color}; font-weight:bold;">${typeText}</td><td>${item.title}</td><td style="font-weight:bold;">${item.amount} ETB</td><td>${item.payer || "-"}</td></tr>`;
+        }
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("preferredLang") || "om";
+        setLanguage(savedLang);
+      });
+    </script>
+  </body>
+</html>
