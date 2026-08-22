@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Masjiida Huzeeyfaa</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      /* Force LTR and proper text-align for everything */
+      html,
+      body {
+        direction: ltr !important;
+        text-align: left !important;
+        background-color: #f4f6f8;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .form-section {
+        display: none;
+      }
+      .form-section.active {
+        display: block;
+      }
+      .preview-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .preview-container img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      label {
+        text-align: left !important;
+        display: block;
+        font-weight: bold;
+        margin-top: 15px;
+        color: #004d40;
+        direction: ltr !important;
+      }
+      .input-box {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        text-align: left;
+        direction: ltr;
+      }
+      .lang-group {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <header style="direction: ltr; text-align: left">
+      <div class="logo">
+        Masjiida Huzeeyfaa - Admin Panel / የማስጂድ ሁዘይፋ - የፕላትፎርም አስተዳደር
+      </div>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Fuula Duraa / መነሻ ገጽ</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main
+      style="
+        max-width: 750px;
+        margin: 40px auto;
+        padding: 25px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        direction: ltr;
+      "
+    >
+      <h2 style="text-align: left">
+        Odeeffannoo fi Suuraalee Fuula Hojjechuu / መረጃዎችን እና ፎቶዎችን ማስተካከያ ገጽ
+      </h2>
+
+      <div style="margin: 20px 0; text-align: left">
+        <label for="pageSelect"
+          >Fuula Itti Fe'amu Filadhu / የሚጫንበትን ገጽ ይምረጡ:</label
+        >
+        <select id="pageSelect" class="input-box">
+          <option value="news">Odeeffannoo Haaraa / ዜና</option>
+          <option value="lectures">Darsiilee / ትምህርቶች</option>
+          <option value="staff">Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</option>
+          <option value="leadership">Hooggansa / አመራር</option>
+          <option value="development">Misooma / ልማት</option>
+          <option value="charity">Tola Ooltummaa / የበጎ አድራጎት ሥራ</option>
+          <option value="madrasah">Madrasaa / መድረሳ</option>
+          <option value="waqf">Qabeenya Waqfii / የወቅፍ ንብረት</option>
+          <option value="about">Waa'ee Masjiidichaa / ስለ መስጂዱ</option>
+        </select>
+      </div>
+
+      <form
+        id="adminForm"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          text-align: left;
+        "
+      >
+        <!-- Mata-duree (Title) Afaan Oromoo / Amharic bakkuma tokkotti -->
+        <div class="lang-group">
+          <label>Mata-duree / ርዕስ </label>
+          <input
+            type="text"
+            id="postTitle"
+            class="input-box"
+            placeholder="Fkn: Barumsa Amantii / የሃይማኖት ትምህርት"
+          />
+        </div>
+
+        <!-- Qabiyyee (Content) Afaan Oromoo / Amharic bakkuma tokkotti -->
+        <div class="lang-group">
+          <label>Qabiyyee(Ibsa) ይዘት/ማብራሪያ</label>
+          <textarea
+            id="postContent"
+            rows="5"
+            class="input-box"
+            placeholder="Ibsa bal'aa Afaan Oromootiin fi አማርኛ akka barbaadetti barreessi..."
+          ></textarea>
+        </div>
+
+        <!-- Dynamic Fields based on Page type (Staff/Leadership) -->
+        <div id="dynamicFields">
+          <div id="extraStaffFields" class="form-section lang-group">
+            <h3>Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</h3>
+            <div>
+              <label>Maqaa Guutuu / ሙሉ ስም (Full Name):</label>
+              <input
+                type="text"
+                id="staffName"
+                class="input-box"
+                placeholder="Maqaa Guutuu / ሙሉ ስም..."
+              />
+            </div>
+            <div style="margin-top: 10px">
+              <label>Gahee Hojii / የሥራ መደብ </label>
+              <input
+                type="text"
+                id="staffPosition"
+                class="input-box"
+                placeholder="Fkn: Barsiisaa / አስተማሪ"
+              />
+            </div>
+            <div style="margin-top: 10px">
+              <label>Lakkoofsa Bilbilaa / ስልክ ቁጥር (Phone):</label>
+              <input
+                type="text"
+                id="staffPhone"
+                class="input-box"
+                placeholder="09..."
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Multiple Photo Upload Section -->
+        <div class="lang-group">
+          <label>Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ </label>
+          <input
+            type="file"
+            id="imageFiles"
+            multiple
+            accept="image/*"
+            style="margin-top: 5px; display: block"
+          />
+          <div class="preview-container" id="imagePreview"></div>
+        </div>
+
+        <button
+          type="submit"
+          style="
+            background: #004d40;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+          "
+        >
+          Odeeffannoo fi Suuraalee Galchi / መረጃዎችን እና ፎቶዎችን አስገባ
+        </button>
+      </form>
+
+      <p
+        id="statusMsg"
+        style="margin-top: 15px; font-weight: bold; text-align: center"
+      ></p>
+    </main>
+
+    <footer style="direction: ltr; text-align: center">
+      <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      const pageSelect = document.getElementById("pageSelect");
+      const extraStaffFields = document.getElementById("extraStaffFields");
+      const imageFiles = document.getElementById("imageFiles");
+      const imagePreview = document.getElementById("imagePreview");
+
+      pageSelect.addEventListener("change", (e) => {
+        const val = e.target.value;
+        if (val === "staff" || val === "leadership") {
+          extraStaffFields.classList.add("active");
+        } else {
+          extraStaffFields.classList.remove("active");
+        }
+      });
+
+      imageFiles.addEventListener("change", (e) => {
+        imagePreview.innerHTML = "";
+        const files = e.target.files;
+        for (let file of files) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const img = document.createElement("img");
+            img.src = event.target.result;
+            imagePreview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      document
+        .getElementById("adminForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const statusMsg = document.getElementById("statusMsg");
+          const category = pageSelect.value;
+          const files = imageFiles.files;
+
+          statusMsg.style.color = "blue";
+          statusMsg.textContent =
+            "Suuraalee fi odeeffannoo fe’aa jira / መረጃዎች እና ፎቶዎች እየተጫኑ ነው...";
+
+          try {
+            let imageUrls = [];
+
+            for (let file of files) {
+              const fileExt = file.name.split(".").pop();
+              const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+
+              const { data: uploadData, error: uploadError } =
+                await _supabase.storage.from("images").upload(fileName, file);
+
+              if (uploadError) {
+                console.error("Image upload error:", uploadError);
+                throw new Error(
+                  "Suuraa fechuun hin dandaamne / ፎቶ መጫን አልተቻለም: " +
+                    uploadError.message,
+                );
+              } else {
+                const { data: publicUrlData } = _supabase.storage
+                  .from("images")
+                  .getPublicUrl(fileName);
+                imageUrls.push(publicUrlData.publicUrl);
+              }
+            }
+
+            const image_url = imageUrls.length > 0 ? imageUrls[0] : "";
+
+            if (category === "staff") {
+              const name = document.getElementById("staffName").value;
+              const position = document.getElementById("staffPosition").value;
+              const phone = document.getElementById("staffPhone").value;
+
+              const { error } = await _supabase
+                .from("staff")
+                .insert([{ name, position, phone, image_url }]);
+              if (error) throw error;
+            } else {
+              const title = document.getElementById("postTitle").value;
+              const content = document.getElementById("postContent").value;
+
+              const { error } = await _supabase
+                .from("posts")
+                .insert([{ category, title, content, image_url }]);
+              if (error) throw error;
+            }
+
+            statusMsg.style.color = "green";
+            statusMsg.textContent =
+              "Milkaa’inaan galfameera / በተሳካ ሁኔታ ተመዝግቧል!";
+            document.getElementById("adminForm").reset();
+            imagePreview.innerHTML = "";
+          } catch (err) {
+            console.error("Catch error:", err);
+            statusMsg.style.color = "red";
+            statusMsg.textContent =
+              "Dogoggorri uumameera / ስህተት ተፈጥሯል: " + (err.message || err);
+          }
+        });
+    </script>
+  </body>
+</html>

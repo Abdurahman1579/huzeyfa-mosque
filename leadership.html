@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hooggansa - Masjiida Huzeeyfaa Ibnul Yamanii</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body>
-    <!-- Header & Navigation Bar -->
     <header>
       <div class="logo">Masjiida Huzeeyfaa</div>
-
-      <!-- Hamburger Icon for Mobile & Clean View -->
       <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+        <span class="bar"></span><span class="bar"></span
+        ><span class="bar"></span>
       </div>
-
       <nav>
         <ul class="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
@@ -36,7 +32,6 @@
           <li><a href="news.html" data-i18n="news">News</a></li>
         </ul>
       </nav>
-
       <div class="lang-switcher">
         <select id="langSelect">
           <option value="om">Afaan Oromoo</option>
@@ -46,8 +41,6 @@
         </select>
       </div>
     </header>
-
-    <!-- Main Content Section: Leadership -->
     <main>
       <div class="hero-card">
         <h1 data-i18n="leadership_page_title">Hooggansa Masjiidichaa</h1>
@@ -60,14 +53,12 @@
           qaamota filatamanii fi hayyoota irraa kan hundaa'edha.
         </p>
       </div>
+      <!-- Supabase irraa data hooggansa fiduuf -->
+      <div id="leadership-container" style="margin-top: 20px"></div>
     </main>
-
-    <!-- Footer -->
     <footer>
       <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
     </footer>
-
-    <!-- JavaScript Files -->
     <script src="script.js"></script>
   </body>
 </html>
