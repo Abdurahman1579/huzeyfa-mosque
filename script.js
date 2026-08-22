@@ -198,11 +198,35 @@ async function fetchPostsByCategory(categoryName, containerId, currentLang) {
         let title = await translateText(post.title, currentLang);
         let content = await translateText(post.content, currentLang);
 
+        // Suuraa, Viidiyoo fi Sagalee qindeeffannoo kanaan dabalreera:
+        let mediaHTML = '';
+        if (post.image_url) {
+            mediaHTML += `<img src="${post.image_url}" alt="Image" style="max-width:100%; border-radius:5px; margin-top:10px; display:block;">`;
+        }
+        if (post.video_url) {
+            mediaHTML += `
+                <div style="margin-top: 10px;">
+                    <video controls style="width:100%; border-radius:5px; max-height:400px;">
+                        <source src="${post.video_url}" type="video/mp4">
+                        Browser kee viidiyoo kana deggaruu hin danda'u.
+                    </video>
+                </div>`;
+        }
+        if (post.audio_url) {
+            mediaHTML += `
+                <div style="margin-top: 10px;">
+                    <audio controls style="width:100%;">
+                        <source src="${post.audio_url}" type="audio/mpeg">
+                        Browser kee sagalee kana taphachuu hin danda'u.
+                    </audio>
+                </div>`;
+        }
+
         htmlContent += `
             <div class="post-card" style="background: #fff; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <h3>${title}</h3>
-                <p>${content}</p>
-                ${post.image_url ? `<img src="${post.image_url}" alt="Image" style="max-width:100%; border-radius:5px; margin-top:10px;">` : ''}
+                <h3>${title || ''}</h3>
+                <p>${content || ''}</p>
+                ${mediaHTML}
             </div>
         `;
     }
@@ -269,7 +293,6 @@ window.addEventListener('DOMContentLoaded', () => {
             navList.classList.toggle('active');
         });
 
-        // Menuuicha alaa yeroo tuqan akka cufamu
         document.addEventListener('click', (e) => {
             if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
                 navList.classList.remove('active');
@@ -278,7 +301,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     // --------------------------
 
-    // HTML keessatti lang switcher select tag class="lang-switcher" qabaate ykn id="langSelect" ta'uu danda'a
     const langSelect = document.querySelector('.lang-switcher select') || document.getElementById('langSelect');
     const savedLang = localStorage.getItem('preferredLang') || 'om';
     
