@@ -278,7 +278,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     // --------------------------
 
-    const langSelect = document.getElementById('langSelect');
+    // HTML keessatti lang switcher select tag class="lang-switcher" qabaate ykn id="langSelect" ta'uu danda'a
+    const langSelect = document.querySelector('.lang-switcher select') || document.getElementById('langSelect');
     const savedLang = localStorage.getItem('preferredLang') || 'om';
     
     if (langSelect) {

@@ -23,87 +23,107 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 12px 20px;
     position: relative;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .logo {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
+    line-height: 1.2;
 }
 
-/* Nav List Style */
+/* Header Right & Compact Language Switcher */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.lang-switcher select {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.lang-switcher select option {
+    background: #004d40;
+    color: #ffffff;
+}
+
+/* Hamburger Toggle Button - SKIRIINII HUNDAA RRATTI NI MUL'ATA */
+.menu-toggle {
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    padding: 4px;
+}
+
+.menu-toggle .bar {
+    width: 24px;
+    height: 2.5px;
+    background-color: white;
+    transition: 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Nav List Style - Skiriinii hunda irratti jalqaba dhoksaadha, yeroo tuqamu gadi baha */
 .nav-list {
     list-style: none;
-    display: flex;
-    gap: 15px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #004d40;
+    padding: 15px 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+}
+
+.nav-list.active {
+    display: flex !important;
+}
+
+.nav-list li {
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 0;
+}
+
+.nav-list li:last-child {
+    border-bottom: none;
 }
 
 .nav-list li a {
     color: white;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     font-weight: 500;
-    transition: 0.3s;
+    display: block;
+    transition: color 0.2s;
 }
 
 .nav-list li a:hover {
-    color: #ffeb3b;
-}
-
-/* Hamburger Toggle Button */
-.menu-toggle {
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.menu-toggle .bar {
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    transition: 0.3s;
-}
-
-/* Language Switcher */
-.lang-switcher select {
-    padding: 5px 10px;
-    border-radius: 4px;
-    border: none;
-    background: white;
-    color: #004d40;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Responsive Hamburger Menu for Desktop/Tablet dropdown or toggle */
-@media screen and (max-width: 1024px) {
-    .menu-toggle {
-        display: flex;
-    }
-
-    .nav-list {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #00332c;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        z-index: 1000;
-    }
-
-    .nav-list.active {
-        display: flex;
-    }
-
-    .nav-list li {
-        margin: 10px 0;
-    }
+    color: #a7f3d0;
 }
 
 /* Main Content Area */
