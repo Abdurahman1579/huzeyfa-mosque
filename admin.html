@@ -71,6 +71,13 @@
         align-items: center;
         padding: 15px 30px;
         z-index: 1000;
+        color: white;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
       }
 
       .logo {
@@ -165,19 +172,26 @@
   </head>
   <body>
     <header>
-      <div class="logo">Masjiida Huzeeyfaa - Admin Panel</div>
+      <!-- Gama Bitaatiin: Hamburger Menu Dura, Itti aansee Logo (Hiika Amaariffaa wajjin) -->
+      <div class="header-left">
+        <button
+          class="menu-toggle"
+          id="mobile-menu"
+          type="button"
+          aria-label="Toggle Navigation"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
 
-      <!-- Hamburger Toggle Button -->
-      <button
-        class="menu-toggle"
-        id="mobile-menu"
-        type="button"
-        aria-label="Toggle Navigation"
-      >
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
+        <div class="logo">
+          Admin Panel
+          <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
+            >/ የዕዝ ሰሌዳ</span
+          >
+        </div>
+      </div>
 
       <nav>
         <ul class="nav-list" id="nav-list">

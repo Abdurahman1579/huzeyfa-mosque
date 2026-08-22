@@ -6,7 +6,47 @@
     <title>Masjiida Huzeeyfaa Ibnul Yamanii</title>
     <link rel="stylesheet" href="style.css" />
     <style>
-      /* Mobile Menu Toggle Direct Fix Style */
+      /* Header Layout: Hamburger First on Left, Followed by Logo, Lang Selector on Right */
+      header {
+        position: relative;
+        background: #004d40;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        color: white;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        padding: 5px;
+      }
+
+      .menu-toggle .bar {
+        width: 28px;
+        height: 3px;
+        background-color: #ffffff;
+        transition: 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .logo {
+        font-weight: bold;
+        font-size: 1.15rem;
+      }
+
+      /* Mobile Menu Styles */
       @media (max-width: 992px) {
         .nav-list {
           display: none;
@@ -42,55 +82,32 @@
           color: #ffffff;
           text-decoration: none;
         }
-
-        .menu-toggle {
-          display: flex;
-          cursor: pointer;
-          flex-direction: column;
-          gap: 5px;
-          background: none;
-          border: none;
-          padding: 5px;
-        }
-
-        .menu-toggle .bar {
-          width: 28px;
-          height: 3px;
-          background-color: #ffffff;
-          transition: 0.3s ease;
-          border-radius: 2px;
-        }
       }
     </style>
   </head>
   <body>
     <!-- Header & Navigation Bar -->
-    <header
-      style="
-        position: relative;
-        background: #004d40;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        color: white;
-      "
-    >
-      <div class="logo" style="font-weight: bold; font-size: 1.15rem">
-        Masjiida Huzeeyfaa
-      </div>
+    <header>
+      <!-- Gama Bitaatiin: Hamburger Menu Dura, Itti aansee Logo (Hiika Amaariffaa wajjin) -->
+      <div class="header-left">
+        <button
+          class="menu-toggle"
+          id="mobile-menu"
+          type="button"
+          aria-label="Toggle Navigation"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
 
-      <!-- Hamburger Icon for Mobile & Clean View -->
-      <button
-        class="menu-toggle"
-        id="mobile-menu"
-        type="button"
-        aria-label="Toggle Navigation"
-      >
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
+        <div class="logo">
+          Masjiida Huzeeyfaa
+          <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
+            >/ መስጂድ ሁዘይፋ</span
+          >
+        </div>
+      </div>
 
       <nav>
         <ul class="nav-list" id="nav-list">
@@ -123,7 +140,7 @@
     </header>
 
     <!-- Main Hero Section -->
-    <main>
+    <main style="padding: 30px">
       <div class="hero-card">
         <h1 data-i18n="welcome_title">
           Baga Gara Masjiida Huzeeyfaa Ibnul Yamanii Dhuftan!
@@ -136,7 +153,9 @@
 
     <!-- Footer -->
     <footer>
-      <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
+      <p style="text-align: center; padding: 20px">
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+      </p>
     </footer>
 
     <!-- JavaScript for Toggle -->

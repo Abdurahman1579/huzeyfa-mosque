@@ -6,16 +6,111 @@
     <title>Hooggansa - Masjiida Huzeeyfaa Ibnul Yamanii</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      /* Header Layout: Hamburger First on Left, Followed by Logo, Lang Selector on Right */
+      header {
+        position: relative;
+        background: #004d40;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        color: white;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        padding: 5px;
+      }
+
+      .menu-toggle .bar {
+        width: 28px;
+        height: 3px;
+        background-color: #ffffff;
+        transition: 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .logo {
+        font-weight: bold;
+        font-size: 1.15rem;
+      }
+
+      /* Mobile Menu Styles */
+      @media (max-width: 992px) {
+        .nav-list {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background: #004d40;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          padding: 15px 0;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          z-index: 1000;
+        }
+
+        .nav-list.show-menu {
+          display: flex !important;
+        }
+
+        .nav-list li {
+          text-align: center;
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-list li:last-child {
+          border-bottom: none;
+        }
+
+        .nav-list li a {
+          font-size: 1.1rem;
+          display: block;
+          color: #ffffff;
+          text-decoration: none;
+        }
+      }
+    </style>
   </head>
   <body>
     <header>
-      <div class="logo">Masjiida Huzeeyfaa</div>
-      <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span><span class="bar"></span
-        ><span class="bar"></span>
+      <!-- Gama Bitaatiin: Hamburger Menu Dura, Itti aansee Logo (Hiika Amaariffaa wajjin) -->
+      <div class="header-left">
+        <button
+          class="menu-toggle"
+          id="mobile-menu"
+          type="button"
+          aria-label="Toggle Navigation"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+
+        <div class="logo">
+          Masjiida Huzeeyfaa
+          <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
+            >/ መስጂድ ሁዘይፋ</span
+          >
+        </div>
       </div>
+
       <nav>
-        <ul class="nav-list">
+        <ul class="nav-list" id="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
           <li><a href="about.html" data-i18n="about">About</a></li>
           <li>
@@ -33,6 +128,7 @@
           <li><a href="admin.html" data-i18n="news">----</a></li>
         </ul>
       </nav>
+
       <div class="lang-switcher">
         <select id="langSelect">
           <option value="om">Afaan Oromoo</option>
@@ -42,7 +138,8 @@
         </select>
       </div>
     </header>
-    <main>
+
+    <main style="padding: 30px">
       <div class="hero-card">
         <h1 data-i18n="leadership_page_title">Hooggansa Masjiidichaa</h1>
         <p
@@ -51,7 +148,7 @@
         >
           Hooggansi Masjiida Huzeeyfaa Ibnul Yamanii hojiilee amantii,
           bulchiinsaa fi misooma masjiidichaa qindeessuun hawaasa tajaajiluuf
-          qaamota filatamanii fi hayyoota irraa kan hundaa'edha.
+          qaamota filatamanii fi hayyoota irraa kan hundaa'edha[cite: 20].
         </p>
       </div>
       <!-- Supabase irraa data hooggansa fiduuf -->
@@ -60,9 +157,33 @@
         style="margin-top: 20px; display: grid; gap: 20px"
       ></div>
     </main>
+
     <footer>
-      <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
+      <p style="text-align: center; padding: 20px">
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+      </p>
     </footer>
+
+    <!-- JavaScript for Toggle -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navList = document.getElementById("nav-list");
+
+        if (mobileMenu && navList) {
+          mobileMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navList.classList.toggle("show-menu");
+          });
+
+          document.addEventListener("click", (e) => {
+            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
+              navList.classList.remove("show-menu");
+            }
+          });
+        }
+      });
+    </script>
     <script src="script.js"></script>
     <script>
       // Daataa Supabase irraa "leadership" fiduuf
@@ -113,3 +234,4 @@
     </script>
   </body>
 </html>
+
