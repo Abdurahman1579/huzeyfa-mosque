@@ -74,6 +74,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px 20px;
+        z-index: 1000;
       }
 
       .logo {
@@ -89,6 +90,7 @@
         gap: 5px;
         background: none;
         border: none;
+        padding: 5px;
       }
 
       .menu-toggle .bar {
@@ -133,9 +135,9 @@
           top: 100%;
           left: 0;
           padding: 15px 0;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
           border-top: 1px solid #eee;
-          z-index: 1000;
+          z-index: 9999;
         }
 
         .nav-list.active {
@@ -145,6 +147,12 @@
         .nav-list li {
           text-align: center;
           padding: 10px 0;
+        }
+
+        .nav-list li a {
+          display: block;
+          padding: 5px 0;
+          font-size: 1.1rem;
         }
       }
     </style>
@@ -321,22 +329,25 @@
 
     <script src="script.js"></script>
     <script>
-      // Hamburger Menu Toggle Logic
-      const mobileMenu = document.getElementById("mobile-menu");
-      const navList = document.querySelector(".nav-list");
+      // Clean and fixed Hamburger Menu Toggle Logic
+      document.addEventListener("DOMContentLoaded", () => {
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navList = document.querySelector(".nav-list");
 
-      if (mobileMenu && navList) {
-        mobileMenu.addEventListener("click", () => {
-          navList.classList.toggle("active");
-        });
+        if (mobileMenu && navList) {
+          mobileMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navList.classList.toggle("active");
+          });
 
-        // Menuuicha alaa yeroo tuqan akka cufamu
-        document.addEventListener("click", (e) => {
-          if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
-            navList.classList.remove("active");
-          }
-        });
-      }
+          // Menuuicha alaa yeroo tuqan akka cufamu
+          document.addEventListener("click", (e) => {
+            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
+              navList.classList.remove("active");
+            }
+          });
+        }
+      });
 
       const pageSelect = document.getElementById("pageSelect");
       const extraStaffFields = document.getElementById("extraStaffFields");
@@ -438,7 +449,7 @@
 
             statusMsg.style.color = "green";
             statusMsg.textContent =
-              "Milkaa’inaan galfameera / በተሳካ ሁኔታ ተመዝግቧል!";
+              "Milkaa’inaan galفameera / በተሳካ ሁኔታ ተመዝግቧል!";
             document.getElementById("adminForm").reset();
             imagePreview.innerHTML = "";
             extraStaffFields.classList.remove("active");
