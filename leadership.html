@@ -55,11 +55,61 @@
         </p>
       </div>
       <!-- Supabase irraa data hooggansa fiduuf -->
-      <div id="leadership-container" style="margin-top: 20px"></div>
+      <div
+        id="leadership-container"
+        style="margin-top: 20px; display: grid; gap: 20px"
+      ></div>
     </main>
     <footer>
       <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
+    <script>
+      // Daataa Supabase irraa "leadership" fiduuf
+      async function loadLeadership() {
+        const container = document.getElementById("leadership-container");
+        try {
+          const { data, error } = await _supabase
+            .from("posts")
+            .select("*")
+            .eq("category", "leadership")
+            .order("created_at", { ascending: false });
+
+          if (error) throw error;
+
+          if (!data || data.length === 0) {
+            container.innerHTML =
+              "<p style='text-align:center; padding: 20px;'>Odeeffannoon hooggansaa ammaaf hin jiru.</p>";
+            return;
+          }
+
+          container.innerHTML = "";
+          data.forEach((item) => {
+            const card = document.createElement("div");
+            card.style.background = "#fff";
+            card.style.padding = "20px";
+            card.style.borderRadius = "8px";
+            card.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+
+            let imgTag = item.image_url
+              ? `<img src="${item.image_url}" style="max-width:100%; height:auto; border-radius:6px; margin-bottom:15px;" />`
+              : "";
+
+            card.innerHTML = `
+              ${imgTag}
+              <h3 style="color: #004d40; margin-bottom: 10px;">${item.title || ""}</h3>
+              <p style="white-space: pre-line; line-height: 1.6;">${item.content || ""}</p>
+            `;
+            container.appendChild(card);
+          });
+        } catch (err) {
+          console.error("Error loading leadership data:", err);
+          container.innerHTML =
+            "<p style='text-align:center; color:red;'>Dogoggorri uumameera, daataan fe'amuu hin danda'e.</p>";
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", loadLeadership);
+    </script>
   </body>
 </html>
