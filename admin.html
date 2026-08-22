@@ -8,7 +8,7 @@
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-      /* Force LTR and proper text-align for everything */
+      /* General Styles & Reset */
       html,
       body {
         direction: ltr !important;
@@ -43,7 +43,6 @@
         font-weight: bold;
         margin-top: 15px;
         color: #004d40;
-        direction: ltr !important;
       }
       .input-box {
         width: 100%;
@@ -52,8 +51,6 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 1rem;
-        text-align: left;
-        direction: ltr;
         box-sizing: border-box;
       }
       .lang-group {
@@ -62,25 +59,24 @@
         border-radius: 6px;
         border: 1px solid #ddd;
         margin-bottom: 15px;
-        text-align: left;
       }
 
-      /* Fixed Header & Mobile Menu Styles */
+      /* Professional & Clean Header & UI */
       header {
         position: relative;
-        background: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        background: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 20px;
+        padding: 15px 30px;
         z-index: 1000;
       }
 
       .logo {
         font-weight: bold;
         color: #004d40;
-        font-size: 1.1rem;
+        font-size: 1.15rem;
       }
 
       .menu-toggle {
@@ -97,14 +93,14 @@
         width: 28px;
         height: 3px;
         background-color: #004d40;
-        transition: 0.3s;
+        transition: 0.3s ease;
         border-radius: 2px;
       }
 
       .nav-list {
         list-style: none;
         display: flex;
-        gap: 15px;
+        gap: 20px;
         margin: 0;
         padding: 0;
       }
@@ -114,14 +110,15 @@
         color: #333;
         font-weight: 500;
         transition: color 0.2s;
+        font-size: 0.95rem;
       }
 
       .nav-list li a:hover {
         color: #004d40;
       }
 
-      /* Responsive Styles for Mobile */
-      @media (max-width: 900px) {
+      /* Mobile & Tablet Styles */
+      @media (max-width: 992px) {
         .menu-toggle {
           display: flex;
         }
@@ -130,29 +127,33 @@
           display: none;
           flex-direction: column;
           width: 100%;
-          background: #fff;
+          background: #ffffff;
           position: absolute;
           top: 100%;
           left: 0;
           padding: 15px 0;
-          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
           border-top: 1px solid #eee;
-          z-index: 9999;
         }
 
-        .nav-list.active {
+        /* Direct toggle class using ID */
+        .nav-list.show-menu {
           display: flex !important;
         }
 
         .nav-list li {
           text-align: center;
-          padding: 10px 0;
+          padding: 12px 0;
+          border-bottom: 1px solid #f4f6f8;
+        }
+
+        .nav-list li:last-child {
+          border-bottom: none;
         }
 
         .nav-list li a {
-          display: block;
-          padding: 5px 0;
           font-size: 1.1rem;
+          display: block;
         }
       }
     </style>
@@ -165,7 +166,8 @@
       <button
         class="menu-toggle"
         id="mobile-menu"
-        aria-label="Toggle navigation"
+        type="button"
+        aria-label="Toggle Navigation"
       >
         <span class="bar"></span>
         <span class="bar"></span>
@@ -173,7 +175,7 @@
       </button>
 
       <nav>
-        <ul class="nav-list">
+        <ul class="nav-list" id="nav-list">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="leadership.html">Leadership</a></li>
@@ -212,7 +214,7 @@
           <option value="news">Odeeffannoo Haaraa / ዜና</option>
           <option value="lectures">Darsiilee / ትምህርቶች</option>
           <option value="staff">Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</option>
-          <option value="leadership">Hooggansa / አመራር</option>
+          <option value="leadership">Hooggansa / አመራר</option>
           <option value="development">Misooma / ልማት</option>
           <option value="charity">Tola Ooltummaa / የበጎ አድራጎት ሥራ</option>
           <option value="madrasah">Madrasaa / መድረሳ</option>
@@ -223,14 +225,8 @@
 
       <form
         id="adminForm"
-        style="
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          text-align: left;
-        "
+        style="display: flex; flex-direction: column; gap: 10px"
       >
-        <!-- Mata-duree (Title) -->
         <div class="lang-group">
           <label>Mata-duree / ርዕስ </label>
           <input
@@ -241,7 +237,6 @@
           />
         </div>
 
-        <!-- Qabiyyee (Content) -->
         <div class="lang-group">
           <label>Qabiyyee(Ibsa) ይዘት/ማብራሪያ</label>
           <textarea
@@ -252,7 +247,6 @@
           ></textarea>
         </div>
 
-        <!-- Dynamic Fields based on Page type -->
         <div id="dynamicFields">
           <div id="extraStaffFields" class="form-section lang-group">
             <h3>Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</h3>
@@ -286,7 +280,6 @@
           </div>
         </div>
 
-        <!-- Multiple Photo Upload Section -->
         <div class="lang-group">
           <label>Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ </label>
           <input
@@ -323,32 +316,35 @@
       ></p>
     </main>
 
-    <footer style="direction: ltr; text-align: center; padding: 20px">
+    <footer
+      style="direction: ltr; text-align: center; padding: 20px; color: #666"
+    >
       <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
     <script>
-      // Clean and fixed Hamburger Menu Toggle Logic
+      // Clean and Direct Mobile Menu Toggle Script
       document.addEventListener("DOMContentLoaded", () => {
         const mobileMenu = document.getElementById("mobile-menu");
-        const navList = document.querySelector(".nav-list");
+        const navList = document.getElementById("nav-list");
 
         if (mobileMenu && navList) {
           mobileMenu.addEventListener("click", (e) => {
             e.stopPropagation();
-            navList.classList.toggle("active");
+            navList.classList.toggle("show-menu");
           });
 
-          // Menuuicha alaa yeroo tuqan akka cufamu
+          // Close menu when clicking outside
           document.addEventListener("click", (e) => {
             if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
-              navList.classList.remove("active");
+              navList.classList.remove("show-menu");
             }
           });
         }
       });
 
+      // Form Handling Logic
       const pageSelect = document.getElementById("pageSelect");
       const extraStaffFields = document.getElementById("extraStaffFields");
       const imageFiles = document.getElementById("imageFiles");
@@ -396,11 +392,11 @@
               const fileExt = file.name.split(".").pop();
               const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
 
-              const { data: uploadData, error: uploadError } =
-                await _supabase.storage.from("images").upload(fileName, file);
+              const { error: uploadError } = await _supabase.storage
+                .from("images")
+                .upload(fileName, file);
 
               if (uploadError) {
-                console.error("Image upload error:", uploadError);
                 throw new Error(
                   "Suuraa fechuun hin dandaamne / ፎቶ መጫን አልተቻለም: " +
                     uploadError.message,
@@ -449,7 +445,7 @@
 
             statusMsg.style.color = "green";
             statusMsg.textContent =
-              "Milkaa’inaan galفameera / በተሳካ ሁኔታ ተመዝግቧል!";
+              "Milkaa’inaan galfameera / በተሳካ ሁኔታ ተመዝግቧል!";
             document.getElementById("adminForm").reset();
             imagePreview.innerHTML = "";
             extraStaffFields.classList.remove("active");
