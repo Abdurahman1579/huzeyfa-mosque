@@ -489,18 +489,7 @@
         </div>
         <div id="searchResultContainer" style="margin-top: 20px"></div>
       </div>
-
-      <!-- <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd" /> -->
-
-      <!-- <h2 data-i18n="donation_page_title">Deeggarsa Godhuu (Donation)</h2>
-      <p data-i18n="donation_page_desc">
-        Misooma masjiidichaaf deeggarsa maallaqaa kan godhan hirmaattota:
-      </p> -->
-
-      <!-- <div id="donation-container">
-        <p data-i18n="loading">Odeeffannoon fe'amaa jira...</p>
-      </div> -->
-    <!-- </div> -->
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -776,8 +765,6 @@
 
         const select = document.getElementById("langSelect");
         if (select) select.value = lang;
-
-        fetchDonations(lang);
       }
 
       function changeLanguage(lang) {
@@ -819,7 +806,6 @@
           } else {
             alert(t.success_inst);
             document.getElementById("instantDonationForm").reset();
-            fetchDonations(lang);
           }
         });
 
@@ -897,34 +883,6 @@
         }
         html += `</div>`;
         resultContainer.innerHTML = html;
-      }
-
-      async function fetchDonations(lang) {
-        const container = document.getElementById("donation-container");
-        if (!container) return;
-
-        const { data, error } = await _supabase
-          .from("donations")
-          .select("*")
-          .order("created_at", { ascending: false });
-        const t = translations[lang] || translations["om"];
-
-        if (error) {
-          container.innerHTML = `<p style="color:red;">${t.error_msg}</p>`;
-          return;
-        }
-        if (!data || data.length === 0) {
-          container.innerHTML = `<p>${t.no_data}</p>`;
-          return;
-        }
-
-        let htmlContent = '<div class="donation-grid">';
-        for (let don of data) {
-          let donorName = don.donor_name ? don.donor_name : t.anonymous;
-          htmlContent += `<div class="donation-card"><h4 style="margin: 0 0 10px 0; color: #1b4d3e;">👤 ${donorName}</h4><p style="margin: 5px 0;">💰 ${t.amount_lbl}: <b>${don.amount} ETB</b></p><p style="margin: 5px 0;">🏦 ${t.method_lbl}: ${don.payment_method || "N/A"}</p></div>`;
-        }
-        htmlContent += "</div>";
-        container.innerHTML = htmlContent;
       }
 
       window.addEventListener("DOMContentLoaded", () => {
