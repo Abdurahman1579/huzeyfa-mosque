@@ -28,7 +28,7 @@ const translations = {
         waqf_page_desc: "Qabeenyi waqfii masjiidichaa tajaajila yeroo dheeraaf masjiidicha fi hawaasa keenya deeggaruuf qabeeyyii sassaabamanidha.",
         development_page_title: "Pirojektoota Misooma Masjiidichaa",
         development_page_desc: "Mali fi pirojektoonni misoomaa masjiidichaa, bu'uuraalee misoomaa babal'isuu fi tajaajila hawaasummaa fooyyessuuf karoorfaman.",
-        charity_page_title: "Hojii Tola Ooltummaa (Sadaqaa)",
+        charity_page_title: "Hojjii Tola Ooltummaa (Sadaqaa)",
         charity_page_desc: "Sagantaan tola ooltummaa masjiidichaa karaa harka qalleeyyii, yatiimota fi warra rakkataniif gargaarsa itti kennamuudha.",
         madrasah_page_title: "Barnoota Madrasaa",
         madrasah_page_desc: "Madrasaan keenya barnoota diinii, Qur'aanaa fi afaan Arabaa daa'immanii fi dargaggootaaf barsiisuuf kan hundaa'edha.",
@@ -198,7 +198,6 @@ async function fetchPostsByCategory(categoryName, containerId, currentLang) {
         let title = await translateText(post.title, currentLang);
         let content = await translateText(post.content, currentLang);
 
-        // Suuraa, Viidiyoo fi Sagalee qindeeffannoo kanaan dabalreera:
         let mediaHTML = '';
         if (post.image_url) {
             mediaHTML += `<img src="${post.image_url}" alt="Image" style="max-width:100%; border-radius:5px; margin-top:10px; display:block;">`;
@@ -283,7 +282,6 @@ function reloadAllData(lang) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    // --- HAMBURGER MENU FIX ---
     const mobileMenu = document.getElementById('mobile-menu');
     const navList = document.querySelector('.nav-list');
 
@@ -299,7 +297,6 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    // --------------------------
 
     const langSelect = document.querySelector('.lang-switcher select') || document.getElementById('langSelect');
     const savedLang = localStorage.getItem('preferredLang') || 'om';

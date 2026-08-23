@@ -399,11 +399,6 @@
           </button>
         </div>
       </div>
-
-      <h3 data-i18n="recorded_title">Galii fi Baasii Galmaa'an</h3>
-      <div id="finance-container">
-        <p data-i18n="loading">Odeeffannoon fe'amaa jira...</p>
-      </div>
     </div>
 
     <!-- Modal Form -->
@@ -466,7 +461,7 @@
           </div>
 
           <div class="section-title" data-i18n="sec_receiver">
-            Odeeffannoo Nama fudhee
+            Odeeffannoo Nama fuudhee
           </div>
 
           <div class="form-group">
@@ -600,7 +595,6 @@
             "Maaloo buttoon armaan gadii keessaa kan barbaaddan filadhaa.",
           btn_income_text: "Galii Galmeessuu",
           btn_expense_text: "Baasii Galmeessuu",
-          recorded_title: "Galii fi Baasii Galmaa'an",
           loading: "Odeeffannoon fe'amaa jira...",
           form_warning:
             "⚠️ Maaloo sanduuqota hundi waldura duubaan guutuu qabdu. Sanduuqi duraa utuu hin guutamne isa itti aanutti darbuu hin dandeessan.",
@@ -656,7 +650,6 @@
           tracker_desc: "እርስዎ ከዚህ በታች ካሉት አማራጮች የሚፈልጉትን ይምረጡ።",
           btn_income_text: "ገቢ ለመመዝገብ",
           btn_expense_text: "ወጪ ለመመዝገብ",
-          recorded_title: "የተመዘገቡ ገቢ እና ወጪዎች",
           loading: "መረጃው እየተጫነ ነው...",
           form_warning:
             "⚠️ እባክዎ ሳጥኖቹን በቅደም ተከተል ይሙሉ፤ ቀድሞ ያለው ሳይሞላ ወደሚቀጥለው ማለፍ አይቻልም።",
@@ -712,7 +705,6 @@
           tracker_desc: "Please select an option below.",
           btn_income_text: "Record Income",
           btn_expense_text: "Record Expense",
-          recorded_title: "Recorded Income & Expenses",
           loading: "Loading data...",
           form_warning:
             "⚠️ Please fill out fields in order. You cannot proceed without filling the previous field.",
@@ -768,7 +760,6 @@
           tracker_desc: "يرجى اختيار أحد الخيارات أدناه.",
           btn_income_text: "تسجيل إيراد",
           btn_expense_text: "تسجيل مصروف",
-          recorded_title: "الإيرادات والمصروفات المسجلة",
           loading: "جاري تحميل البيانات...",
           form_warning:
             "⚠️ يرجى ملء الحقول بالترتيب. لا يمكنك الانتقال للحقل التالي قبل إكمال السابق.",
@@ -822,7 +813,6 @@
         }
 
         if (langSelect) langSelect.value = lang;
-        fetchTransactions(lang);
       }
 
       if (langSelect) {
@@ -868,9 +858,37 @@
           const receiver = document.getElementById("receiverName").value;
           const phone = document.getElementById("receiverPhone").value;
           const role = document.getElementById("receiverRole").value;
-          const method = document.getElementById("transMethod").value;
-          const desc = document.getElementById("transDesc").value;
+          const payment_method = document.getElementById("transMethod").value;
+          const description = document.getElementById("transDesc").value;
 
+          const lang = localStorage.getItem("preferredLang") || "om";
+          const t = translations[lang];
+
+          // Suuraa Nagahee (File) gara Supabase Storage Upload gochuu
+          const fileInput = document.getElementById("transFile");
+          let receiptVal = "-";
+
+          if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const fileExt = file.name.split(".").pop();
+            const fileName = `${Date.now()}.${fileExt}`;
+
+            // "receipts" jechuun maqaa Bucket keetiiti (Supabase Dashboard irra jiru wajjin wal simuu qaba)
+            const { data: uploadData, error: uploadError } =
+              await _supabase.storage.from("receipts").upload(fileName, file);
+
+            if (uploadError) {
+              alert(
+                "Suuraa fe'uu irratti dogoggorri uumame: " +
+                  uploadError.message,
+              );
+              return;
+            }
+
+            receiptVal = fileName; // Maqaa haaraa bucket keessa taa'u database-itti dabarsuuf
+          }
+
+          // Odeeffannoo hunda Database-itti galchuu
           const { error } = await _supabase.from("transactions").insert([
             {
               type,
@@ -881,50 +899,19 @@
               receiver,
               phone,
               role,
-              method,
-              desc,
+              payment_method,
+              description,
+              receipt: receiptVal,
             },
           ]);
-
-          const lang = localStorage.getItem("preferredLang") || "om";
-          const t = translations[lang];
 
           if (error) {
             alert("Error: " + error.message);
           } else {
             alert(t.success_msg);
             closeModal();
-            fetchTransactions(lang);
           }
         });
-
-      async function fetchTransactions(lang) {
-        const container = document.getElementById("finance-container");
-        const { data, error } = await _supabase
-          .from("transactions")
-          .select("*")
-          .order("date", { ascending: false });
-        const t = translations[lang] || translations["om"];
-
-        if (error) {
-          container.innerHTML = `<p style="color:red;">Error loading records.</p>`;
-          return;
-        }
-        if (!data || data.length === 0) {
-          container.innerHTML = `<p>${t.loading.includes("fe'amaa") ? "Galii fi baasii ammaaf galmaa'e hin jiru." : "No records found."}</p>`;
-          return;
-        }
-
-        let html = `<table><thead><tr><th>${t.tbl_date}</th><th>${t.tbl_type}</th><th>${t.tbl_source}</th><th>${t.tbl_amount}</th><th>${t.tbl_payer}</th></tr></thead><tbody>`;
-        for (let item of data) {
-          let color = item.type === "income" ? "green" : "red";
-          let typeText =
-            item.type === "income" ? t.income_text : t.expense_text;
-          html += `<tr><td>${item.date}</td><td style="color:${color}; font-weight:bold;">${typeText}</td><td>${item.title}</td><td style="font-weight:bold;">${item.amount} ETB</td><td>${item.payer || "-"}</td></tr>`;
-        }
-        html += `</tbody></table>`;
-        container.innerHTML = html;
-      }
 
       window.addEventListener("DOMContentLoaded", () => {
         const savedLang = localStorage.getItem("preferredLang") || "om";

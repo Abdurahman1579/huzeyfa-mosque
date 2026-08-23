@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-      /* Header Layout: Hamburger First on Left, Followed by Logo, Lang Selector on Right */
       header {
         position: relative;
         background: #004d40;
@@ -47,7 +46,6 @@
         font-size: 1.15rem;
       }
 
-      /* Mobile Menu Styles */
       @media (max-width: 992px) {
         .nav-list {
           display: none;
@@ -88,7 +86,6 @@
   </head>
   <body>
     <header>
-      <!-- Gama Bitaatiin: Hamburger Menu Dura, Itti aansee Logo (Hiika Amaariffaa wajjin) -->
       <div class="header-left">
         <button
           class="menu-toggle"
@@ -100,19 +97,13 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
-
-        <!-- <div class="logo">
-          Masjiida Huzeeyfaa
-          <span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9"
-            >/ መስጂድ ሁዘይፋ</span
-          >
-        </div> -->
       </div>
 
       <nav>
         <ul class="nav-list" id="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
           <li><a href="about.html" data-i18n="about">About</a></li>
+          <li><a href="donation.html" data-i18n="donation">Donation</a></li>
           <li>
             <a href="leadership.html" data-i18n="leadership">Leadership</a>
           </li>
@@ -124,8 +115,9 @@
           <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
+          <li><a href="finance.html" data-i18n="finance">finance</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
-          <li><a href="admin.html" data-i18n="">----</a></li>
+          <li><a href="admin.html">----</a></li>
         </ul>
       </nav>
 
@@ -150,7 +142,6 @@
           yatiimota fi warra rakkataniif gargaarsa itti kennamuudha.
         </p>
       </div>
-      <!-- Supabase irraa data tola ooltummaa fiduuf -->
       <div id="charity-container" style="margin-top: 20px"></div>
     </main>
 
@@ -160,7 +151,6 @@
       </p>
     </footer>
 
-    <!-- JavaScript for Toggle -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const mobileMenu = document.getElementById("mobile-menu");

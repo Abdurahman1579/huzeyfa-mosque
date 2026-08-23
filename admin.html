@@ -231,16 +231,22 @@
       <!-- Navigation Links -->
       <nav>
         <ul class="nav-list" id="nav-list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="leadership.html">Leadership</a></li>
-          <li><a href="waqf.html">Waqf</a></li>
-          <li><a href="development.html">Development</a></li>
-          <li><a href="charity.html">Charity</a></li>
-          <li><a href="madrasah.html">Madrasah</a></li>
-          <li><a href="staff.html">Staff</a></li>
-          <li><a href="lectures.html">Lectures</a></li>
-          <li><a href="news.html">News</a></li>
+          <li><a href="index.html" data-i18n="home">Home</a></li>
+          <li><a href="about.html" data-i18n="about">About</a></li>
+          <li><a href="donation.html" data-i18n="donation">Donation</a></li>
+          <li>
+            <a href="leadership.html" data-i18n="leadership">Leadership</a>
+          </li>
+          <li><a href="waqf.html" data-i18n="waqf">Waqf</a></li>
+          <li>
+            <a href="development.html" data-i18n="development">Development</a>
+          </li>
+          <li><a href="charity.html" data-i18n="charity">Charity</a></li>
+          <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
+          <li><a href="staff.html" data-i18n="staff">Staff</a></li>
+          <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
+          <li><a href="finance.html" data-i18n="finance">finance</a></li>
+          <li><a href="news.html" data-i18n="news">News</a></li>
         </ul>
       </nav>
 
@@ -548,7 +554,6 @@
             let videoUrl = "";
             let audioUrl = "";
 
-            // 1. Suuraalee fe'uu (Yoo filataman qofa)
             for (let file of files) {
               const fileExt = file.name.split(".").pop();
               const fileName = `img_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
@@ -569,7 +574,6 @@
               }
             }
 
-            // 2. Viidiyoo fe'uu (Yoo filatame qofa)
             if (vidFile) {
               const fileExt = vidFile.name.split(".").pop();
               const fileName = `vid_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
@@ -589,7 +593,6 @@
               }
             }
 
-            // 3. Sagalee (Audio) fe'uu (Yoo filatame qofa)
             if (audFile) {
               const fileExt = audFile.name.split(".").pop();
               const fileName = `aud_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
