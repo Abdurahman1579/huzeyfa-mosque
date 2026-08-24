@@ -3,337 +3,134 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-i18n="admin_title">Admin Dashboard - Masjiida Huzeeyfaa</title>
+    <title data-i18n="admin_title">
+      Bulchiinsa Galii fi Baasii - Masjiida Huzeeyfaa
+    </title>
+    <link rel="stylesheet" href="style.css" />
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f6f5;
-        margin: 0;
-        padding: 0;
-        color: #333;
+      .admin-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
       }
-
-      header {
-        position: relative;
-        background: #004d40;
+      .admin-header-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-xl);
+        padding: 30px;
+        box-shadow: var(--shadow-subtle);
+        border: 1px solid var(--border-color);
+        margin-bottom: 25px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 30px;
-        color: white;
-        z-index: 1000;
+        flex-wrap: wrap;
+        gap: 20px;
       }
-
-      .header-left {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .menu-toggle {
-        display: none;
-        cursor: pointer;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        padding: 5px;
-      }
-
-      .menu-toggle .bar {
-        width: 28px;
-        height: 3px;
-        background-color: #ffffff;
-        transition: 0.3s ease;
-        border-radius: 2px;
-      }
-
-      .logo {
-        font-weight: bold;
-        font-size: 1.15rem;
-      }
-
-      .nav-list {
-        list-style: none;
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: #004d40;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 15px 0;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        margin: 0;
-        z-index: 1000;
-      }
-
-      .nav-list.active {
-        display: flex !important;
-      }
-
-      .nav-list li {
-        text-align: center;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .nav-list li a {
-        font-size: 1.05rem;
-        display: block;
-        color: #ffffff;
-        text-decoration: none;
-      }
-
-      .nav-list li a:hover {
-        color: #a7f3d0;
-      }
-
-      .lang-switcher select {
-        background: #00332c;
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 6px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 20px;
-      }
-
-      /* Summary Cards */
-      .summary-container {
+      .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         margin-bottom: 30px;
       }
-
-      .summary-card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 20px 25px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .stat-card {
+        background: var(--bg-card);
+        padding: 25px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-subtle);
+        border: 1px solid var(--border-color);
+        border-left: 5px solid var(--primary-green);
       }
-
-      .summary-card h3 {
+      .stat-card h3 {
         margin: 0 0 10px 0;
-        font-size: 0.85rem;
-        color: #555;
-        text-transform: uppercase;
+        font-size: 0.9rem;
+        color: var(--text-muted);
       }
-
-      .summary-card .amount {
-        font-size: 1.5rem;
-        font-weight: bold;
+      .stat-card .value {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--text-dark);
       }
-
-      .income-amount {
-        color: #0f865f;
+      .table-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-xl);
+        padding: 25px;
+        box-shadow: var(--shadow-subtle);
+        border: 1px solid var(--border-color);
+        overflow-x: auto;
       }
-      .expense-amount {
-        color: #d32f2f;
-      }
-      .balance-amount {
-        color: #1976d2;
-      }
-
-      .summary-icon {
-        font-size: 2rem;
-        background: #f0f4f3;
-        padding: 10px;
-        border-radius: 8px;
-      }
-
-      .card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      .table-card h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: var(--text-dark);
         margin-bottom: 20px;
       }
-
-      h2 {
-        color: #1b4d3e;
-        margin-top: 0;
-      }
-
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 15px;
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
+        text-align: left;
       }
-
       table th,
       table td {
-        padding: 12px 10px;
-        border-bottom: 1px solid #eee;
-        text-align: left;
-        font-size: 13px;
-      }
-
-      table th {
-        background-color: #f8f9fa;
-        color: #333;
-        font-weight: bold;
-        border-bottom: 2px solid #ddd;
-      }
-
-      .badge-income {
-        background-color: #e8f5e9;
-        color: #2e7d32;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-
-      .badge-expense {
-        background-color: #ffebee;
-        color: #c62828;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-weight: bold;
-      }
-
-      .btn-delete {
-        background-color: #d32f2f;
-        color: white;
-        border: none;
-        padding: 6px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 11px;
-        font-weight: bold;
-      }
-
-      .btn-delete:hover {
-        background-color: #b71c1c;
-      }
-
-      /* Password Modal Styles */
-      #auth-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-      }
-
-      .modal-content {
-        background: white;
-        padding: 40px 30px;
-        border-radius: 20px;
-        text-align: center;
-        max-width: 420px;
-        width: 90%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .modal-icon {
-        font-size: 50px;
-        margin-bottom: 15px;
-      }
-
-      .modal-content h3 {
-        color: #1b4d3e;
-        margin-bottom: 10px;
-        font-size: 1.3rem;
-      }
-
-      .modal-content p {
-        color: #666;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border-color);
         font-size: 0.9rem;
+      }
+      table th {
+        background-color: #f8fafc;
+        color: var(--text-dark);
+        font-weight: 700;
+      }
+      table tr:hover {
+        background-color: #f1f5f9;
+      }
+      .badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: inline-block;
+      }
+      .badge-income {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .badge-expense {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .filter-bar {
+        display: flex;
+        gap: 15px;
         margin-bottom: 20px;
-        line-height: 1.5;
+        flex-wrap: wrap;
       }
-
-      .modal-content input {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 1rem;
-        margin-bottom: 15px;
-        box-sizing: border-box;
-        text-align: center;
+      .filter-bar input,
+      .filter-bar select {
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        font-size: 0.9rem;
+        background: var(--bg-card);
+        color: var(--text-dark);
       }
-
-      .modal-content button {
-        width: 100%;
-        padding: 12px;
-        background-color: #004d40;
+      .btn-action {
+        padding: 10px 18px;
+        background: var(--primary-green);
         color: white;
         border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: bold;
+        border-radius: var(--radius-md);
         cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
       }
-
-      .modal-content button:hover {
-        background-color: #00332c;
-      }
-
-      .back-home {
-        display: block;
-        margin-top: 15px;
-        color: #666;
-        text-decoration: none;
-        font-size: 0.85rem;
-      }
-      .back-home:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 992px) {
-        .menu-toggle {
-          display: flex;
-        }
+      .btn-action:hover {
+        background: var(--primary-hover);
       }
     </style>
   </head>
   <body>
-    <!-- PASSWORD MODAL -->
-    <div id="auth-modal">
-      <div class="modal-content">
-        <div class="modal-icon">🔐</div>
-        <h3 data-i18n="modal_title">
-          Eeyyama Admin Barbaachisa / የእድሙ ፈቃድ ያስፈልጋል
-        </h3>
-        <p data-i18n="modal_desc">
-          Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa / ወደ
-          እድሙ ገጽ ለመግባት የለፍ ቃል ያስገቡ።
-        </p>
-        <input
-          type="password"
-          id="admin-pass-input"
-          data-i18n-placeholder="modal_placeholder"
-          placeholder="Password galchaa / የለፍ ቃል ያስገቡ..."
-        />
-        <button onclick="verifyPassword()" data-i18n="modal_btn">
-          Seeni / ግባ / Log In 🚀
-        </button>
-        <a href="finance.html" class="back-home" data-i18n="modal_back"
-          >🏠 Gara Fuula Duraatti Deebi'i / ወደ መጀመሪያ ገጽ ተመለስ</a
-        >
-      </div>
-    </div>
-
+    <!-- Header & Navigation Bar (Faayiloota Hunda Walin Walitti Hidhame) -->
     <header>
       <div class="header-left">
         <button
@@ -346,14 +143,27 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
-        <div class="logo" data-i18n="admin_panel_logo">
-          Masjiida Huzeeyfaa - Admin Panel
-        </div>
+        <a
+          href="index.html"
+          class="logo-area"
+          style="
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <span>🕌</span>
+          <span class="logo">Masjiida Huzeeyfaa</span>
+        </a>
       </div>
+
       <nav>
         <ul class="nav-list" id="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
           <li><a href="finance.html" data-i18n="finance">Finance</a></li>
+          <li><a href="donation.html" data-i18n="donation">Donation</a></li>
           <li><a href="about.html" data-i18n="about">About</a></li>
           <li>
             <a href="leadership.html" data-i18n="leadership">Leadership</a>
@@ -367,12 +177,17 @@
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
-          <li><a href="admin.html" data-i18n="admin">Admin</a></li>
+          <li>
+            <a href="admin.html" class="active" data-i18n="admin"
+              >Admin Dashboard</a
+            >
+          </li>
         </ul>
       </nav>
+
       <div class="lang-switcher">
         <select id="langSelect">
-          <option value="om">A/Oromoo</option>
+          <option value="om">Afaan Oromoo</option>
           <option value="am">አማርኛ</option>
           <option value="en">English</option>
           <option value="ar">العربية</option>
@@ -380,38 +195,110 @@
       </div>
     </header>
 
-    <div class="container">
-      <!-- SUMMARY CARDS -->
-      <div class="summary-container">
-        <div class="summary-card">
-          <div>
-            <h3 data-i18n="card_total_income">GALII WALIIGALAA / ጠቅላላ ገቢ</h3>
-            <div class="amount income-amount" id="total-income">0 ETB</div>
-          </div>
-          <div class="summary-icon">📈</div>
+    <div class="admin-container">
+      <!-- Top Title & Overview -->
+      <div class="admin-header-card">
+        <div>
+          <h1
+            style="margin: 0; font-size: 1.5rem; color: var(--text-dark)"
+            data-i18n="admin_dashboard_title"
+          >
+            Daashboordii Bulchiinsaa
+          </h1>
+          <p
+            style="
+              margin: 5px 0 0 0;
+              color: var(--text-muted);
+              font-size: 0.9rem;
+            "
+            data-i18n="admin_dashboard_subtitle"
+          >
+            Galii fi baasii masjiidichaa to'achuu fi hordofuu.
+          </p>
         </div>
-        <div class="summary-card">
-          <div>
-            <h3 data-i18n="card_total_expense">BAASII WALIIGALAA / ጠቅላላ ወጪ</h3>
-            <div class="amount expense-amount" id="total-expense">0 ETB</div>
+        <button
+          class="btn-action"
+          onclick="loadTransactions()"
+          data-i18n="btn_refresh"
+        >
+          Deebi'anii Fe'uu (Refresh)
+        </button>
+      </div>
+
+      <!-- Quick Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 data-i18n="stat_total_income">Galii Waligalaa (Total Income)</h3>
+          <div class="value" id="totalIncomeVal" style="color: #059669">
+            0.00 ETB
           </div>
-          <div class="summary-icon">📉</div>
         </div>
-        <div class="summary-card">
-          <div>
-            <h3 data-i18n="card_total_balance">HAFTEE / ቀሪ ገንዘብ (BALANCE)</h3>
-            <div class="amount balance-amount" id="total-balance">0 ETB</div>
+        <div class="stat-card" style="border-left-color: #dc2626">
+          <h3 data-i18n="stat_total_expense">
+            Baasii Waligalaa (Total Expense)
+          </h3>
+          <div class="value" id="totalExpenseVal" style="color: #dc2626">
+            0.00 ETB
           </div>
-          <div class="summary-icon">💰</div>
+        </div>
+        <div class="stat-card" style="border-left-color: #2563eb">
+          <h3 data-i18n="stat_net_balance">Hafeera (Net Balance)</h3>
+          <div class="value" id="netBalanceVal" style="color: #2563eb">
+            0.00 ETB
+          </div>
         </div>
       </div>
 
-      <div class="card">
-        <h2 data-i18n="table_section_title">
-          Galmee Galii fi Baasii / የገቢ እና ወጪ መዝገብ
-        </h2>
-        <div id="admin-finance-container">
-          <p data-i18n="loading_text">Odeeffannoon fe'amaa jira...</p>
+      <!-- Filter Controls -->
+      <div class="filter-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Maqaa ykn Madda barbaadi..."
+          onkeyup="filterTable()"
+          style="flex: 2"
+        />
+        <select id="typeFilter" onchange="filterTable()" style="flex: 1">
+          <option value="" data-i18n="filter_all">Gosa Hundaa</option>
+          <option value="income" data-i18n="filter_income">Galii Qofa</option>
+          <option value="expense" data-i18n="filter_expense">
+            Baasii Qofa
+          </option>
+        </select>
+      </div>
+
+      <!-- Transactions Table -->
+      <div class="table-card">
+        <h2 data-i18n="table_title">Galmee Galii fi Baasii Hunda</h2>
+        <div style="overflow-x: auto">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="th_date">Guyyaa</th>
+                <th data-i18n="th_type">Gosa</th>
+                <th data-i18n="th_source">Madda / Mata Duree</th>
+                <th data-i18n="th_payer">Kaffale / Fudhate</th>
+                <th data-i18n="th_amount">Hamma (ETB)</th>
+                <th data-i18n="th_method">Karaa Kaffaltii</th>
+                <th data-i18n="th_receiver">Nama Fudhee</th>
+              </tr>
+            </thead>
+            <tbody id="transactionTableBody">
+              <tr>
+                <td
+                  colspan="7"
+                  style="
+                    text-align: center;
+                    color: var(--text-muted);
+                    padding: 30px;
+                  "
+                  data-i18n="loading_data"
+                >
+                  Odeeffannoon fe'amaa jira...
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -425,65 +312,15 @@
       const { createClient } = supabase;
       const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // Translations Dictionary (Afaanota Afuruu)
+      let allTransactions = [];
+
+      // Multi-language dictionary (Afaan Oromoo, Amharic, English, Arabic)
       const translations = {
         om: {
-          home: "Fuula Guddichaa",
-          finance: "Galii fi Baasii",
-          about: "Waa'ee Masjiidicha",
-          leadership: "Hooggansa",
-          waqf: "Qabeenya Waqfii",
-          development: "Misooma",
-          charity: "Tola Ooltummaa",
-          madrasah: "Madrasaa",
-          staff: "Hojjattoota",
-          lectures: "Darsiilee",
-          news: "Odeeffannoo Haaraa",
-          admin: "Admin",
-          admin_title: "Admin Dashboard - Masjiida Huzeeyfaa",
-          admin_panel_logo: "Masjiida Huzeeyfaa - Admin Panel",
-          modal_title: "Eeyyama Admin Barbaachisa",
-          modal_desc:
-            "Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa.",
-          modal_placeholder: "Password galchaa...",
-          modal_btn: "Seeni / Log In 🚀",
-          modal_back: "🏠 Gara Fuula Duraatti Deebi'i",
-          card_total_income: "GALII WALIIGALAA",
-          card_total_expense: "BAASII WALIIGALAA",
-          card_total_balance: "HAFTEE (BALANCE)",
-          table_section_title: "Galmee Galii fi Baasii",
-          loading_text: "Odeeffannoon fe'amaa jira...",
-        },
-        am: {
-          home: "ዋና ገጽ",
-          finance: "ገቢ እና ወጪ",
-          about: "ስለ መስጊዱ",
-          leadership: "አስተዳደር",
-          waqf: "የወቅፍ ንብረት",
-          development: "ልማት",
-          charity: "በጎ አድራጎት",
-          madrasah: "መድረሳ",
-          staff: "ሰራተኞች",
-          lectures: "ደርሶች",
-          news: "አዳዲስ ዜናዎች",
-          admin: "አድሚን",
-          admin_title: "አድሚን ዳሽቦርድ - ሁዘይፋ መስጊድ",
-          admin_panel_logo: "ሁዘይፋ መስጊድ - አድሚን ፓነል",
-          modal_title: "የአድሚን ፈቃድ ያስፈልጋል",
-          modal_desc: "ወደ አድሚን ገጽ ለመግባት የለፍ ቃል (Password) ያስገቡ።",
-          modal_placeholder: "የለፍ ቃል ያስገቡ...",
-          modal_btn: "ግባ / Log In 🚀",
-          modal_back: "🏠 ወደ መጀመሪያ ገጽ ተመለስ",
-          card_total_income: "ጠቅላላ ገቢ",
-          card_total_expense: "ጠቅላላ ወጪ",
-          card_total_balance: "ቀሪ ገንዘብ (BALANCE)",
-          table_section_title: "የገቢ እና ወጪ መዝገብ",
-          loading_text: "መረጃው እየተጫነ ነው...",
-        },
-        en: {
           home: "Home",
           finance: "Finance",
-          about: "About Us",
+          donation: "Donation",
+          about: "About",
           leadership: "Leadership",
           waqf: "Waqf",
           development: "Development",
@@ -492,226 +329,274 @@
           staff: "Staff",
           lectures: "Lectures",
           news: "News",
-          admin: "Admin",
+          admin: "Admin Dashboard",
+          admin_title: "Bulchiinsa Galii fi Baasii - Masjiida Huzeeyfaa",
+          admin_dashboard_title: "Daashboordii Bulchiinsaa",
+          admin_dashboard_subtitle:
+            "Galii fi baasii masjiidichaa to'achuu fi hordofuu.",
+          btn_refresh: "Deebi'anii Fe'uu",
+          stat_total_income: "Galii Waligalaa",
+          stat_total_expense: "Baasii Waligalaa",
+          stat_net_balance: "Madaalii Maallaqaa (Balance)",
+          filter_all: "Gosa Hundaa Filadhu",
+          filter_income: "Galii Qofa",
+          filter_expense: "Baasii Qofa",
+          table_title: "Galmee Galii fi Baasii Hunda",
+          th_date: "Guyyaa",
+          th_type: "Gosa",
+          th_source: "Madda / Mata Duree",
+          th_payer: "Kaffale / Kan Fudhate",
+          th_amount: "Hamma (ETB)",
+          th_method: "Karaa Kaffaltii",
+          th_receiver: "Nama Fudhee",
+          loading_data: "Odeeffannoon fe'amaa jira...",
+          badge_income: "Galii",
+          badge_expense: "Baasii",
+        },
+        am: {
+          home: "ዋና ገጽ",
+          finance: "ገቢ እና ወጪ",
+          donation: "ድጋፍ",
+          about: "ስለ እኛ",
+          leadership: "አስተዳደር",
+          waqf: "ወቅፍ",
+          development: "ልማት",
+          charity: "በጎ አድራጎት",
+          madrasah: "መድረሳ",
+          staff: "ሰራተኞች",
+          lectures: "ደርሶች",
+          news: "ዜና",
+          admin: "የአስተዳደር ዳሽቦርድ",
+          admin_title: "የገቢ እና ወጪ አስተዳደር - የሁዘይፋ መስጊድ",
+          admin_dashboard_title: "የአስተዳደር ዳሽቦርድ",
+          admin_dashboard_subtitle: "የመስጊዱን ገቢ እና ወጪ መቆጣጠርና መከታተል።",
+          btn_refresh: "እንደገና ጫን",
+          stat_total_income: "ጠቅላላ ገቢ",
+          stat_total_expense: "ጠቅላላ ወጪ",
+          stat_net_balance: "ቀሪ ሂሳብ (Net Balance)",
+          filter_all: "ሁሉንም ዓይነት",
+          filter_income: "ገቢ ብቻ",
+          filter_expense: "ወጪ ብቻ",
+          table_title: "የገቢና ወጪ መዝገቦች",
+          th_date: "ቀን",
+          th_type: "ዓይነት",
+          th_source: "ምንጭ / ርዕስ",
+          th_payer: "ከፋይ / ተቀባይ",
+          th_amount: "መጠን (በብር)",
+          th_method: "የክፍያ መንገድ",
+          th_receiver: "የተቀበለው ሰው",
+          loading_data: "መረጃው እየተጫነ ነው...",
+          badge_income: "ገቢ",
+          badge_expense: "ወጪ",
+        },
+        en: {
+          home: "Home",
+          finance: "Finance",
+          donation: "Donation",
+          about: "About",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          admin: "Admin Dashboard",
           admin_title: "Admin Dashboard - Huzaifa Mosque",
-          admin_panel_logo: "Huzaifa Mosque - Admin Panel",
-          modal_title: "Admin Authorization Required",
-          modal_desc: "Please enter your password to access the admin page.",
-          modal_placeholder: "Enter password...",
-          modal_btn: "Log In 🚀",
-          modal_back: "🏠 Back to Home",
-          card_total_income: "TOTAL INCOME",
-          card_total_expense: "TOTAL EXPENSE",
-          card_total_balance: "BALANCE",
-          table_section_title: "Income & Expense Records",
-          loading_text: "Loading data...",
+          admin_dashboard_title: "Admin Dashboard",
+          admin_dashboard_subtitle:
+            "Monitor and manage mosque income and expenses.",
+          btn_refresh: "Refresh Data",
+          stat_total_income: "Total Income",
+          stat_total_expense: "Total Expense",
+          stat_net_balance: "Net Balance",
+          filter_all: "All Types",
+          filter_income: "Income Only",
+          filter_expense: "Expense Only",
+          table_title: "All Financial Transactions",
+          th_date: "Date",
+          th_type: "Type",
+          th_source: "Source / Title",
+          th_payer: "Payer",
+          th_amount: "Amount (ETB)",
+          th_method: "Method",
+          th_receiver: "Receiver",
+          loading_data: "Loading data...",
+          badge_income: "Income",
+          badge_expense: "Expense",
         },
         ar: {
           home: "الرئيسية",
           finance: "المالية",
-          about: "عن المسجد",
-          leadership: "الإدارة",
+          donation: "التبرعات",
+          about: "من نحن",
+          leadership: "القيادة",
           waqf: "الوقف",
           development: "التطوير",
-          charity: "العمل الخيري",
+          charity: "الخيرية",
           madrasah: "المدرسة",
           staff: "الموظفون",
           lectures: "المحاضرات",
           news: "الأخبار",
-          admin: "المدير",
-          admin_title: "لوحة تحكم المسؤول - مسجد حذيفة",
-          admin_panel_logo: "مسجد حذيفة - لوحة التحكم",
-          modal_title: "مطلوب إذن المسؤول",
-          modal_desc: "الرجاء إدخال كلمة المرور للوصول إلى صفحة المسؤول.",
-          modal_placeholder: "أدخل كلمة المرور...",
-          modal_btn: "تسجيل الدخول 🚀",
-          modal_back: "🏠 العودة إلى الرئيسية",
-          card_total_income: "إجمالي الإيرادات",
-          card_total_expense: "إجمالي المصروفات",
-          card_total_balance: "الرصيد المتبقي",
-          table_section_title: "سجل الإيرادات والمصروفات",
-          loading_text: "جاري تحميل البيانات...",
+          admin: "لوحة التحكم",
+          admin_title: "لوحة التحكم - مسجد حذيفة",
+          admin_dashboard_title: "لوحة التحكم الإدارية",
+          admin_dashboard_subtitle: "مراقبة وإدارة إيرادات ومصروفات المسجد.",
+          btn_refresh: "تحديث البيانات",
+          stat_total_income: "إجمالي الإيرادات",
+          stat_total_expense: "إجمالي المصروفات",
+          stat_net_balance: "الرصيد الصافي",
+          filter_all: "كل الأنواع",
+          filter_income: "الإيرادات فقط",
+          filter_expense: "المصروفات فقط",
+          table_title: "جميع المعاملات المالية",
+          th_date: "التاريخ",
+          th_type: "النوع",
+          th_source: "المصدر / العنوان",
+          th_payer: "الدافع",
+          th_amount: "المبلغ (بالبر)",
+          th_method: "طريقة الدفع",
+          th_receiver: "المستلم",
+          loading_data: "جاري تحميل البيانات...",
+          badge_income: "إيراد",
+          badge_expense: "مصروف",
         },
       };
 
+      const langSelect = document.getElementById("langSelect");
       function setLanguage(lang) {
-        const elements = document.querySelectorAll("[data-i18n]");
-        elements.forEach((el) => {
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
           if (translations[lang] && translations[lang][key]) {
             el.textContent = translations[lang][key];
           }
         });
-
-        // Placeholders for inputs
-        const inputs = document.querySelectorAll("[data-i18n-placeholder]");
-        inputs.forEach((input) => {
-          const key = input.getAttribute("data-i18n-placeholder");
-          if (translations[lang] && translations[lang][key]) {
-            input.placeholder = translations[lang][key];
-          }
-        });
-
-        if (lang === "ar") {
-          document.body.setAttribute("dir", "rtl");
-        } else {
-          document.body.setAttribute("dir", "ltr");
-        }
+        document.body.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+        if (langSelect) langSelect.value = lang;
+        if (allTransactions.length > 0) renderTable(allTransactions);
       }
 
-      // Password Verification Logic
-      function verifyPassword() {
-        const pass = document.getElementById("admin-pass-input").value;
-        const correctPass = "1234"; // Password kana jijjiiruu dandeessa
-
-        if (pass === correctPass) {
-          document.getElementById("auth-modal").style.display = "none";
-          fetchAdminTransactions();
-        } else {
-          alert("Darbii dogoggoraati! Maaloo irra deebii yaali.");
-        }
+      if (langSelect) {
+        langSelect.addEventListener("change", (e) => {
+          const lang = e.target.value;
+          localStorage.setItem("preferredLang", lang);
+          setLanguage(lang);
+        });
       }
 
-      document
-        .getElementById("admin-pass-input")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            verifyPassword();
-          }
-        });
+      // Fetch data from Supabase
+      async function loadTransactions() {
+        const tbody = document.getElementById("transactionTableBody");
+        const lang = localStorage.getItem("preferredLang") || "om";
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">${translations[lang].loading_data}</td></tr>`;
 
-      async function fetchAdminTransactions() {
-        const container = document.getElementById("admin-finance-container");
         const { data, error } = await _supabase
           .from("transactions")
           .select("*")
           .order("date", { ascending: false });
 
         if (error) {
-          container.innerHTML = `<p style="color:red;">Dogoggora odeeffannoo fe'uu irratti uumame: ${error.message}</p>`;
+          console.error("Error loading transactions:", error);
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #dc2626; padding: 30px;">Dogoggorri uumame: ${error.message}</td></tr>`;
           return;
         }
 
-        if (!data || data.length === 0) {
-          container.innerHTML = `<p>Galii fi baasii ammaaf galmaa'e hin jiru.</p>`;
-          document.getElementById("total-income").innerText = "0 ETB";
-          document.getElementById("total-expense").innerText = "0 ETB";
-          document.getElementById("total-balance").innerText = "0 ETB";
-          return;
-        }
+        allTransactions = data || [];
+        calculateStats(allTransactions);
+        renderTable(allTransactions);
+      }
 
+      // Calculate totals
+      function calculateStats(data) {
         let totalIncome = 0;
         let totalExpense = 0;
 
-        let html = `<table>
-          <thead>
-            <tr>
-              <th>Guyyaa / ቀን</th>
-              <th>Gosa / አይነት</th>
-              <th>Madda / ምንጭ</th>
-              <th>Maqaa Kaffalaa/Fudhataa</th>
-              <th>Gaafatamaa / ኃላፊ</th>
-              <th>Hamma / መጠን</th>
-              <th>Karaa Itti Kaffalame</th>
-              <th>Nagahee / رسید</th>
-              <th>Ibsa / ማብራሪያ</th>
-              <th>Gocha</th>
-            </tr>
-          </thead>
-          <tbody>`;
-
-        for (let item of data) {
-          let amount = Number(item.amount) || 0;
+        data.forEach((item) => {
+          const amt = parseFloat(item.amount) || 0;
           if (item.type === "income") {
-            totalIncome += amount;
-          } else {
-            totalExpense += amount;
+            totalIncome += amt;
+          } else if (item.type === "expense") {
+            totalExpense += amt;
           }
+        });
 
-          let badgeClass =
-            item.type === "income" ? "badge-income" : "badge-expense";
-          let typeText = item.type === "income" ? "Galii / ገቢ" : "Baasii / ወጪ";
+        const net = totalIncome - totalExpense;
 
-          // Nagahee (Receipt) Link gochuuf (Supabase Bucket URL kan kee bakka 'receipts' jedhutti jijjiiri yoo barbaachise)
-          let receiptDisplay = "Hin qabu";
-          if (item.receipt && item.receipt !== "-") {
-            const publicUrl = `https://yjkgipivctdhezwvfwjx.supabase.co/storage/v1/object/public/receipts/${item.receipt}`;
-            receiptDisplay = `<a href="${publicUrl}" target="_blank" style="color:#0f865f; font-weight:bold; text-decoration:underline;">📄 ${item.receipt}</a>`;
-          }
-
-          html += `<tr>
-            <td>${item.date || "-"}</td>
-            <td><span class="${badgeClass}">${typeText}</span></td>
-            <td>${item.title || "-"}</td>
-            <td>${item.payer || "-"}</td>
-            <td>${item.receiver || "-"}<br><small>📞 ${item.phone || "-"}</small><br><small>(${item.role || "-"})</small></td>
-            <td style="font-weight:bold; color:${item.type === "income" ? "#0f865f" : "#d32f2f"};">${amount.toLocaleString()} ETB</td>
-            <td>${item.payment_method || "Cash / ጥሬ ገንዘብ"}</td>
-            <td>${receiptDisplay}</td>
-            <td>${item.description || "-"}</td>
-            <td><button class="btn-delete" onclick="deleteTransaction('${item.id}')">Haquu</button></td>
-          </tr>`;
-        }
-        html += `</tbody></table>`;
-        container.innerHTML = html;
-
-        let balance = totalIncome - totalExpense;
-        document.getElementById("total-income").innerText =
+        document.getElementById("totalIncomeVal").textContent =
           totalIncome.toLocaleString() + " ETB";
-        document.getElementById("total-expense").innerText =
+        document.getElementById("totalExpenseVal").textContent =
           totalExpense.toLocaleString() + " ETB";
-        document.getElementById("total-balance").innerText =
-          balance.toLocaleString() + " ETB";
+        document.getElementById("netBalanceVal").textContent =
+          net.toLocaleString() + " ETB";
       }
 
-      async function deleteTransaction(id) {
-        if (confirm("Dhugumaan galmee kana haquu barbaaddaa?")) {
-          const { error } = await _supabase
-            .from("transactions")
-            .delete()
-            .eq("id", id);
+      // Render Table Rows
+      function renderTable(data) {
+        const tbody = document.getElementById("transactionTableBody");
+        const lang = localStorage.getItem("preferredLang") || "om";
 
-          if (error) {
-            alert("Haquu irratti dogoggorri uumame: " + error.message);
-          } else {
-            alert("Galmi kun milkaa'inaan haqame!");
-            fetchAdminTransactions();
-          }
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Odeeffannoon hin argamne.</td></tr>`;
+          return;
         }
+
+        tbody.innerHTML = "";
+        data.forEach((item) => {
+          const isIncome = item.type === "income";
+          const badgeClass = isIncome ? "badge-income" : "badge-expense";
+          const typeText = isIncome
+            ? translations[lang].badge_income
+            : translations[lang].badge_expense;
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${item.date || "-"}</td>
+            <td><span class="badge ${badgeClass}">${typeText}</span></td>
+            <td style="font-weight: 600;">${item.title || "-"}</td>
+            <td>${item.payer || "-"}</td>
+            <td style="font-weight: 700; color: ${isIncome ? "#059669" : "#dc2626"};">${parseFloat(item.amount || 0).toLocaleString()} ETB</td>
+            <td>${item.payment_method || "-"}</td>
+            <td>${item.receiver || "-"}</td>
+          `;
+          tbody.appendChild(tr);
+        });
       }
 
+      // Filter functionality
+      function filterTable() {
+        const searchVal = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const typeVal = document.getElementById("typeFilter").value;
+
+        const filtered = allTransactions.filter((item) => {
+          const matchesSearch =
+            (item.title && item.title.toLowerCase().includes(searchVal)) ||
+            (item.payer && item.payer.toLowerCase().includes(searchVal)) ||
+            (item.receiver && item.receiver.toLowerCase().includes(searchVal));
+          const matchesType = typeVal === "" || item.type === typeVal;
+
+          return matchesSearch && matchesType;
+        });
+
+        renderTable(filtered);
+      }
+
+      // Initialize on load
       window.addEventListener("DOMContentLoaded", () => {
-        // Hamburger Menu Toggle Logic
+        const savedLang = localStorage.getItem("preferredLang") || "om";
+        setLanguage(savedLang);
+        loadTransactions();
+
+        // Mobile menu toggle logic
         const mobileMenu = document.getElementById("mobile-menu");
         const navList = document.getElementById("nav-list");
-
         if (mobileMenu && navList) {
-          mobileMenu.addEventListener("click", (e) => {
-            e.stopPropagation();
-            navList.classList.toggle("active");
-          });
-
-          document.addEventListener("click", (e) => {
-            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
-              navList.classList.remove("active");
-            }
+          mobileMenu.addEventListener("click", () => {
+            navList.classList.toggle("show-menu");
           });
         }
-
-        // Language Switcher Logic
-        const langSelect = document.getElementById("langSelect");
-        const savedLang = localStorage.getItem("preferredLang") || "om";
-
-        if (langSelect) {
-          langSelect.value = savedLang;
-          langSelect.addEventListener("change", (e) => {
-            const lang = e.target.value;
-            localStorage.setItem("preferredLang", lang);
-            setLanguage(lang);
-          });
-        }
-
-        setLanguage(savedLang);
       });
     </script>
   </body>

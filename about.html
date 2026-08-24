@@ -3,18 +3,100 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Waa'ee Masjiidichaa - Masjiida Huzeeyfaa Ibnul Yamanii</title>
+    <title data-i18n="about_title">
+      Waa'ee Masjiidichaa - Masjiida Huzeeyfaa Ibnul Yamanii
+    </title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
+      /* Dark Overlay gara 0.25tti gad buusuu fi background styling */
+      body {
+        background-color: #1a1c23 !important;
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+          url("masjid-bg.jpg") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-attachment: fixed !important;
+        color: #e2e8f0 !important;
+        font-family: inherit;
+        margin: 0;
+      }
+
+      .about-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 24px;
+      }
+
+      .about-hero-card {
+        background: #1e2230;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 30px;
+      }
+
+      /* Mataduree (Heading) Center godhuu */
+      .about-hero-card > div:first-child {
+        padding: 40px 40px 10px 40px;
+        text-align: center !important;
+      }
+
+      .about-hero-card h1 {
+        color: #ffffff;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        text-align: center !important;
+      }
+
+      .about-content-body {
+        padding: 20px 40px 40px 40px;
+      }
+
+      .about-content-body p {
+        color: #94a3b8;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .feature-box {
+        background: #161922;
+        padding: 24px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .feature-box h3 {
+        margin-top: 0;
+        color: #ffffff;
+        font-size: 1.1rem;
+      }
+
+      .feature-box p {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+        color: #94a3b8;
+      }
+
       header {
+        background-color: #161922;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         position: relative;
-        background: #004d40;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 30px;
-        color: white;
+        padding: 12px 24px;
       }
 
       .header-left {
@@ -23,77 +105,73 @@
         gap: 15px;
       }
 
+      /* Mallattoon Hamburger yeroo hunda akka mul'atu gochuu */
       .menu-toggle {
-        display: flex;
-        cursor: pointer;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        padding: 5px;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 28px !important;
+        height: 20px !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        padding: 0 !important;
+        z-index: 1001 !important;
       }
 
       .menu-toggle .bar {
-        width: 28px;
-        height: 3px;
-        background-color: #ffffff;
-        transition: 0.3s ease;
-        border-radius: 2px;
+        display: block !important;
+        width: 100% !important;
+        height: 3px !important;
+        background-color: #ffffff !important;
+        border-radius: 2px !important;
       }
 
-      .logo {
-        font-weight: bold;
-        font-size: 1.15rem;
+      /* Liinkwwan Header hundi Hamburger keessatti dhokfaman (Yeroo click godhamu qofa ba'an) */
+      nav .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #161922;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        padding: 15px 0;
+        margin: 0;
+        list-style: none;
+        z-index: 1000;
       }
 
-      .lang-switcher select {
-        background: #00332c;
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 6px 10px;
-        border-radius: 4px;
-        cursor: pointer;
+      nav .nav-list.show-menu {
+        display: flex !important;
       }
 
-      @media (max-width: 992px) {
-        .nav-list {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          background: #004d40;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          padding: 15px 0;
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          z-index: 1000;
-        }
+      nav .nav-list li {
+        width: 100%;
+        text-align: center;
+        padding: 8px 0;
+      }
 
-        .nav-list.show-menu {
-          display: flex !important;
-        }
+      /* Halluu Adii fi Bold liinkwwan header-ichaaf */
+      nav .nav-list li a {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        text-decoration: none;
+        display: block;
+        padding: 6px 20px;
+        font-size: 1.05rem;
+      }
 
-        .nav-list li {
-          text-align: center;
-          padding: 12px 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-list li:last-child {
-          border-bottom: none;
-        }
-
-        .nav-list li a {
-          font-size: 1.1rem;
-          display: block;
-          color: #ffffff;
-          text-decoration: none;
-        }
+      nav .nav-list li a:hover,
+      nav .nav-list li a.active {
+        color: #38bdf8 !important;
       }
     </style>
   </head>
   <body>
+    <!-- Header & Navigation Bar -->
     <header>
       <div class="header-left">
         <button
@@ -106,12 +184,33 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
+        <a
+          href="index.html"
+          class="logo-area"
+          style="
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <span>🕌</span>
+          <span
+            class="logo"
+            data-i18n="logo_text"
+            style="color: #ffffff; font-weight: 700"
+            >Masjiida Huzeeyfaa</span
+          >
+        </a>
       </div>
 
       <nav>
         <ul class="nav-list" id="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
-          <li><a href="about.html" data-i18n="about">About</a></li>
+          <li>
+            <a href="about.html" class="active" data-i18n="about">About</a>
+          </li>
           <li><a href="donation.html" data-i18n="donation">Donation</a></li>
           <li>
             <a href="leadership.html" data-i18n="leadership">Leadership</a>
@@ -125,52 +224,247 @@
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
-          <li><a href="finance.html" data-i18n="finance">finance</a></li>
-          <li>
-            <a href="admin-finance.html" data-i18n="admin-finance"
-              >admin-finance</a
-            >
-          </li>
-          <li><a href="admin.html">----</a></li>
+          <li><a href="finance.html" data-i18n="finance">Finance</a></li>
+          <li><a href="admin-finance.html" data-i18n="nav_admin">Admin</a></li>
         </ul>
       </nav>
 
       <div class="lang-switcher">
         <select id="langSelect">
-          <option value="om">A/Oromoo</option>
+          <option value="om">Afaan Oromoo</option>
           <option value="am">አማርኛ</option>
           <option value="en">English</option>
           <option value="ar">العربية</option>
+          <option value="so">Soomaali</option>
         </select>
       </div>
     </header>
 
-    <main style="padding: 30px">
-      <div class="hero-card">
-        <h1 data-i18n="about_page_title">
-          Waa'ee Masjiida Huzeeyfaa Ibnul Yamanii
-        </h1>
-        <p
-          data-i18n="about_page_desc"
-          style="margin-top: 15px; line-height: 1.6"
-        >
-          Masjiidni Huzeeyfaa Ibnul Yamanii hawaasa naannichaaf tajaajila
-          amantii, barnoota Islaamaa, fi hojii tola ooltummaa kennuuf kan
-          hundaa'edha. Ergamaan masjiidichaa hawaasa walitti dhiyeessuu, wal
-          gargaarsaa fi beekumsa amantii babal'isuudha.
-        </p>
+    <main class="about-container">
+      <div class="about-hero-card">
+        <div>
+          <h1 data-i18n="about_page_title">
+            Waa'ee Masjiida Huzeeyfaa Ibnul Yamanii
+          </h1>
+        </div>
+        <div class="about-content-body">
+          <p data-i18n="about_page_desc">
+            Masjiidni Huzeeyfaa Ibnul Yamanii hawaasa naannichaaf tajaajila
+            amantii, barnoota Islaamaa, fi hojii tola ooltummaa kennuuf kan
+            hundaa'edha. Ergamaan masjiidichaa hawaasa walitti dhiyeessuu, wal
+            gargaarsaa fi beekumsa amantii babal'isuudha.
+          </p>
+
+          <div class="features-grid">
+            <div class="feature-box">
+              <h3 data-i18n="feat_1_title">📖 Barnoota Amantii</h3>
+              <p data-i18n="feat_1_desc">
+                Qur'aana Qulqulluu fi Hadiisa Sirrii barsiisuuf madrasaa fi
+                dareewwan qopheessa.
+              </p>
+            </div>
+            <div class="feature-box">
+              <h3 data-i18n="feat_2_title">🤝 Tajaajila Hawaasaa</h3>
+              <p data-i18n="feat_2_desc">
+                Hawaasa naannichaa gargaaruu, walitti dhiyeessuu fi deeggarsa
+                kennuu irratti ni hojjeta.
+              </p>
+            </div>
+            <div class="feature-box">
+              <h3 data-i18n="feat_3_title">📍 Bakka Argamoo</h3>
+              <p data-i18n="feat_3_desc">
+                Addis Ababa, Yeshi Debele keessatti hawaasaaf tajaajila bal'aa
+                kenna.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div id="about-container" style="margin-top: 20px"></div>
     </main>
 
     <footer>
-      <p style="text-align: center; padding: 20px">
-        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+      <p
+        style="
+          text-align: center;
+          padding: 20px;
+          color: #94a3b8;
+          font-size: 0.9rem;
+        "
+      >
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved[cite:
+        3].
       </p>
     </footer>
 
+    <!-- Translations and Hamburger Menu Logic -->
     <script>
+      const translations = {
+        om: {
+          logo_text: "Masjiida Huzeeyfaa",
+          home: "Fuula Guddichaa",
+          about: "Waa'ee Masjiidicha",
+          donation: "Deeggarsa",
+          leadership: "Hooggansa",
+          waqf: "Qabeenya Waqfii",
+          development: "Misooma",
+          charity: "Tola Ooltummaa",
+          madrasah: "Madrasaa",
+          staff: "Hojjattoota",
+          lectures: "Darsiilee",
+          news: "Odeeffannoo Haaraa",
+          finance: "Galii fi Baasii",
+          nav_admin: "Admin",
+          about_title: "Waa'ee Masjiidichaa - Masjiida Huzeeyfaa",
+          about_page_title: "Waa'ee Masjiida Huzeeyfaa Ibnul Yamanii",
+          about_page_desc:
+            "Masjiidni Huzeeyfaa Ibnul Yamanii hawaasa naannichaaf tajaajila amantii, barnoota Islaamaa, fi hojii tola ooltummaa kennuuf kan hundaa'edha. Ergamaan masjiidichaa hawaasa walitti dhiyeessuu, wal gargaarsaa fi beekumsa amantii babal'isuudha.",
+          feat_1_title: "📖 Barnoota Amantii",
+          feat_1_desc:
+            "Qur'aana Qulqulluu fi Hadiisa Sirrii barsiisuuf madrasaa fi dareewwan qopheessa.",
+          feat_2_title: "🤝 Tajaajila Hawaasaa",
+          feat_2_desc:
+            "Hawaasa naannichaa gargaaruu, walitti dhiyeessuu fi deeggarsa kennuu irratti ni hojjeta.",
+          feat_3_title: "📍 Bakka Argamoo",
+          feat_3_desc:
+            "Addis Ababa, Yeshi Debele keessatti hawaasaaf tajaajila bal'aa kenna.",
+        },
+        am: {
+          logo_text: "ሁዘይፋ መስጊድ",
+          home: "ዋና ገጽ",
+          about: "ስለ እኛ",
+          donation: "ልገሳ",
+          leadership: "አስተዳደር",
+          waqf: "የወቅፍ ንብረት",
+          development: "ልማት",
+          charity: "በጎ አድራጎት",
+          madrasah: "መድረሳ",
+          staff: "ሰራተኞች",
+          lectures: "ደርሶች",
+          news: "ዜና",
+          finance: "ገቢ እና ወጪ",
+          nav_admin: "አድሚን",
+          about_title: "ስለ መስጊዱ - ሁዘይፋ መስጊድ",
+          about_page_title: "ስለ ሁዘይፋ ኢብኑል የማኒ መስጊድ",
+          about_page_desc:
+            "የሁዘይፋ ኢብኑል የማኒ መስጊድ ለአካባቢው ማህበረሰብ የሃይማኖት አገልግሎት፣ የእስልምና ትምህርት እና የበጎ አድራጎት ስራዎችን ለመስጠት የተቋቋመ ነው።",
+          feat_1_title: "📖 የሃይማኖት ትምህርት",
+          feat_1_desc:
+            "ቅዱስ ቁርአንን እና ትክክለኛ ሀዲሶችን ለማስተማር መድረሳዎችን እና የትምህርት ክፍሎችን ያዘጋጃል።",
+          feat_2_title: "🤝 ማህበራዊ አገልግሎት",
+          feat_2_desc: "የአካባቢውን ማህበረሰብ በመርዳት፣ በማቀራረብ እና ድጋፍ በማድረግ ላይ ይሰራል።",
+          feat_3_title: "📍 የሚገኝበት ቦታ",
+          feat_3_desc: "በአዲስ አበባ፣ ሺ ደበሌ አካባቢ ለህብረተሰቡ ሰፊ አገልግሎት ይሰጣል።",
+        },
+        en: {
+          logo_text: "Huzaifa Mosque",
+          home: "Home",
+          about: "About",
+          donation: "Donation",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          finance: "Finance",
+          nav_admin: "Admin",
+          about_title: "About Us - Huzaifa Mosque",
+          about_page_title: "About Huzaifa Ibn al-Yaman Mosque",
+          about_page_desc:
+            "Huzaifa Ibn al-Yaman Mosque was established to provide religious services, Islamic education, and charitable activities to the local community.",
+          feat_1_title: "📖 Islamic Education",
+          feat_1_desc:
+            "Provides madrasahs and classes to teach the Holy Qur'an and authentic Hadith.",
+          feat_2_title: "🤝 Social Services",
+          feat_2_desc:
+            "Works on supporting, bringing together, and assisting the local community.",
+          feat_3_title: "📍 Location",
+          feat_3_desc:
+            "Providing broad services to the community in Yeshi Debele, Addis Ababa.",
+        },
+        ar: {
+          logo_text: "مسجد حذيفة",
+          home: "الرئيسية",
+          about: "من نحن",
+          donation: "التبرعات",
+          leadership: "القيادة",
+          waqf: "الوقف",
+          development: "التطوير",
+          charity: "العمل الخيري",
+          madrasah: "المدرسة",
+          staff: "الموظفون",
+          lectures: "المحاضرات",
+          news: "الأخبار",
+          finance: "المالية",
+          nav_admin: "المدير",
+          about_title: "عن المسجد - مسجد حذيفة",
+          about_page_title: "عن مسجد حذيفة بن اليمان",
+          about_page_desc:
+            "تأسس مسجد حذيفة بن اليمان لتقديم الخدمات الدينية والتعليم الإسلامي والأنشطة الخيرية للمجتمع المحلي.",
+          feat_1_title: "📖 التعليم الإسلامي",
+          feat_1_desc:
+            "يقدم المدارس والفصول لتعليم القرآن الكريم والأحاديث الصحيحة.",
+          feat_2_title: "🤝 الخدمات الاجتماعية",
+          feat_2_desc: "يعمل على دعم وتقارب ومساعدة المجتمع المحلي.",
+          feat_3_title: "📍 الموقع",
+          feat_3_desc:
+            "يقدم خدمات واسعة للمجتمع في منطقة شي ديبلي، أديس أبابا.",
+        },
+        so: {
+          logo_text: "Masaajidka Xudeyfa",
+          home: "Bogga Hore",
+          about: "Nagu Saabsan",
+          donation: "Tabarucaadka",
+          leadership: "Hogaaminta",
+          waqf: "Waqfiga",
+          development: "Horumarinta",
+          charity: "Sadaqada",
+          madrasah: "Madrasada",
+          staff: "Shaqaalaha",
+          lectures: "Muxaadarooyinka",
+          news: "Wararka",
+          finance: "Maaliyadda",
+          nav_admin: "Maamulka",
+          about_title: "Nagu Saabsan - Masaajidka Xudeyfa",
+          about_page_title: "Ku Saabsan Masaajidka Xudeyfa Ibnul Yamanii",
+          about_page_desc:
+            "Masaajidka Xudeyfa Ibnul Yamanii waxaa loo asaasay inuu bixiyo adeegyada diiniga ah, waxbarashada Islaamiga ah, iyo howlaha samafalka.",
+          feat_1_title: "📖 Waxbarashada Diiniga ah",
+          feat_1_desc:
+            "Waxay bixisaa madarasado iyo fasallo lagu barto Qur'aanka kariimka ah.",
+          feat_2_title: "🤝 Adeegyada Bulshada",
+          feat_2_desc:
+            "Waxay ka shaqaysaa taageeridda iyo isu-keenidda bulshada deegaanka.",
+          feat_3_title: "📍 Goobta",
+          feat_3_desc:
+            "Waxay adeeg ballaadhan u haysaa bulshada ku nool Yeshi Debele, Addis Ababa.",
+        },
+      };
+
+      function setLanguage(lang) {
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+          }
+        });
+        document.body.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+        const langSelect = document.getElementById("langSelect");
+        if (langSelect) langSelect.value = lang;
+        localStorage.setItem("preferredLang", lang);
+      }
+
+      document.getElementById("langSelect").addEventListener("change", (e) => {
+        setLanguage(e.target.value);
+      });
+
+      // Hamburger Menu Toggle Logic
       document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("preferredLang") || "om";
+        setLanguage(savedLang);
+
         const mobileMenu = document.getElementById("mobile-menu");
         const navList = document.getElementById("nav-list");
 
@@ -188,6 +482,5 @@
         }
       });
     </script>
-    <script src="script.js"></script>
   </body>
 </html>

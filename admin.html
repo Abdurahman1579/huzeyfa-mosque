@@ -7,6 +7,32 @@
     <link rel="stylesheet" href="style.css" />
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      // Supabase Client Initialization wajjin Safe Check
+      const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+
+      let supabase;
+      try {
+        if (
+          window.supabase &&
+          typeof window.supabase.createClient === "function"
+        ) {
+          supabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY,
+          );
+        } else if (
+          typeof supabasejs !== "undefined" &&
+          typeof supabasejs.createClient === "function"
+        ) {
+          supabase = supabasejs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+      } catch (err) {
+        console.error("Supabase initialization error:", err);
+      }
+    </script>
     <style>
       /* General Styles & Reset */
       html,
@@ -80,7 +106,6 @@
         gap: 15px;
       }
 
-      /* Admin Panel maqaa gara mirgaatti fiduuf */
       .logo {
         font-weight: bold;
         color: #ffffff;
@@ -106,7 +131,6 @@
         border-radius: 2px;
       }
 
-      /* Nav list akka yeroo hunda dhokate, hamburger yeroo tuqamu qofa banamu godhuuf */
       .nav-list {
         display: none;
         flex-direction: column;
@@ -149,7 +173,6 @@
         color: #a7f3d0;
       }
 
-      /* Password Modal Styles */
       #auth-modal {
         position: fixed;
         top: 0;
@@ -228,7 +251,6 @@
         </button>
       </div>
 
-      <!-- Navigation Links -->
       <nav>
         <ul class="nav-list" id="nav-list">
           <li><a href="index.html" data-i18n="home">Home</a></li>
@@ -284,6 +306,9 @@
           <option value="madrasah">Madrasaa / መድረሳ</option>
           <option value="waqf">Qabeenya Waqfii / የወቅፍ ንብረት</option>
           <option value="about">Waa'ee Masjiidichaa / ስለ መስጂዱ</option>
+          <option value="site_settings">
+            ⚙️ Settings (Suuraa Masjiidaa & Khatibaa)
+          </option>
         </select>
       </div>
 
@@ -291,27 +316,31 @@
         id="adminForm"
         style="display: flex; flex-direction: column; gap: 10px"
       >
-        <div class="lang-group">
-          <label>Mata-duree / ርዕስ</label>
-          <input
-            type="text"
-            id="postTitle"
-            class="input-box"
-            placeholder="Fkn: Barumsa Amantii / የሃይማኖት ትምህርት"
-          />
-        </div>
+        <!-- General Posts Fields -->
+        <div id="generalPostFields">
+          <div class="lang-group">
+            <label>Mata-duree / ርዕስ</label>
+            <input
+              type="text"
+              id="postTitle"
+              class="input-box"
+              placeholder="Fkn: Barumsa Amantii / የሃይማኖት ትምህርት"
+            />
+          </div>
 
-        <div class="lang-group">
-          <label>Qabiyyee(Ibsa) ይዘት/ማብራሪያ</label>
-          <textarea
-            id="postContent"
-            rows="5"
-            class="input-box"
-            placeholder="Ibsa bal'aa Afaan Oromootiin fi አማርኛ akka barbaadetti barreessi..."
-          ></textarea>
+          <div class="lang-group">
+            <label>Qabiyyee(Ibsa) ይዘት/ማብራሪያ</label>
+            <textarea
+              id="postContent"
+              rows="5"
+              class="input-box"
+              placeholder="Ibsa bal'aa Afaan Oromootiin fi አማርኛ akka barbaadetti barreessi..."
+            ></textarea>
+          </div>
         </div>
 
         <div id="dynamicFields">
+          <!-- Staff Fields -->
           <div id="extraStaffFields" class="form-section lang-group">
             <h3>Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</h3>
             <div>
@@ -342,11 +371,40 @@
               />
             </div>
           </div>
+
+          <!-- Site Settings (Masjiida Photo & Khatib) Fields -->
+          <div id="extraSettingsFields" class="form-section lang-group">
+            <h3>Masjiidaa fi Khatibaa Jum'aa Jijjiiruu</h3>
+            <div>
+              <label>Maqaa Khatibaa Jum'aa / የጁምዓ ኸጢብ ስም:</label>
+              <input
+                type="text"
+                id="khatibName"
+                class="input-box"
+                placeholder="Fkn: Sheikh Muhammad..."
+              />
+            </div>
+            <div style="margin-top: 10px">
+              <label
+                >Ibsa Khatibaa / የኸጢብ ማብራሪያ (Fkn: የጁምዓ ኹጥባ ከቀኑ 6:30
+                ይጀምራል):</label
+              >
+              <input
+                type="text"
+                id="khatibDesc"
+                class="input-box"
+                placeholder="Yeroo Khutbaa..."
+              />
+            </div>
+          </div>
         </div>
 
         <!-- Suuraa (Image Upload) -->
         <div class="lang-group">
-          <label>Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ</label>
+          <label id="imageLabel"
+            >Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ (Suuraan Masjiidaa yoo Settings ta'e
+            jalqabaa ta'uu qaba)</label
+          >
           <input
             type="file"
             id="imageFiles"
@@ -358,7 +416,7 @@
         </div>
 
         <!-- Viidiyoo (Video Upload) -->
-        <div class="lang-group">
+        <div class="lang-group" id="videoGroup">
           <label>Viidiyoo Ol-Fe'uu / ቪዲዮ መጫኛ (Mp4, etc.)</label>
           <input
             type="file"
@@ -373,7 +431,7 @@
         </div>
 
         <!-- Sagalee (Audio Upload) -->
-        <div class="lang-group">
+        <div class="lang-group" id="audioGroup">
           <label>Sagalee (Audio) Ol-Fe'uu / የድምጽ ፋይል መጫኛ (Mp3, etc.)</label>
           <input
             type="file"
@@ -493,6 +551,12 @@
       // Form Handling Logic
       const pageSelect = document.getElementById("pageSelect");
       const extraStaffFields = document.getElementById("extraStaffFields");
+      const extraSettingsFields = document.getElementById(
+        "extraSettingsFields",
+      );
+      const generalPostFields = document.getElementById("generalPostFields");
+      const videoGroup = document.getElementById("videoGroup");
+      const audioGroup = document.getElementById("audioGroup");
       const imageFiles = document.getElementById("imageFiles");
       const imagePreview = document.getElementById("imagePreview");
       const videoFile = document.getElementById("videoFile");
@@ -500,10 +564,19 @@
 
       pageSelect.addEventListener("change", (e) => {
         const val = e.target.value;
+        extraStaffFields.classList.remove("active");
+        extraSettingsFields.classList.remove("active");
+        generalPostFields.style.display = "block";
+        videoGroup.style.display = "block";
+        audioGroup.style.display = "block";
+
         if (val === "staff" || val === "leadership") {
           extraStaffFields.classList.add("active");
-        } else {
-          extraStaffFields.classList.remove("active");
+        } else if (val === "site_settings") {
+          extraSettingsFields.classList.add("active");
+          generalPostFields.style.display = "none";
+          videoGroup.style.display = "none";
+          audioGroup.style.display = "none";
         }
       });
 
@@ -540,6 +613,15 @@
         .addEventListener("submit", async (e) => {
           e.preventDefault();
           const statusMsg = document.getElementById("statusMsg");
+
+          // Check if supabase client was initialized successfully
+          if (!supabase) {
+            statusMsg.style.color = "red";
+            statusMsg.textContent =
+              "Dogoggorri: Supabase client hin kaane (Not initialized). Madqaa internetaa kee ykn CDN ilaali.";
+            return;
+          }
+
           const category = pageSelect.value;
           const files = imageFiles.files;
           const vidFile = videoFile.files[0];
@@ -558,7 +640,7 @@
               const fileExt = file.name.split(".").pop();
               const fileName = `img_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
 
-              const { error: uploadError } = await _supabase.storage
+              const { error: uploadError } = await supabase.storage
                 .from("images")
                 .upload(fileName, file);
 
@@ -567,17 +649,17 @@
                   "Suuraa fechuun hin dandaamne: " + uploadError.message,
                 );
               } else {
-                const { data: publicUrlData } = _supabase.storage
+                const { data: publicUrlData } = supabase.storage
                   .from("images")
                   .getPublicUrl(fileName);
                 imageUrls.push(publicUrlData.publicUrl);
               }
             }
 
-            if (vidFile) {
+            if (category !== "site_settings" && vidFile) {
               const fileExt = vidFile.name.split(".").pop();
               const fileName = `vid_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
-              const { error: vidError } = await _supabase.storage
+              const { error: vidError } = await supabase.storage
                 .from("images")
                 .upload(fileName, vidFile);
 
@@ -586,17 +668,17 @@
                   "Viidiyoo fechuun hin dandaamne: " + vidError.message,
                 );
               } else {
-                const { data: publicUrlData } = _supabase.storage
+                const { data: publicUrlData } = supabase.storage
                   .from("images")
                   .getPublicUrl(fileName);
                 videoUrl = publicUrlData.publicUrl;
               }
             }
 
-            if (audFile) {
+            if (category !== "site_settings" && audFile) {
               const fileExt = audFile.name.split(".").pop();
               const fileName = `aud_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
-              const { error: audError } = await _supabase.storage
+              const { error: audError } = await supabase.storage
                 .from("images")
                 .upload(fileName, audFile);
 
@@ -605,7 +687,7 @@
                   "Sagalee fechuun hin dandaamne: " + audError.message,
                 );
               } else {
-                const { data: publicUrlData } = _supabase.storage
+                const { data: publicUrlData } = supabase.storage
                   .from("images")
                   .getPublicUrl(fileName);
                 audioUrl = publicUrlData.publicUrl;
@@ -613,22 +695,44 @@
             }
 
             const image_url = imageUrls.length > 0 ? imageUrls[0] : "";
-            const title = document.getElementById("postTitle").value.trim();
-            const content = document.getElementById("postContent").value.trim();
 
-            if (category === "staff") {
+            if (category === "site_settings") {
+              const khatib_name = document
+                .getElementById("khatibName")
+                .value.trim();
+              const khutba_time = document
+                .getElementById("khatibDesc")
+                .value.trim();
+
+              const updateData = {};
+              if (khatib_name) updateData.khatib_name = khatib_name;
+              if (khutba_time) updateData.khutba_time = khutba_time;
+              if (image_url) updateData.mosque_image_url = image_url;
+
+              const { error } = await supabase
+                .from("site_settings")
+                .update(updateData)
+                .eq("id", 1);
+
+              if (error) throw error;
+            } else if (category === "staff") {
               const name = document.getElementById("staffName").value.trim();
               const position = document
                 .getElementById("staffPosition")
                 .value.trim();
               const phone = document.getElementById("staffPhone").value.trim();
 
-              const { error } = await _supabase
+              const { error } = await supabase
                 .from("staff")
                 .insert([{ name, position, phone, image_url }]);
               if (error) throw error;
             } else {
-              const { error } = await _supabase.from("posts").insert([
+              const title = document.getElementById("postTitle").value.trim();
+              const content = document
+                .getElementById("postContent")
+                .value.trim();
+
+              const { error } = await supabase.from("posts").insert([
                 {
                   category,
                   title,
@@ -648,6 +752,10 @@
             document.getElementById("videoStatus").textContent = "";
             document.getElementById("audioStatus").textContent = "";
             extraStaffFields.classList.remove("active");
+            extraSettingsFields.classList.remove("active");
+            generalPostFields.style.display = "block";
+            videoGroup.style.display = "block";
+            audioGroup.style.display = "block";
           } catch (err) {
             console.error("Catch error:", err);
             statusMsg.style.color = "red";
