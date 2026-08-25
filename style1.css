@@ -1,0 +1,265 @@
+/* --- 1. General Reset & Base Styles --- */
+html, body {
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111827 !important;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("masjid-bg.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  color: #f8fafc !important;
+  padding-top: 75px;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/* --- 2. Fixed Header & Navigation Bar --- */
+header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  color: white;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo, .logo-container, .logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* --- 3. Hamburger Menu & Navigation List --- */
+.menu-toggle {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  gap: 5px;
+  padding: 5px;
+  z-index: 1001 !important;
+}
+
+.menu-toggle .bar {
+  width: 28px;
+  height: 3px;
+  background-color: #ffffff !important;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+nav .nav-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto !important;
+  background: rgba(15, 23, 42, 0.98);
+  flex-direction: column;
+  padding: 15px 0;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+}
+
+nav .nav-list.show-menu,
+nav .nav-list.active {
+  display: flex !important;
+}
+
+nav .nav-list li {
+  width: 100%;
+  text-align: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+nav .nav-list li:last-child {
+  border-bottom: none;
+}
+
+nav .nav-list li a {
+  display: block;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-decoration: none;
+  font-size: 1.05rem;
+  padding: 6px 20px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+nav .nav-list li a:hover,
+nav .nav-list li a.active {
+  color: #38bdf8 !important;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* --- 4. Language Switcher --- */
+.lang-switcher select,
+.language-selector {
+  background: rgba(15, 23, 42, 0.8);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+}
+
+/* --- 5. Common Cards & Hover Effects --- */
+.hover-card, .notice-box, .action-card, .feature-box {
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+}
+
+.hover-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+}
+
+/* --- 6. Mobile Responsive Media Queries --- */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 15px !important;
+  }
+  
+  main {
+    width: 90% !important;
+    padding: 15px !important;
+    margin: 90px auto 30px auto !important;
+  }
+}
+
+
+
+/* --- HEADER DARK MODE & ALIGNMENT FIX --- */
+header {
+  background-color: #1f2937 !important;
+  color: #ffffff !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+header .logo,
+header span {
+  color: #ffffff !important;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Language Switcher Styling inside Header */
+.lang-switcher select {
+  background: #374151 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: var(--radius-md, 8px);
+  font-size: 0.9rem;
+}
+
+/* --- MOBILE MENU STYLING (HAMBURGER) --- */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px;
+}
+.menu-toggle .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+@media screen and (max-width: 968px) {
+  .menu-toggle {
+    display: flex; /* Bilbila irratti akka mul'atu godha */
+  }
+  nav .nav-list {
+    display: none; /* Jalqaba irratti dhoksaa, hanga tuqamutti */
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #1f2937;
+    padding: 20px 0;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+  }
+  nav .nav-list.show-menu {
+    display: flex; /* Yeroo hamburger tuqamu banama */
+  }
+  nav .nav-list li {
+    text-align: center;
+    padding: 10px 0;
+  }
+  nav .nav-list li a {
+    color: #ffffff !important;
+  }
+}

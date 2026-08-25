@@ -4,85 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tola Ooltummaa - Masjiida Huzeeyfaa Ibnul Yamanii</title>
-    <link rel="stylesheet" href="style.css" />
+    <!-- Faayilii CSS alaa qabate -->
+    <link rel="stylesheet" href="style1.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-      header {
-        position: relative;
-        background: #004d40;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 30px;
-        color: white;
-      }
-
-      .header-left {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .menu-toggle {
-        display: flex;
-        cursor: pointer;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        padding: 5px;
-      }
-
-      .menu-toggle .bar {
-        width: 28px;
-        height: 3px;
-        background-color: #ffffff;
-        transition: 0.3s ease;
-        border-radius: 2px;
-      }
-
-      .logo {
-        font-weight: bold;
-        font-size: 1.15rem;
-      }
-
-      @media (max-width: 992px) {
-        .nav-list {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          background: #004d40;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          padding: 15px 0;
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          z-index: 1000;
-        }
-
-        .nav-list.show-menu {
-          display: flex !important;
-        }
-
-        .nav-list li {
-          text-align: center;
-          padding: 12px 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-list li:last-child {
-          border-bottom: none;
-        }
-
-        .nav-list li a {
-          font-size: 1.1rem;
-          display: block;
-          color: #ffffff;
-          text-decoration: none;
-        }
-      }
-    </style>
   </head>
   <body>
     <header>
@@ -97,6 +21,19 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
+        <a
+          href="index.html"
+          class="logo-area"
+          style="
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          <span>🕌</span>
+          <span class="logo">Masjiida Huzeeyfaa</span>
+        </a>
       </div>
 
       <nav>
@@ -111,13 +48,17 @@
           <li>
             <a href="development.html" data-i18n="development">Development</a>
           </li>
-          <li><a href="charity.html" data-i18n="charity">Charity</a></li>
+          <li>
+            <a href="charity.html" class="active" data-i18n="charity"
+              >Charity</a
+            >
+          </li>
           <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
           <li><a href="finance.html" data-i18n="finance">finance</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
-          <li><a href="admin.html">----</a></li>
+          <li><a href="admin.html">Admin</a></li>
         </ul>
       </nav>
 
@@ -132,11 +73,24 @@
     </header>
 
     <main style="padding: 30px">
-      <div class="hero-card">
-        <h1 data-i18n="charity_page_title">Hojii Tola Ooltummaa (Sadaqaa)</h1>
+      <div
+        class="hero-card"
+        style="
+          background: #1f2937;
+          padding: 30px;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        "
+      >
+        <h1
+          data-i18n="charity_page_title"
+          style="color: #ffffff; margin-top: 0"
+        >
+          Hojii Tola Ooltummaa (Sadaqaa)
+        </h1>
         <p
           data-i18n="charity_page_desc"
-          style="margin-top: 15px; line-height: 1.6"
+          style="margin-top: 15px; line-height: 1.6; color: #94a3b8"
         >
           Sagantaan tola ooltummaa masjiidichaa karaa harka qalleeyyii,
           yatiimota fi warra rakkataniif gargaarsa itti kennamuudha.
@@ -146,7 +100,7 @@
     </main>
 
     <footer>
-      <p style="text-align: center; padding: 20px">
+      <p style="text-align: center; padding: 20px; color: #94a3b8">
         &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
       </p>
     </footer>
@@ -170,6 +124,6 @@
         }
       });
     </script>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>
