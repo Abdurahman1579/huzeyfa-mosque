@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Misooma - Masjiida Huzeeyfaa Ibnul Yamanii</title>
-    <link rel="stylesheet" href="style.css" />
+    <title data-i18n="page_title">
+      Misooma - Masjiida Huzeeyfaa Ibnul Yamanii
+    </title>
+    <link rel="stylesheet" href="style2.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
       header {
@@ -41,9 +43,45 @@
         border-radius: 2px;
       }
 
+      /* Brand (Logo icon fi Maqaa) bitaatti humbergeritti aansee akka taa'u */
+      .logo-area {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
       .logo {
-        font-weight: bold;
+        font-weight: 700;
         font-size: 1.15rem;
+        color: #ffffff;
+      }
+
+      /* Language Switcher Styling */
+      .lang-switcher select {
+        background: rgba(15, 23, 42, 0.8);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* Footer height hir'isuuf */
+      footer {
+        background: #000000;
+        color: #ffffff;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      footer p {
+        text-align: center;
+        padding: 8px 20px !important;
+        margin: 0;
+        font-size: 0.9rem;
       }
 
       @media (max-width: 992px) {
@@ -97,6 +135,10 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
+        <a href="index.html" class="logo-area">
+          <span>🕌</span>
+          <span class="logo" data-i18n="logo_text">Masjiida Huzeeyfaa</span>
+        </a>
       </div>
 
       <nav>
@@ -115,18 +157,19 @@
           <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
-          <li><a href="finance.html" data-i18n="finance">finance</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
-          <li><a href="admin.html">----</a></li>
+          <li><a href="finance.html" data-i18n="finance">Finance</a></li>
+          <li><a href="admin-finance.html" data-i18n="nav_admin">Admin</a></li>
         </ul>
       </nav>
 
       <div class="lang-switcher">
         <select id="langSelect">
-          <option value="om">A/Oromoo</option>
+          <option value="om">Afaan Oromoo</option>
           <option value="am">አማርኛ</option>
           <option value="en">English</option>
           <option value="ar">العربية</option>
+          <option value="so">Soomaali</option>
         </select>
       </div>
     </header>
@@ -149,13 +192,146 @@
     </main>
 
     <footer>
-      <p style="text-align: center; padding: 20px">
+      <p data-i18n="footer_text">
         &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
       </p>
     </footer>
 
     <script>
+      // 1. Dursee jechoota hiikaman (Translations Dictionary) qopheessuu
+      const translations = {
+        om: {
+          page_title: "Misooma - Masjiida Huzeeyfaa Ibnul Yamanii",
+          logo_text: "Masjiida Huzeeyfaa",
+          home: "Home",
+          about: "About",
+          donation: "Donation",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          finance: "Finance",
+          nav_admin: "Admin",
+          development_page_title: "Pirojektoota Misooma Masjiidichaa",
+          development_page_desc:
+            "Mali fi pirojektoonni misoomaa masjiidichaa hojjatamaa jiran, babal'ina bu'uuraalee misoomaa, haaromsa manneen sagadaa, fi tajaajila hawaasummaa fooyyessuuf kan karoorfamani dha.",
+          footer_text:
+            "© 2026 Masjiida Huzeeyfaa Ibnul Yamanii. Mirgi hundaa eegamaadha.",
+        },
+        am: {
+          page_title: "ልማት - የሁዘይፋ ቢን አል የማኒ መስጂድ",
+          logo_text: "ሁዘይፋ መስጂድ",
+          home: "መነሻ",
+          about: "ስለ እኛ",
+          donation: "እርዳታ/ሰደቃ",
+          leadership: "አመራር",
+          waqf: "ወቅፍ",
+          development: "ልማት",
+          charity: "በጎ አድራጎት",
+          madrasah: "መድረሳ",
+          staff: "ሰራተኞች",
+          lectures: "ደርሶች/ትምህርቶች",
+          news: "ዜናዎች",
+          finance: "ገንዘብ ነክ",
+          nav_admin: "አስተዳዳሪ",
+          development_page_title: "የመስጂዱ ልማት ፕሮጀክቶች",
+          development_page_desc:
+            "የመስጂዱ የልማት ፕሮጀክቶች መሠረተ ልማቶችን ለማስፋፋት፣ የሰገዳ ቦታዎችን ለማደስ እና የማህበራዊ አገልግሎቶችን ለማሻሻል የታቀዱ ናቸው።",
+          footer_text: "© 2026 የሁዘይፋ ቢን አል የማኒ መስጂድ። መብቱ በህግ የተጠበቀ ነው።",
+        },
+        en: {
+          page_title: "Development - Huzaifa Bin Al Yamani Mosque",
+          logo_text: "Huzaifa Mosque",
+          home: "Home",
+          about: "About",
+          donation: "Donation",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          finance: "Finance",
+          nav_admin: "Admin",
+          development_page_title: "Mosque Development Projects",
+          development_page_desc:
+            "The mosque's development projects are planned to expand infrastructure, renovate prayer halls, and improve social services.",
+          footer_text:
+            "© 2026 Huzaifa Bin Al Yamani Mosque. All rights reserved.",
+        },
+        ar: {
+          page_title: "التطوير - مسجد حذيفة بن اليمان",
+          logo_text: "مسجد حذيفة",
+          home: "الرئيسية",
+          about: "من نحن",
+          donation: "التبرعات",
+          leadership: "القيادة",
+          waqf: "الوقف",
+          development: "التطوير",
+          charity: "العمل الخيري",
+          madrasah: "المدرسة",
+          staff: "الموظفون",
+          lectures: "المحاضرات",
+          news: "الأخبار",
+          finance: "المالية",
+          nav_admin: "الإدارة",
+          development_page_title: "مشاريع تطوير المسجد",
+          development_page_desc:
+            "تم تخطيط مشاريع تطوير المسجد لتوسيع البنية التحتية، وتجديد مصليات، وتحسين الخدمات الاجتماعية.",
+          footer_text: "© 2026 مسجد حذيفة بن اليمان. جميع الحقوق محفوظة.",
+        },
+        so: {
+          page_title: "Horumarinta - Masjidka Huudaifa Bin Al Yamani",
+          logo_text: "Masjidka Huudaifa",
+          home: "Bogga Hore",
+          about: "Nagu Saabsan",
+          donation: "Tabaruca",
+          leadership: "Hogaanka",
+          waqf: "Wqaf",
+          development: "Horumarinta",
+          charity: "Sadaqada",
+          madrasah: "Madrasada",
+          staff: "Shaqaalaha",
+          lectures: "Muxaadarooyinka",
+          news: "Wararka",
+          finance: "Maaliyadda",
+          nav_admin: "Maamulka",
+          development_page_title: "Mashaariicda Horumarinta Masjidka",
+          development_page_desc:
+            "Mashaariicda horumarinta masjidka waxaa loo qorsheeyay in lagu ballaariyo kaabayaasha, lagu cusboonaysiiyo goobaha cibaadada, loona hagaajiyo adeegyada bulshada.",
+          footer_text:
+            "© 2026 Masjidka Huudaifa Bin Al Yamani. Xuquuqda oo dhan waa la dhowray.",
+        },
+      };
+
+      // 2. Faankishinii afaan jijjiiru (Change Language Function)
+      function changeLanguage(lang) {
+        if (!translations[lang]) return;
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          const key = element.getAttribute("data-i18n");
+          if (translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
+
+        // Direction (dir) fi lang HTML document-ichaa jijjiiruu (Fkn: Arabiffaaf RTL godhuuf)
+        if (lang === "ar") {
+          document.documentElement.setAttribute("dir", "rtl");
+        } else {
+          document.documentElement.setAttribute("dir", "ltr");
+        }
+        document.documentElement.setAttribute("lang", lang);
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
+        // Mobile menu toggle
         const mobileMenu = document.getElementById("mobile-menu");
         const navList = document.getElementById("nav-list");
 
@@ -169,6 +345,21 @@
             if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
               navList.classList.remove("show-menu");
             }
+          });
+        }
+
+        // Language Switcher Logic
+        const langSelect = document.getElementById("langSelect");
+        if (langSelect) {
+          // Afaan duraan filatame (Saved language) deebisee fiduu
+          const savedLang = localStorage.getItem("preferred_language") || "om";
+          langSelect.value = savedLang;
+          changeLanguage(savedLang);
+
+          langSelect.addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            localStorage.setItem("preferred_language", selectedLang);
+            changeLanguage(selectedLang);
           });
         }
       });
