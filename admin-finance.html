@@ -7,6 +7,7 @@
       Bulchiinsa Galii fi Baasii - Masjiida Huzeeyfaa
     </title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style1.css" />
     <style>
       .admin-container {
         max-width: 1200px;
@@ -14,11 +15,11 @@
         padding: 0 20px;
       }
       .admin-header-card {
-        background: var(--bg-card);
+        background: #1f2937 !important;
         border-radius: var(--radius-xl);
         padding: 30px;
         box-shadow: var(--shadow-subtle);
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 25px;
         display: flex;
         justify-content: space-between;
@@ -33,35 +34,35 @@
         margin-bottom: 30px;
       }
       .stat-card {
-        background: var(--bg-card);
+        background: #1f2937 !important;
         padding: 25px;
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-subtle);
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-left: 5px solid var(--primary-green);
       }
       .stat-card h3 {
         margin: 0 0 10px 0;
         font-size: 0.9rem;
-        color: var(--text-muted);
+        color: #94a3b8 !important;
       }
       .stat-card .value {
         font-size: 1.6rem;
         font-weight: 800;
-        color: var(--text-dark);
+        color: #ffffff !important;
       }
       .table-card {
-        background: var(--bg-card);
+        background: #1f2937 !important;
         border-radius: var(--radius-xl);
         padding: 25px;
         box-shadow: var(--shadow-subtle);
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         overflow-x: auto;
       }
       .table-card h2 {
         margin-top: 0;
         font-size: 1.2rem;
-        color: var(--text-dark);
+        color: #ffffff !important;
         margin-bottom: 20px;
       }
       table {
@@ -72,16 +73,17 @@
       table th,
       table td {
         padding: 14px 16px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 0.9rem;
+        color: #f8fafc !important;
       }
       table th {
-        background-color: #f8fafc;
-        color: var(--text-dark);
+        background-color: #374151 !important;
+        color: #ffffff !important;
         font-weight: 700;
       }
       table tr:hover {
-        background-color: #f1f5f9;
+        background-color: rgba(255, 255, 255, 0.05) !important;
       }
       .badge {
         padding: 6px 12px;
@@ -108,11 +110,14 @@
       .filter-bar input,
       .filter-bar select {
         padding: 10px 14px;
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: var(--radius-md);
         font-size: 0.9rem;
-        background: var(--bg-card);
-        color: var(--text-dark);
+        background: #1f2937 !important;
+        color: #ffffff !important;
+      }
+      .filter-bar input::placeholder {
+        color: #94a3b8 !important;
       }
       .btn-action {
         padding: 10px 18px;
@@ -130,7 +135,7 @@
     </style>
   </head>
   <body>
-    <!-- Header & Navigation Bar (Faayiloota Hunda Walin Walitti Hidhame) -->
+    <!-- Header & Navigation Bar -->
     <header>
       <div class="header-left">
         <button
@@ -200,7 +205,7 @@
       <div class="admin-header-card">
         <div>
           <h1
-            style="margin: 0; font-size: 1.5rem; color: var(--text-dark)"
+            style="margin: 0; font-size: 1.5rem; color: #ffffff !important"
             data-i18n="admin_dashboard_title"
           >
             Daashboordii Bulchiinsaa
@@ -208,7 +213,7 @@
           <p
             style="
               margin: 5px 0 0 0;
-              color: var(--text-muted);
+              color: #94a3b8 !important;
               font-size: 0.9rem;
             "
             data-i18n="admin_dashboard_subtitle"
@@ -229,7 +234,11 @@
       <div class="stats-grid">
         <div class="stat-card">
           <h3 data-i18n="stat_total_income">Galii Waligalaa (Total Income)</h3>
-          <div class="value" id="totalIncomeVal" style="color: #059669">
+          <div
+            class="value"
+            id="totalIncomeVal"
+            style="color: #34d399 !important"
+          >
             0.00 ETB
           </div>
         </div>
@@ -237,13 +246,21 @@
           <h3 data-i18n="stat_total_expense">
             Baasii Waligalaa (Total Expense)
           </h3>
-          <div class="value" id="totalExpenseVal" style="color: #dc2626">
+          <div
+            class="value"
+            id="totalExpenseVal"
+            style="color: #f87171 !important"
+          >
             0.00 ETB
           </div>
         </div>
         <div class="stat-card" style="border-left-color: #2563eb">
           <h3 data-i18n="stat_net_balance">Hafeera (Net Balance)</h3>
-          <div class="value" id="netBalanceVal" style="color: #2563eb">
+          <div
+            class="value"
+            id="netBalanceVal"
+            style="color: #60a5fa !important"
+          >
             0.00 ETB
           </div>
         </div>
@@ -289,7 +306,7 @@
                   colspan="7"
                   style="
                     text-align: center;
-                    color: var(--text-muted);
+                    color: #94a3b8 !important;
                     padding: 30px;
                   "
                   data-i18n="loading_data"
@@ -314,7 +331,6 @@
 
       let allTransactions = [];
 
-      // Multi-language dictionary (Afaan Oromoo, Amharic, English, Arabic)
       const translations = {
         om: {
           home: "Home",
@@ -485,11 +501,10 @@
         });
       }
 
-      // Fetch data from Supabase
       async function loadTransactions() {
         const tbody = document.getElementById("transactionTableBody");
         const lang = localStorage.getItem("preferredLang") || "om";
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">${translations[lang].loading_data}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #94a3b8 !important; padding: 30px;">${translations[lang].loading_data}</td></tr>`;
 
         const { data, error } = await _supabase
           .from("transactions")
@@ -498,7 +513,7 @@
 
         if (error) {
           console.error("Error loading transactions:", error);
-          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #dc2626; padding: 30px;">Dogoggorri uumame: ${error.message}</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #f87171 !important; padding: 30px;">Dogoggorri uumame: ${error.message}</td></tr>`;
           return;
         }
 
@@ -507,7 +522,6 @@
         renderTable(allTransactions);
       }
 
-      // Calculate totals
       function calculateStats(data) {
         let totalIncome = 0;
         let totalExpense = 0;
@@ -531,13 +545,12 @@
           net.toLocaleString() + " ETB";
       }
 
-      // Render Table Rows
       function renderTable(data) {
         const tbody = document.getElementById("transactionTableBody");
         const lang = localStorage.getItem("preferredLang") || "om";
 
         if (data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">Odeeffannoon hin argamne.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #94a3b8 !important; padding: 30px;">Odeeffannoon hin argamne.</td></tr>`;
           return;
         }
 
@@ -553,9 +566,9 @@
           tr.innerHTML = `
             <td>${item.date || "-"}</td>
             <td><span class="badge ${badgeClass}">${typeText}</span></td>
-            <td style="font-weight: 600;">${item.title || "-"}</td>
+            <td style="font-weight: 600; color: #ffffff !important;">${item.title || "-"}</td>
             <td>${item.payer || "-"}</td>
-            <td style="font-weight: 700; color: ${isIncome ? "#059669" : "#dc2626"};">${parseFloat(item.amount || 0).toLocaleString()} ETB</td>
+            <td style="font-weight: 700; color: ${isIncome ? "#34d399" : "#f87171"} !important;">${parseFloat(item.amount || 0).toLocaleString()} ETB</td>
             <td>${item.payment_method || "-"}</td>
             <td>${item.receiver || "-"}</td>
           `;
@@ -563,7 +576,6 @@
         });
       }
 
-      // Filter functionality
       function filterTable() {
         const searchVal = document
           .getElementById("searchInput")
@@ -583,13 +595,11 @@
         renderTable(filtered);
       }
 
-      // Initialize on load
       window.addEventListener("DOMContentLoaded", () => {
         const savedLang = localStorage.getItem("preferredLang") || "om";
         setLanguage(savedLang);
         loadTransactions();
 
-        // Mobile menu toggle logic
         const mobileMenu = document.getElementById("mobile-menu");
         const navList = document.getElementById("nav-list");
         if (mobileMenu && navList) {
