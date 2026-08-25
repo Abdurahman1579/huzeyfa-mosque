@@ -8,7 +8,6 @@
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-      // Function to safely get Supabase client anytime
       function getSupabaseClient() {
         const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
         const SUPABASE_ANON_KEY =
@@ -27,67 +26,32 @@
       /* General Styles & Reset */
       html,
       body {
-        direction: ltr !important;
-        text-align: left !important;
-        background-color: #f4f6f8;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         padding: 0;
-      }
-      .form-section {
-        display: none;
-      }
-      .form-section.active {
-        display: block;
-      }
-      .preview-container {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-      }
-      .preview-container img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
-      label {
-        text-align: left !important;
-        display: block;
-        font-weight: bold;
-        margin-top: 15px;
-        color: #004d40;
-      }
-      .input-box {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 1rem;
-        box-sizing: border-box;
-      }
-      .lang-group {
-        background: #f9f9f9;
-        padding: 15px;
-        border-radius: 6px;
-        border: 1px solid #ddd;
-        margin-bottom: 15px;
+        min-height: 100vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.5)),
+          url("masjid-bg.jpg") no-repeat center center fixed;
+        background-size: cover;
       }
 
-      /* Professional Matching Header Style (Dark Green) */
+      /* Fixed Header Style */
       header {
-        position: relative;
-        background: #004d40;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 30px;
+        padding: 12px 25px;
         z-index: 1000;
         color: white;
+        box-sizing: border-box;
       }
 
       .header-left {
@@ -100,7 +64,26 @@
         font-weight: bold;
         color: #ffffff;
         font-size: 1.15rem;
-        margin-left: auto;
+      }
+
+      /* Header Right: Dropdown gara xarafa mirgaatti akka fadu godhame */
+      .header-right {
+        display: flex;
+        align-items: center;
+        margin-left: auto; /* Kana dabaluun gara mirgaatti akka hirkatu godha */
+        margin-right: 20px; /* Qarqara mirgaatiin fageenya xinnoo akka qabaatu */
+      }
+
+      /* Language Dropdown Selector Styling */
+      .language-selector {
+        background: #111;
+        color: #fff;
+        border: 1px solid #555;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        outline: none;
       }
 
       .menu-toggle {
@@ -121,16 +104,19 @@
         border-radius: 2px;
       }
 
+      /* Scrollable Hamburger Menu */
       .nav-list {
         display: none;
         flex-direction: column;
         width: 100%;
-        background: #004d40;
+        background: rgba(0, 0, 0, 0.95);
         position: absolute;
         top: 100%;
         left: 0;
+        max-height: 70vh;
+        overflow-y: auto;
         padding: 15px 0;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         list-style: none;
         margin: 0;
@@ -156,11 +142,76 @@
         display: block;
         color: #ffffff;
         text-decoration: none;
-        font-weight: 500;
+        font-weight: bold;
       }
 
       .nav-list li a:hover {
         color: #a7f3d0;
+      }
+
+      /* Main Card Layout */
+      main {
+        max-width: 750px;
+        margin: 100px auto 40px auto;
+        padding: 25px;
+        background: #000000 !important;
+        color: #ffffff !important;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+      }
+
+      main h2,
+      main label,
+      main p,
+      main span,
+      main h3 {
+        color: #ffffff !important;
+        font-weight: bold !important;
+      }
+
+      .form-section {
+        display: none;
+      }
+      .form-section.active {
+        display: block;
+      }
+      .preview-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .preview-container img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-top: 15px;
+        color: #ffffff !important;
+      }
+      .input-box {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #555;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        background: #111;
+        color: #fff;
+      }
+      .lang-group {
+        background: #1a1a1a;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #444;
+        margin-bottom: 15px;
+        color: #fff;
       }
 
       #auth-modal {
@@ -169,22 +220,23 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.85);
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 9999;
       }
       .auth-box {
-        background: #fff;
+        background: #111;
+        border: 1px solid #444;
         padding: 30px;
         border-radius: 8px;
         width: 350px;
         text-align: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
       }
       .auth-box h3 {
-        color: #004d40;
+        color: #ffffff;
         margin-bottom: 15px;
       }
     </style>
@@ -193,8 +245,11 @@
     <!-- Password Login Modal -->
     <div id="auth-modal">
       <div class="auth-box">
-        <h3>Admin Login / መግቢያ</h3>
-        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px">
+        <h3 data-i18n="admin_login">Admin Login / መግቢያ</h3>
+        <p
+          style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px"
+          data-i18n="enter_password_prompt"
+        >
           Galchuuf Jecha Darbii (Password) Galchaa
         </p>
         <input
@@ -217,16 +272,18 @@
             cursor: pointer;
             margin-top: 15px;
           "
+          data-i18n="login_btn"
         >
           Seeni / ግባ
         </button>
         <p
           id="authError"
-          style="color: red; font-size: 0.85rem; margin-top: 10px"
+          style="color: #ff6b6b; font-size: 0.85rem; margin-top: 10px"
         ></p>
       </div>
     </div>
 
+    <!-- Header with Language Selector Dropdown moved to far right -->
     <header>
       <div class="header-left">
         <button
@@ -239,6 +296,22 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </button>
+        <div class="logo" data-i18n="admin_panel">Admin Panel</div>
+      </div>
+
+      <!-- Language Selector Dropdown xarafa mirgaatti fageeffame -->
+      <div class="header-right">
+        <select
+          id="languageSelect"
+          class="language-selector"
+          onchange="changeLanguage(this.value)"
+        >
+          <option value="om">Afaan Oromoo</option>
+          <option value="am">አማርኛ</option>
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="so">Soomaali</option>
+        </select>
       </div>
 
       <nav>
@@ -257,46 +330,90 @@
           <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
           <li><a href="staff.html" data-i18n="staff">Staff</a></li>
           <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
-          <li><a href="finance.html" data-i18n="finance">finance</a></li>
+          <li><a href="finance.html" data-i18n="finance">Finance</a></li>
           <li><a href="news.html" data-i18n="news">News</a></li>
         </ul>
       </nav>
-
-      <div class="logo">Admin Panel</div>
     </header>
 
-    <main
-      style="
-        max-width: 750px;
-        margin: 40px auto;
-        padding: 25px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        direction: ltr;
-      "
-    >
-      <h2 style="text-align: left">
-        Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Fuula Hojjechuu / መረጃዎችን፣
-        ፎቶዎችን፣ ቪዲዮዎችን እና ድምጾችን ማስተካከያ ገጽ
+    <main>
+      <h2 data-i18n="page_main_title">
+        Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Fuula Hojjechuu
       </h2>
 
-      <div style="margin: 20px 0; text-align: left">
-        <label for="pageSelect"
-          >Fuula Itti Fe'amu Filadhu / የሚጫንበትን ገጽ ይምረጡ:</label
+      <div style="margin: 20px 0">
+        <label for="pageSelect" data-i18n="select_page_label"
+          >Fuula Itti Fe'amu Filadhu:</label
         >
         <select id="pageSelect" class="input-box">
-          <option value="news">Odeeffannoo Haaraa / ዜና</option>
-          <option value="lectures">Darsiilee / ትምህርቶች</option>
-          <option value="staff">Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</option>
-          <option value="leadership">Hooggansa / አመራር</option>
-          <option value="development">Misooma / ልማት</option>
-          <option value="charity">Tola Ooltummaa / የበጎ አድራጎት ሥራ</option>
-          <option value="madrasah">Madrasaa / መድረሳ</option>
-          <option value="waqf">Qabeenya Waqfii / የወቅፍ ንብረት</option>
-          <option value="about">Waa'ee Masjiidichaa / ስለ መስጂዱ</option>
-          <option value="site_settings">
+          <option
+            value="news"
+            style="background: #000; color: #fff"
+            data-i18n="opt_news"
+          >
+            Odeeffannoo Haaraa
+          </option>
+          <option
+            value="lectures"
+            style="background: #000; color: #fff"
+            data-i18n="opt_lectures"
+          >
+            Darsiilee
+          </option>
+          <option
+            value="staff"
+            style="background: #000; color: #fff"
+            data-i18n="opt_staff"
+          >
+            Hojjattoota / Koreewwan
+          </option>
+          <option
+            value="leadership"
+            style="background: #000; color: #fff"
+            data-i18n="opt_leadership"
+          >
+            Hooggansa
+          </option>
+          <option
+            value="development"
+            style="background: #000; color: #fff"
+            data-i18n="opt_development"
+          >
+            Misooma
+          </option>
+          <option
+            value="charity"
+            style="background: #000; color: #fff"
+            data-i18n="opt_charity"
+          >
+            Tola Ooltummaa
+          </option>
+          <option
+            value="madrasah"
+            style="background: #000; color: #fff"
+            data-i18n="opt_madrasah"
+          >
+            Madrasaa
+          </option>
+          <option
+            value="waqf"
+            style="background: #000; color: #fff"
+            data-i18n="opt_waqf"
+          >
+            Qabeenya Waqfii
+          </option>
+          <option
+            value="about"
+            style="background: #000; color: #fff"
+            data-i18n="opt_about"
+          >
+            Waa'ee Masjiidichaa
+          </option>
+          <option
+            value="site_settings"
+            style="background: #000; color: #fff"
+            data-i18n="opt_settings"
+          >
             ⚙️ Settings (Suuraa Masjiidaa & Khatibaa)
           </option>
         </select>
@@ -309,22 +426,22 @@
         <!-- General Posts Fields -->
         <div id="generalPostFields">
           <div class="lang-group">
-            <label>Mata-duree / ርዕስ</label>
+            <label data-i18n="label_title">Mata-duree</label>
             <input
               type="text"
               id="postTitle"
               class="input-box"
-              placeholder="Fkn: Barumsa Amantii / የሃይማኖት ትምህርት"
+              placeholder="Fkn: Barumsa Amantii..."
             />
           </div>
 
           <div class="lang-group">
-            <label>Qabiyyee(Ibsa) ይዘት/ማብራሪያ</label>
+            <label data-i18n="label_content">Qabiyyee (Ibsa)</label>
             <textarea
               id="postContent"
               rows="5"
               class="input-box"
-              placeholder="Ibsa bal'aa Afaan Oromootiin fi አማርኛ akka barbaadetti barreessi..."
+              placeholder="Ibsa bal'aa barreessi..."
             ></textarea>
           </div>
         </div>
@@ -332,27 +449,31 @@
         <div id="dynamicFields">
           <!-- Staff Fields -->
           <div id="extraStaffFields" class="form-section lang-group">
-            <h3>Hojjattoota / Koreewwan / ሠራተኞች / ኮሚቴዎች</h3>
+            <h3 data-i18n="staff_section_title">Hojjattoota / Koreewwan</h3>
             <div>
-              <label>Maqaa Guutuu / ሙሉ ስም (Full Name):</label>
+              <label data-i18n="staff_name_label"
+                >Maqaa Guutuu (Full Name):</label
+              >
               <input
                 type="text"
                 id="staffName"
                 class="input-box"
-                placeholder="Maqaa Guutuu / ሙሉ ስም..."
+                placeholder="Maqaa Guutuu..."
               />
             </div>
             <div style="margin-top: 10px">
-              <label>Gahee Hojii / የሥራ መደብ</label>
+              <label data-i18n="staff_position_label">Gahee Hojii</label>
               <input
                 type="text"
                 id="staffPosition"
                 class="input-box"
-                placeholder="Fkn: Barsiisaa / አስተማሪ"
+                placeholder="Fkn: Barsiisaa"
               />
             </div>
             <div style="margin-top: 10px">
-              <label>Lakkoofsa Bilbilaa / ስልክ ቁጥር (Phone):</label>
+              <label data-i18n="staff_phone_label"
+                >Lakkoofsa Bilbilaa (Phone):</label
+              >
               <input
                 type="text"
                 id="staffPhone"
@@ -362,11 +483,15 @@
             </div>
           </div>
 
-          <!-- Site Settings (Masjiida Photo & Khatib) Fields -->
+          <!-- Site Settings Fields -->
           <div id="extraSettingsFields" class="form-section lang-group">
-            <h3>Masjiidaa fi Khatibaa Jum'aa Jijjiiruu</h3>
+            <h3 data-i18n="settings_section_title">
+              Masjiidaa fi Khatibaa Jum'aa Jijjiiruu
+            </h3>
             <div>
-              <label>Maqaa Khatibaa Jum'aa / የጁምዓ ኸጢብ ስም:</label>
+              <label data-i18n="khatib_name_label"
+                >Maqaa Khatibaa Jum'aa:</label
+              >
               <input
                 type="text"
                 id="khatibName"
@@ -375,9 +500,8 @@
               />
             </div>
             <div style="margin-top: 10px">
-              <label
-                >Ibsa Khatibaa / የኸጢብ ማብራሪያ (Fkn: የጁምዓ ኹጥባ ከቀኑ 6:30
-                ይጀምራል):</label
+              <label data-i18n="khatib_desc_label"
+                >Ibsa Khatibaa (Yeroo Khutbaa):</label
               >
               <input
                 type="text"
@@ -391,47 +515,50 @@
 
         <!-- Suuraa (Image Upload) -->
         <div class="lang-group">
-          <label id="imageLabel"
-            >Suuraalee Ol-Fe'uu / ፎቶዎችን መጫኛ (Suuraan Masjiidaa yoo Settings ta'e
-            jalqabaa ta'uu qaba)</label
+          <label id="imageLabel" data-i18n="image_upload_label"
+            >Suuraalee Ol-Fe'uu</label
           >
           <input
             type="file"
             id="imageFiles"
             multiple
             accept="image/*"
-            style="margin-top: 5px; display: block"
+            style="margin-top: 5px; display: block; color: #fff"
           />
           <div class="preview-container" id="imagePreview"></div>
         </div>
 
         <!-- Viidiyoo (Video Upload) -->
         <div class="lang-group" id="videoGroup">
-          <label>Viidiyoo Ol-Fe'uu / ቪዲዮ መጫኛ (Mp4, etc.)</label>
+          <label data-i18n="video_upload_label"
+            >Viidiyoo Ol-Fe'uu (Mp4, etc.)</label
+          >
           <input
             type="file"
             id="videoFile"
             accept="video/*"
-            style="margin-top: 5px; display: block"
+            style="margin-top: 5px; display: block; color: #fff"
           />
           <p
             id="videoStatus"
-            style="font-size: 0.85rem; color: #555; margin-top: 5px"
+            style="font-size: 0.85rem; color: #bbb; margin-top: 5px"
           ></p>
         </div>
 
         <!-- Sagalee (Audio Upload) -->
         <div class="lang-group" id="audioGroup">
-          <label>Sagalee (Audio) Ol-Fe'uu / የድምጽ ፋይል መጫኛ (Mp3, etc.)</label>
+          <label data-i18n="audio_upload_label"
+            >Sagalee (Audio) Ol-Fe'uu (Mp3, etc.)</label
+          >
           <input
             type="file"
             id="audioFile"
             accept="audio/*"
-            style="margin-top: 5px; display: block"
+            style="margin-top: 5px; display: block; color: #fff"
           />
           <p
             id="audioStatus"
-            style="font-size: 0.85rem; color: #555; margin-top: 5px"
+            style="font-size: 0.85rem; color: #bbb; margin-top: 5px"
           ></p>
         </div>
 
@@ -448,8 +575,9 @@
             font-size: 16px;
             margin-top: 15px;
           "
+          data-i18n="submit_btn"
         >
-          Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Galchi / አስገባ
+          Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Galchi
         </button>
       </form>
 
@@ -467,25 +595,308 @@
           cursor: pointer;
           margin-top: 30px;
         "
+        data-i18n="logout_btn"
       >
-        Ba'i (Logout) / ውጣ
+        Ba'i (Logout)
       </button>
 
       <p
         id="statusMsg"
-        style="margin-top: 15px; font-weight: bold; text-align: center"
+        style="
+          margin-top: 15px;
+          font-weight: bold;
+          text-align: center;
+          color: #fff;
+        "
       ></p>
     </main>
 
     <footer
-      style="direction: ltr; text-align: center; padding: 20px; color: #666"
+      style="
+        text-align: center;
+        padding: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.6);
+        margin-top: 20px;
+      "
     >
-      <p>&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.</p>
+      <p data-i18n="footer_text">
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+      </p>
     </footer>
+
+    <!-- LANGUAGE SWITCHER SCRIPT & TRANSLATIONS -->
+    <script>
+      const translations = {
+        om: {
+          admin_login: "Admin Login / መግቢያ",
+          enter_password_prompt: "Galchuuf Jecha Darbii (Password) Galchaa",
+          login_btn: "Seeni / ግባ",
+          admin_panel: "Admin Panel",
+          home: "Home",
+          about: "About",
+          donation: "Donation",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          finance: "Finance",
+          news: "News",
+          page_main_title:
+            "Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Fuula Hojjechuu",
+          select_page_label: "Fuula Itti Fe'amu Filadhu:",
+          opt_news: "Odeeffannoo Haaraa",
+          opt_lectures: "Darsiilee",
+          opt_staff: "Hojjattoota / Koreewwan",
+          opt_leadership: "Hooggansa",
+          opt_development: "Misooma",
+          opt_charity: "Tola Ooltummaa",
+          opt_madrasah: "Madrasaa",
+          opt_waqf: "Qabeenya Waqfii",
+          opt_about: "Waa'ee Masjiidichaa",
+          opt_settings: "⚙️ Settings (Suuraa Masjiidaa & Khatibaa)",
+          label_title: "Mata-duree",
+          label_content: "Qabiyyee (Ibsa)",
+          staff_section_title: "Hojjattoota / Koreewwan",
+          staff_name_label: "Maqaa Guutuu (Full Name):",
+          staff_position_label: "Gahee Hojii",
+          staff_phone_label: "Lakkoofsa Bilbilaa (Phone):",
+          settings_section_title: "Masjiidaa fi Khatibaa Jum'aa Jijjiiruu",
+          khatib_name_label: "Maqaa Khatibaa Jum'aa:",
+          khatib_desc_label: "Ibsa Khatibaa (Yeroo Khutbaa):",
+          image_upload_label: "Suuraalee Ol-Fe'uu",
+          video_upload_label: "Viidiyoo Ol-Fe'uu (Mp4, etc.)",
+          audio_upload_label: "Sagalee (Audio) Ol-Fe'uu (Mp3, etc.)",
+          submit_btn: "Odeeffannoo, Suuraa, Viidiyoo fi Sagalee Galchi",
+          logout_btn: "Ba'i (Logout)",
+          footer_text:
+            "&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. Mirgi hundaa eegamaadha.",
+        },
+        am: {
+          admin_login: "የአስተዳዳሪ መግቢያ (Admin Login)",
+          enter_password_prompt: "እባክዎ የይለፍ ቃል (Password) ያስገቡ",
+          login_btn: "ግባ",
+          admin_panel: "የአስተዳዳሪ ማዕከል",
+          home: "መነሻ",
+          about: "ስለ እኛ",
+          donation: "እርዳታ/ሰደቃ",
+          leadership: "አመራር",
+          waqf: "ወቅፍ",
+          development: "ልማት",
+          charity: "በጎ አድራጎት",
+          madrasah: "መድረሳ",
+          staff: "ሠራተኞች",
+          lectures: "ትምህርቶች",
+          finance: "ፋይናንስ",
+          news: "ዜና",
+          page_main_title: "መረጃዎችን፣ ፎቶዎችን፣ ቪዲዮዎችን እና ድምጾችን ማስተካከያ ገጽ",
+          select_page_label: "የሚጫንበትን ገጽ ይምረጡ:",
+          opt_news: "ዜና",
+          opt_lectures: "ትምህርቶች",
+          opt_staff: "ሠራተኞች / ኮሚቴዎች",
+          opt_leadership: "አመራር",
+          opt_development: "ልማት",
+          opt_charity: "የበጎ አድራጎት ሥራ",
+          opt_madrasah: "መድረሳ",
+          opt_waqf: "የወቅፍ ንብረት",
+          opt_about: "ስለ መስጂዱ",
+          opt_settings: "⚙️ ቅንብሮች (የመስጂድ ፎቶ እና ኸጢብ)",
+          label_title: "ርዕስ",
+          label_content: "ይዘት / ማብራሪያ",
+          staff_section_title: "ሠራተኞች / ኮሚቴዎች",
+          staff_name_label: "ሙሉ ስም (Full Name):",
+          staff_position_label: "የሥራ መደብ",
+          staff_phone_label: "ስልክ ቁጥር (Phone):",
+          settings_section_title: "መስጂድ እና የጁምዓ ኸጢብ ማስተካከያ",
+          khatib_name_label: "የጁምዓ ኸጢብ ስም:",
+          khatib_desc_label: "የኸጢብ ማብራሪያ (የኹጥባ ሰዓት):",
+          image_upload_label: "ፎቶዎችን መጫኛ",
+          video_upload_label: "ቪዲዮ መጫኛ (Mp4, etc.)",
+          audio_upload_label: "የድምጽ ፋይል መጫኛ (Mp3, etc.)",
+          submit_btn: "አስገባ",
+          logout_btn: "ውጣ (Logout)",
+          footer_text: "&copy; 2026 መስጂድ ሁዘይፋ ኢብኑል የማኒ። መብቱ በህግ የተጠበቀ ነው።",
+        },
+        ar: {
+          admin_login: "تسجيل دخول المشرف",
+          enter_password_prompt: "الرجاء إدخال كلمة المرور",
+          login_btn: "دخول",
+          admin_panel: "لوحة التحكم",
+          home: "الرئيسية",
+          about: "من نحن",
+          donation: "التبرعات",
+          leadership: "القيادة",
+          waqf: "الوقف",
+          development: "التطوير",
+          charity: "الخيرية",
+          madrasah: "المدرسة",
+          staff: "الموظفون",
+          lectures: "المحاضرات",
+          finance: "المالية",
+          news: "الأخبار",
+          page_main_title: "صفحة إدارة المعلومات والصور والفيديوهات والصوتيات",
+          select_page_label: "اختر الصفحة المراد النشر فيها:",
+          opt_news: "الأخبار",
+          opt_lectures: "المحاضرات",
+          opt_staff: "الموظفون / اللجان",
+          opt_leadership: "القيادة",
+          opt_development: "التطوير",
+          opt_charity: "الأعمال الخيرية",
+          opt_madrasah: "المدرسة",
+          opt_waqf: "أصول الوقف",
+          opt_about: "عن المسجد",
+          opt_settings: "⚙️ الإعدادات (صورة المسجد والخطيب)",
+          label_title: "العنوان",
+          label_content: "المحتوى / الوصف",
+          staff_section_title: "الموظفون / اللجان",
+          staff_name_label: "الاسم الكامل:",
+          staff_position_label: "المسمى الوظيفي",
+          staff_phone_label: "رقم الهاتف:",
+          settings_section_title: "تعديل بيانات المسجد وخطيب الجمعة",
+          khatib_name_label: "اسم خطيب الجمعة:",
+          khatib_desc_label: "وصف الخطيب (وقت الخطبة):",
+          image_upload_label: "رفع الصور",
+          video_upload_label: "رفع الفيديو (Mp4, etc.)",
+          audio_upload_label: "رفع الملف الصوتي (Mp3, etc.)",
+          submit_btn: "إرسال / حفظ",
+          logout_btn: "تسجيل الخروج",
+          footer_text: "&copy; 2026 مسجد حذيفة بن اليمان. جميع الحقوق محفوظة.",
+        },
+        en: {
+          admin_login: "Admin Login",
+          enter_password_prompt: "Please enter the password",
+          login_btn: "Login",
+          admin_panel: "Admin Panel",
+          home: "Home",
+          about: "About",
+          donation: "Donation",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          finance: "Finance",
+          news: "News",
+          page_main_title:
+            "Information, Image, Video & Audio Management Dashboard",
+          select_page_label: "Select Page to Publish:",
+          opt_news: "News",
+          opt_lectures: "Lectures",
+          opt_staff: "Staff / Committees",
+          opt_leadership: "Leadership",
+          opt_development: "Development",
+          opt_charity: "Charity",
+          opt_madrasah: "Madrasah",
+          opt_waqf: "Waqf Assets",
+          opt_about: "About Masjid",
+          opt_settings: "⚙️ Settings (Masjid Photo & Khatib)",
+          label_title: "Title",
+          label_content: "Content / Description",
+          staff_section_title: "Staff / Committees",
+          staff_name_label: "Full Name:",
+          staff_position_label: "Position / Role",
+          staff_phone_label: "Phone Number:",
+          settings_section_title: "Change Masjid & Friday Khatib",
+          khatib_name_label: "Friday Khatib Name:",
+          khatib_desc_label: "Khatib Description (Khutbah Time):",
+          image_upload_label: "Upload Images",
+          video_upload_label: "Upload Video (Mp4, etc.)",
+          audio_upload_label: "Upload Audio (Mp3, etc.)",
+          submit_btn: "Submit / Save",
+          logout_btn: "Logout",
+          footer_text:
+            "&copy; 2026 Masjid Huzeeyfaa Ibnul Yamanii. All rights reserved.",
+        },
+        so: {
+          admin_login: "Gelitaanka Maamulka",
+          enter_password_prompt: "Fadlan geli erayga sirta ah (Password)",
+          login_btn: "Geli",
+          admin_panel: "Qeybta Maamulka",
+          home: "Hoyga",
+          about: "Nagu Saabsan",
+          donation: "Tabarucaada",
+          leadership: "Hogaanka",
+          waqf: "Waqfiga",
+          development: "Horumarinta",
+          charity: "Sadaqada",
+          madrasah: "Madrasada",
+          staff: "Shaqaalaha",
+          lectures: "Muxaadarooyinka",
+          finance: "Maaliyadda",
+          news: "Wararka",
+          page_main_title:
+            "Bogga Maamulka Macluumaadka, Sawirada, Muuqaalada iyo Codadka",
+          select_page_label: "Dooro Bogga aad rabto inaad wax ku darto:",
+          opt_news: "Wararka",
+          opt_lectures: "Muxaadarooyinka",
+          opt_staff: "Shaqaalaha / Guddiga",
+          opt_leadership: "Hogaanka",
+          opt_development: "Horumarinta",
+          opt_charity: "Arrimaha Samafalka",
+          opt_madrasah: "Madrasada",
+          opt_waqf: "Hantida Waqfiga",
+          opt_about: "Ku Saabsan Masjidka",
+          opt_settings: "⚙️ Dejinta (Sawirka Masjidka & Khadiibka)",
+          label_title: "Cinwaanka",
+          label_content: "Faahfaahinta / Nuxurka",
+          staff_section_title: "Shaqaalaha / Guddiga",
+          staff_name_label: "Magaca oo Buuxa:",
+          staff_position_label: "Xilka / Shaqada",
+          staff_phone_label: "Lambarka Telefoonka:",
+          settings_section_title: "Beddelida Masjidka & Khadiibka Jimcaha",
+          khatib_name_label: "Magaca Khadiibka Jimcaha:",
+          khatib_desc_label: "Faahfaahinta Khadiibka (Waqtiga Khudbada):",
+          image_upload_label: "Soo geli Sawirada",
+          video_upload_label: "Soo geli Muuqaalka (Mp4, etc.)",
+          audio_upload_label: "Soo geli Codka (Mp3, etc.)",
+          submit_btn: "Geli / Keydso",
+          logout_btn: "Ka Bax (Logout)",
+          footer_text:
+            "&copy; 2026 Masjidka Xuseeyfa Ibnul Yamaani. Xuquuqda oo dhan waa dhowran yihiin.",
+        },
+      };
+
+      function changeLanguage(lang) {
+        localStorage.setItem("preferredLang", lang);
+        document.documentElement.lang = lang;
+        if (lang === "ar") {
+          document.documentElement.dir = "rtl";
+          document.body.style.textAlign = "right";
+        } else {
+          document.documentElement.dir = "ltr";
+          document.body.style.textAlign = "left";
+        }
+
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang] && translations[lang][key]) {
+            if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+              el.placeholder = translations[lang][key];
+            } else {
+              el.innerHTML = translations[lang][key];
+            }
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("preferredLang") || "om";
+        const langSelect = document.getElementById("languageSelect");
+        if (langSelect) {
+          langSelect.value = savedLang;
+        }
+        changeLanguage(savedLang);
+      });
+    </script>
 
     <script src="script.js"></script>
     <script>
-      // --- PASSWORD PROTECTION LOGIC ---
       const ADMIN_PASSWORD = "huzeeyfa123@admin";
 
       const authModal = document.getElementById("auth-modal");
@@ -499,7 +910,8 @@
           authModal.style.display = "none";
           localStorage.setItem("isAdminAuthenticated", "true");
         } else {
-          authError.textContent = "Jecha darbiin sirrii miti! / የተሳሳተ የይለፍ ቃል!";
+          authError.textContent =
+            "Jecha darbiin sirrii miti! / የተሳሳተ የይለፍ ቃል! / كلمة المرور غير صحيحة!";
         }
       }
 
@@ -519,7 +931,6 @@
         location.reload();
       });
 
-      // Mobile Menu Toggle Script
       document.addEventListener("DOMContentLoaded", () => {
         const mobileMenu = document.getElementById("mobile-menu");
         const navList = document.getElementById("nav-list");
@@ -538,7 +949,6 @@
         }
       });
 
-      // Form Handling Logic
       const pageSelect = document.getElementById("pageSelect");
       const extraStaffFields = document.getElementById("extraStaffFields");
       const extraSettingsFields = document.getElementById(
@@ -609,17 +1019,14 @@
           const vidFile = videoFile.files[0];
           const audFile = audioFile.files[0];
 
-          statusMsg.style.color = "blue";
+          statusMsg.style.color = "#76ff03";
           statusMsg.textContent =
             "Odeeffannoo, suuraa, viidiyoo fi sagalee fe’aa jira / መረጃዎች እና ፋይሎች እየተጫኑ ነው...";
 
           try {
-            // Safely get Supabase client directly at the moment of submission
             const supabase = getSupabaseClient();
             if (!supabase) {
-              throw new Error(
-                "Supabase client is not initialized. Check internet connection or CDN.",
-              );
+              throw new Error("Supabase client is not initialized.");
             }
 
             let imageUrls = [];
@@ -735,7 +1142,7 @@
               if (error) throw error;
             }
 
-            statusMsg.style.color = "green";
+            statusMsg.style.color = "#76ff03";
             statusMsg.textContent = "Milkaa’inaan galfameera! (Successful)";
             document.getElementById("adminForm").reset();
             imagePreview.innerHTML = "";
@@ -748,7 +1155,7 @@
             audioGroup.style.display = "block";
           } catch (err) {
             console.error("Catch error:", err);
-            statusMsg.style.color = "red";
+            statusMsg.style.color = "#ff6b6b";
             statusMsg.textContent =
               "Dogoggorri uumameera: " + (err.message || err);
           }
