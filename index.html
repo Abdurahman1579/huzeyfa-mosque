@@ -585,7 +585,6 @@
           staff: "Hojjettoota",
           lectures: "Darsiiwwan",
           news: "Oduu/Blogii",
-          finance: "Maallaqa",
           finance: "Finance",
           hero_title:
             "Bakka Amantaa Islaamaa Isa Amansiisaa Qur'aanaa fi Suunnaa Hordofu",
@@ -593,7 +592,12 @@
             "Salaanni yeroo walitti-buusiin Rabbii wajjin ta'uu fi mi'raajni mu'iminaa itti raawwatamuudha.",
           view_prayer: "Yeroo Salaataa Ilaali",
           daily_prayer_title: "Yeroo Salaata Guyyaa Masjiida Huzeeyfaa",
-          next_prayer_label: "Yeroo Hafe Salaata Aanuuf:",
+          next_prayer_label: "Yeroo hafe Salaata anuuf:",
+          prayer_fajr: "Fajrii",
+          prayer_dhuhr: "Zuhrrii",
+          prayer_asr: "Asrii",
+          prayer_maghrib: "Magribii",
+          prayer_isha: "Ishaa'",
           sunrise: "☀️ Ba'uu Aduu",
           salah: "Salaata",
           adhan: "Azaana",
@@ -627,7 +631,12 @@
           hero_desc: "ሶላት ከፈጣሪ ጋር የሚገናኙበት እና አማኝ ወደ ላቀ ደረጃ ከፍ የሚልበት ጊዜ ነው።",
           view_prayer: "የሶላት ሰዓቶችን ይመልከቱ",
           daily_prayer_title: "የሁዘይፋ መስጊድ የዕለት ሶላት ሰዓቶች",
-          next_prayer_label: "לሚቀጥለው ሶላት የቀረው ጊዜ:",
+          next_prayer_label: "ለሚቀጥለው ሶላት የቀረው ጊዜ:",
+          prayer_fajr: "ፈጅር",
+          prayer_dhuhr: "ዙሁር",
+          prayer_asr: "ዐስር",
+          prayer_maghrib: "መግሪብ",
+          prayer_isha: "ኢሻ",
           sunrise: "☀️ ፀሐይ መውጫ",
           salah: "ሶላት",
           adhan: "አዛን",
@@ -662,6 +671,11 @@
           view_prayer: "View Prayer Times",
           daily_prayer_title: "Huzaifa Masjid's Daily Prayers Time",
           next_prayer_label: "Time remaining for next prayer:",
+          prayer_fajr: "Fajr",
+          prayer_dhuhr: "Dhuhr",
+          prayer_asr: "Asr",
+          prayer_maghrib: "Maghrib",
+          prayer_isha: "Isha",
           sunrise: "☀️ Sun Rise",
           salah: "Salah",
           adhan: "Adhan",
@@ -697,6 +711,11 @@
           view_prayer: "عرض مواقيت الصلاة",
           daily_prayer_title: "مواقيت الصلاة اليومية بمسجد حذيفة",
           next_prayer_label: "الوقت المتبقي للصلاة القادمة:",
+          prayer_fajr: "الفجر",
+          prayer_dhuhr: "الظهر",
+          prayer_asr: "العصر",
+          prayer_maghrib: "المغرب",
+          prayer_isha: "العشاء",
           sunrise: "☀️ شروق الشمس",
           salah: "الصلاة",
           adhan: "الأذان",
@@ -890,7 +909,7 @@
           const currentTotalSeconds =
             now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
 
-          let nextPrayerName = "";
+          let nextPrayerKey = "";
           let nextPrayerSeconds = -1;
 
           const prayersKeys = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
@@ -900,7 +919,7 @@
             let pTotalSeconds = h * 3600 + m * 60;
 
             if (pTotalSeconds > currentTotalSeconds) {
-              nextPrayerName = p;
+              nextPrayerKey = p.toLowerCase();
               nextPrayerSeconds = pTotalSeconds - currentTotalSeconds;
               break;
             }
@@ -909,7 +928,7 @@
           if (nextPrayerSeconds === -1) {
             let [h, m] = prayerTimesObj["Fajr"].split(":").map(Number);
             let pTotalSeconds = h * 3600 + m * 60;
-            nextPrayerName = "Fajr (Boru)";
+            nextPrayerKey = "fajr";
             nextPrayerSeconds = 24 * 3600 - currentTotalSeconds + pTotalSeconds;
           }
 
@@ -921,11 +940,26 @@
 
           const labelEl = document.getElementById("next-prayer-label");
           const timerEl = document.getElementById("countdown-timer");
+          const langSelect = document.getElementById("langSelect");
+          const currentLang = langSelect ? langSelect.value : "om";
 
           if (timerEl) {
             timerEl.innerText = timeString;
-            if (labelEl) {
-              labelEl.innerText = `Yeroo hafe Salaata ${nextPrayerName}f:`;
+            if (labelEl && translations[currentLang]) {
+              const baseLabel =
+                translations[currentLang]["next_prayer_label"] ||
+                "Yeroo hafe Salaata anuuf:";
+              const prayerName =
+                translations[currentLang]["prayer_" + nextPrayerKey] ||
+                nextPrayerKey;
+
+              if (currentLang === "ar") {
+                labelEl.innerText = `${baseLabel} ${prayerName}`;
+              } else if (currentLang === "am") {
+                labelEl.innerText = `${baseLabel} ${prayerName}`;
+              } else {
+                labelEl.innerText = `${baseLabel} ${prayerName}f:`;
+              }
             }
           }
         }, 1000);
