@@ -9,6 +9,38 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="style1.css" />
     <style>
+      /* --- HEADER DARK MODE & ALIGNMENT FIX --- */
+      header {
+        background-color: #1f2937 !important;
+        color: #ffffff !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+      header .logo,
+      header span {
+        color: #ffffff !important;
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      /* Language Switcher Styling inside Header */
+      .lang-switcher select {
+        background: #374151 !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px 12px;
+        border-radius: var(--radius-md, 8px);
+        font-size: 0.9rem;
+      }
+
       .admin-container {
         max-width: 1200px;
         margin: 30px auto;
@@ -175,6 +207,9 @@
         nav .nav-list li {
           text-align: center;
           padding: 10px 0;
+        }
+        nav .nav-list li a {
+          color: #ffffff !important;
         }
       }
     </style>
