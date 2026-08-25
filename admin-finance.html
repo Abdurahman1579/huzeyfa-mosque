@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="style1.css" />
     <style>
+      /* --- HTML & BODY PADDING FOR FIXED FOOTER --- */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        box-sizing: border-box;
+        padding-bottom: 70px; /* Footer fixed ta'eef bakka duwwaa gadii hafuu qabu */
+      }
+
       /* --- HEADER DARK MODE & ALIGNMENT FIX --- */
       header {
         background-color: #1f2937 !important;
@@ -163,6 +173,21 @@
       }
       .btn-action:hover {
         background: var(--primary-hover);
+      }
+
+      /* --- FIXED FOOTER STYLING --- */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #000000 !important; /* Background gurraacha guutuu */
+        color: #ffffff !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        padding: 12px 20px;
+        z-index: 1000;
+        box-sizing: border-box;
       }
 
       /* --- MOBILE MENU STYLING (HAMBURGER) --- */
@@ -400,6 +425,13 @@
       </div>
     </div>
 
+    <!-- Fixed Footer -->
+    <footer>
+      <p data-i18n="footer_text" style="margin: 0; font-size: 0.9rem">
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+      </p>
+    </footer>
+
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -448,6 +480,8 @@
           loading_data: "Odeeffannoon fe'amaa jira...",
           badge_income: "Galii",
           badge_expense: "Baasii",
+          footer_text:
+            "&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. Mirgi hundaa eegamaadha.",
         },
         am: {
           home: "ዋና ገጽ",
@@ -484,6 +518,7 @@
           loading_data: "መረጃው እየተጫነ ነው...",
           badge_income: "ገቢ",
           badge_expense: "ወጪ",
+          footer_text: "&copy; 2026 መስጂድ ሁዘይፋ ኢብኑል የማኒ። መብቱ በህግ የተጠበቀ ነው።",
         },
         en: {
           home: "Home",
@@ -521,6 +556,8 @@
           loading_data: "Loading data...",
           badge_income: "Income",
           badge_expense: "Expense",
+          footer_text:
+            "&copy; 2026 Masjid Huzeeyfaa Ibnul Yamanii. All rights reserved.",
         },
         ar: {
           home: "الرئيسية",
@@ -557,6 +594,7 @@
           loading_data: "جاري تحميل البيانات...",
           badge_income: "إيراد",
           badge_expense: "مصروف",
+          footer_text: "&copy; 2026 مسجد حذيفة بن اليمان. جميع الحقوق محفوظة.",
         },
       };
 

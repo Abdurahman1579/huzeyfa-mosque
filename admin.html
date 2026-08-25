@@ -34,6 +34,8 @@
           linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
           url("masjid-bg.jpg") no-repeat center center fixed;
         background-size: cover;
+        padding-bottom: 70px; /* Footer fixed ta'eef bakka duwwaa gadii hafuu qabu */
+        box-sizing: border-box;
       }
 
       /* Fixed Header Style */
@@ -152,7 +154,7 @@
       /* Main Card Layout */
       main {
         max-width: 750px;
-        margin: 100px auto 40px auto;
+        margin: 100px auto 60px auto;
         padding: 25px;
         background: #000000 !important;
         color: #ffffff !important;
@@ -165,7 +167,7 @@
       @media (max-width: 768px) {
         main {
           width: 90% !important;
-          margin: 90px auto 30px auto !important;
+          margin: 90px auto 50px auto !important;
           padding: 18px;
         }
       }
@@ -248,6 +250,21 @@
       .auth-box h3 {
         color: #ffffff;
         margin-bottom: 15px;
+      }
+
+      /* Fixed Footer Style - Gurraacha fi qabxii fixed */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #000000; /* Background gurraacha guutuu */
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        padding: 12px 20px;
+        color: #ffffff;
+        z-index: 1000;
+        box-sizing: border-box;
       }
     </style>
   </head>
@@ -621,16 +638,8 @@
       ></p>
     </main>
 
-    <footer
-      style="
-        text-align: center;
-        padding: 20px;
-        color: #fff;
-        background: rgba(0, 0, 0, 0.6);
-        margin-top: 20px;
-      "
-    >
-      <p data-i18n="footer_text">
+    <footer>
+      <p data-i18n="footer_text" style="margin: 0; font-size: 0.9rem">
         &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
       </p>
     </footer>

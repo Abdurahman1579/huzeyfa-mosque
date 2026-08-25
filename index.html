@@ -21,6 +21,7 @@
         margin: 0;
         font-family: inherit;
         padding-top: 75px;
+        padding-bottom: 70px; /* Footer fixed ta'eef bakka duwwaa gadii hafuu qabu */
       }
 
       header {
@@ -164,6 +165,21 @@
       }
       .hover-row:hover {
         background-color: rgba(255, 255, 255, 0.04) !important;
+      }
+
+      /* --- FIXED FOOTER STYLING --- */
+      footer {
+        position: fixed !important;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #000000 !important; /* Background gurraacha guutuu */
+        color: #ffffff !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        padding: 12px 20px;
+        z-index: 1000;
+        box-sizing: border-box;
       }
 
       /* Mobile Responsive Adjustments */
@@ -590,12 +606,7 @@
 
     <footer>
       <p
-        style="
-          text-align: center;
-          padding: 20px;
-          color: #94a3b8;
-          font-size: 0.9rem;
-        "
+        style="margin: 0; color: #94a3b8; font-size: 0.9rem"
         data-i18n="footer_text"
       >
         &copy; 2026 Masjiida Huzeeyfaa Ibnul Yaman. All rights reserved.
