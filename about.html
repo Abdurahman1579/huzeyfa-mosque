@@ -27,6 +27,7 @@
         max-width: 1000px;
         margin: 40px auto;
         padding: 0 24px;
+        box-sizing: border-box;
       }
 
       .about-hero-card {
@@ -43,11 +44,21 @@
         padding: 40px 40px 10px 40px;
         text-align: center !important;
       }
+
+      /* Mobile Responsive Fix: Bitaa fi mirgaan bakki duwwaa akka qabaatuu fi gidduu (center) akka ta'u */
       @media (max-width: 768px) {
-        main {
-          width: 90% !important; /* Bal'ina waliigalaa 90% qabata, hafe bitaa fi mirgatti qixa qoodama */
-          margin: 90px auto 30px auto !important; /* Gidduu (center) akka ta'u 'auto' fayyadama */
-          padding: 15px; /* Fageenya keessaa xiqqeessuuf */
+        .about-container {
+          width: 100% !important;
+          padding: 0 15px !important;
+          margin: 90px auto 30px auto !important;
+        }
+
+        .about-hero-card > div:first-child {
+          padding: 25px 20px 10px 20px !important;
+        }
+
+        .about-content-body {
+          padding: 15px 20px 25px 20px !important;
         }
       }
 
@@ -99,11 +110,16 @@
       header {
         background-color: #161922;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 12px 24px;
+        z-index: 1000;
+        box-sizing: border-box;
       }
 
       .header-left {
@@ -149,6 +165,8 @@
         margin: 0;
         list-style: none;
         z-index: 1000;
+        max-height: 70vh;
+        overflow-y: auto;
       }
 
       nav .nav-list.show-menu {
@@ -174,6 +192,17 @@
       nav .nav-list li a:hover,
       nav .nav-list li a.active {
         color: #38bdf8 !important;
+      }
+
+      .lang-switcher select {
+        background: #111;
+        color: #fff;
+        border: 1px solid #555;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        outline: none;
       }
     </style>
   </head>

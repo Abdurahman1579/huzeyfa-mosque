@@ -33,7 +33,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 30px;
+        padding: 12px 24px;
         color: white;
         z-index: 1000;
         box-sizing: border-box;
@@ -70,7 +70,7 @@
         text-decoration: none;
         color: white;
         font-weight: bold;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
       }
 
       .nav-list {
@@ -83,7 +83,7 @@
         top: 100%;
         left: 0;
         padding: 15px 0;
-        max-height: calc(100vh - 80px);
+        max-height: 70vh;
         overflow-y: auto;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -98,7 +98,7 @@
 
       .nav-list li {
         text-align: center;
-        padding: 12px 0;
+        padding: 8px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
 
@@ -107,15 +107,17 @@
       }
 
       .nav-list li a {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         display: block;
         color: #ffffff;
         text-decoration: none;
+        font-weight: 700;
         transition: color 0.2s ease;
       }
 
-      .nav-list li a:hover {
-        color: #38bdf8;
+      .nav-list li a:hover,
+      .nav-list li a.active {
+        color: #38bdf8 !important;
       }
 
       .lang-switcher select {
@@ -125,6 +127,8 @@
         padding: 6px 10px;
         border-radius: 4px;
         cursor: pointer;
+        outline: none;
+        font-size: 0.9rem;
       }
 
       .hover-card {
@@ -161,6 +165,28 @@
       .hover-row:hover {
         background-color: rgba(255, 255, 255, 0.04) !important;
       }
+
+      /* Mobile Responsive Adjustments */
+      @media (max-width: 768px) {
+        header {
+          padding: 10px 15px !important;
+        }
+        main {
+          padding: 15px !important;
+          margin-top: 10px !important;
+        }
+        .hero-card {
+          padding: 20px !important;
+        }
+        .hero-card h1 {
+          font-size: 1.7rem !important;
+        }
+        table th,
+        table td {
+          padding: 8px 6px !important;
+          font-size: 0.9rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -178,8 +204,8 @@
         </button>
 
         <a href="index.html" class="logo-container">
-          <span style="font-size: 1.5rem">🕌</span>
-          <span>Huzaifa Mosque</span>
+          <span style="font-size: 1.4rem">🕌</span>
+          <span data-i18n="logo_text">Huzaifa Mosque</span>
         </a>
       </div>
 
@@ -221,6 +247,7 @@
         max-width: 900px;
         margin: 0 auto;
         padding-bottom: 60px;
+        box-sizing: border-box;
       "
     >
       <!-- Hero Section -->
@@ -239,9 +266,10 @@
           flex-wrap: wrap;
           gap: 20px;
           border: 1px solid rgba(255, 255, 255, 0.08);
+          box-sizing: border-box;
         "
       >
-        <div style="flex: 1; min-width: 280px">
+        <div style="flex: 1; min-width: 260px">
           <div
             style="
               display: inline-block;
@@ -306,9 +334,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-width: 250px;
+            min-width: 220px;
             flex: 0.8;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            box-sizing: border-box;
           "
         >
           <span style="font-size: 5rem">🕌</span>
@@ -364,6 +393,8 @@
               justify-content: space-between;
               align-items: center;
               font-size: 0.95rem;
+              flex-wrap: wrap;
+              gap: 8px;
             "
           >
             <span
