@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Masjiida Huzeeyfaa Ibnul Yamanii</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-      /* Background fi Dark Overlay (0.25) guutuu peejiichaaf */
       body {
         background-color: #111827 !important;
         background-image:
@@ -16,13 +16,13 @@
         background-size: cover !important;
         background-position: center !important;
         background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
         color: #e2e8f0 !important;
         margin: 0;
         font-family: inherit;
         padding-top: 75px;
       }
 
-      /* Header Qofa Fixed (Dhaabbataa) ta'e */
       header {
         position: fixed !important;
         top: 0;
@@ -73,7 +73,6 @@
         font-size: 1.15rem;
       }
 
-      /* Dropdown Menu */
       .nav-list {
         list-style: none;
         display: none;
@@ -128,9 +127,6 @@
         cursor: pointer;
       }
 
-      /* --- HOVER EFFECTS FI ANIMATIONS KENNAMERRA --- */
-
-      /* 1. Buttons fi Quick Navigation Cards hover */
       .hover-card {
         transition:
           transform 0.3s ease,
@@ -145,7 +141,6 @@
         border-color: rgba(56, 189, 248, 0.4) !important;
       }
 
-      /* 2. Standard Action Buttons (View Prayer Times / View Details) */
       .hover-btn {
         transition:
           transform 0.2s ease,
@@ -158,7 +153,6 @@
         box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
       }
 
-      /* 3. Prayer Times rows / Sunrise box hover */
       .hover-row {
         transition:
           background-color 0.2s ease,
@@ -166,7 +160,6 @@
       }
       .hover-row:hover {
         background-color: rgba(255, 255, 255, 0.04) !important;
-        transform: scale(1.01);
       }
     </style>
   </head>
@@ -222,7 +215,14 @@
       </div>
     </header>
 
-    <main style="padding: 30px; max-width: 1200px; margin: 0 auto">
+    <main
+      style="
+        padding: 30px;
+        max-width: 900px;
+        margin: 0 auto;
+        padding-bottom: 60px;
+      "
+    >
       <!-- Hero Section -->
       <div
         class="hero-card hover-card"
@@ -315,144 +315,13 @@
         </div>
       </div>
 
-      <!-- Quick Navigation Cards (Hover qabataniiru) -->
+      <!-- Main Content Stacked Layout -->
       <div
         style="
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-          gap: 15px;
-          margin-bottom: 30px;
-          cursor: pointer;
-        "
-      >
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">📰</div>
-          <span data-i18n="news">News/Blogs</span>
-        </div>
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">📚</div>
-          <span data-i18n="education">Education</span>
-        </div>
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">📅</div>
-          <span data-i18n="events">Events</span>
-        </div>
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">🤲</div>
-          <span data-i18n="donation">Donation</span>
-        </div>
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">🤝</div>
-          <span data-i18n="social_services">Social Services</span>
-        </div>
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">🛒</div>
-          <span data-i18n="online_shop">Online Shop</span>
-        </div>
-        <div
-          class="hover-card"
-          style="
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 20px 10px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-          "
-        >
-          <div style="font-size: 1.8rem; margin-bottom: 8px">📖</div>
-          <span data-i18n="islamic_library">Islamic Library</span>
-        </div>
-      </div>
-
-      <!-- Main Content Grid: Daily Prayers & Jumma Khutba Khatib -->
-      <div
-        style="
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          gap: 20px;
-          align-items: start;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 30px;
         "
         id="prayer-times"
       >
@@ -466,6 +335,9 @@
             padding: 30px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
           "
         >
           <h2
@@ -474,13 +346,36 @@
               font-weight: 700;
               color: #ffffff;
               margin-top: 0;
-              margin-bottom: 20px;
+              margin-bottom: 15px;
             "
             data-i18n="daily_prayer_title"
           >
             Huzaifa Masjid's Daily Prayers Time
           </h2>
-          <!-- Sunrise box hover -->
+
+          <div
+            style="
+              background: rgba(56, 189, 248, 0.1);
+              border: 1px solid rgba(56, 189, 248, 0.3);
+              padding: 10px 15px;
+              border-radius: 8px;
+              margin-bottom: 20px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 0.95rem;
+            "
+          >
+            <span
+              style="color: #38bdf8; font-weight: 600"
+              id="next-prayer-label"
+              >Yeroo Hafe Salaata Aanuuf:</span
+            >
+            <span style="color: #ffffff; font-weight: bold" id="countdown-timer"
+              >--:--:--</span
+            >
+          </div>
+
           <div
             class="hover-card"
             style="
@@ -494,12 +389,12 @@
               margin-bottom: 20px;
               font-weight: 600;
               color: #fbbf24;
-              cursor: pointer;
             "
           >
             <span data-i18n="sunrise">☀️ Sun Rise</span>
-            <span>5:38 AM</span>
+            <span id="sunrise-time">Loading...</span>
           </div>
+
           <table
             style="width: 100%; border-collapse: collapse; text-align: left"
           >
@@ -512,38 +407,47 @@
                 "
               >
                 <th style="padding: 10px" data-i18n="salah">Salah</th>
-                <th style="padding: 10px" data-i18n="begins">Begins</th>
+                <th style="padding: 10px" data-i18n="adhan">Azaana (Begins)</th>
                 <th style="padding: 10px" data-i18n="iqaamah">Iqaamah</th>
               </tr>
             </thead>
             <tbody style="font-size: 1rem; color: #e2e8f0">
-              <!-- Prayer Time Rows Hover -->
               <tr
                 class="hover-row"
-                style="
-                  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                  cursor: pointer;
-                "
+                style="border-bottom: 1px solid rgba(255, 255, 255, 0.05)"
               >
                 <td style="padding: 12px 10px" data-i18n="fajr">Fajr</td>
-                <td style="padding: 12px 10px">4:21 AM</td>
-                <td style="padding: 12px 10px">4:40 AM</td>
+                <td style="padding: 12px 10px" id="fajr-time">--:--</td>
+                <td style="padding: 12px 10px" id="fajr-iqaamah">--:--</td>
               </tr>
               <tr
                 class="hover-row"
-                style="
-                  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                  cursor: pointer;
-                "
+                style="border-bottom: 1px solid rgba(255, 255, 255, 0.05)"
               >
                 <td style="padding: 12px 10px" data-i18n="dhuhr">Dhuuhr</td>
-                <td style="padding: 12px 10px">11:49 AM</td>
-                <td style="padding: 12px 10px">1:00 PM</td>
+                <td style="padding: 12px 10px" id="dhuhr-time">--:--</td>
+                <td style="padding: 12px 10px" id="dhuhr-iqaamah">--:--</td>
               </tr>
-              <tr class="hover-row" style="cursor: pointer">
+              <tr
+                class="hover-row"
+                style="border-bottom: 1px solid rgba(255, 255, 255, 0.05)"
+              >
                 <td style="padding: 12px 10px" data-i18n="asr">Asr</td>
-                <td style="padding: 12px 10px">3:17 PM</td>
-                <td style="padding: 12px 10px">4:00 PM</td>
+                <td style="padding: 12px 10px" id="asr-time">--:--</td>
+                <td style="padding: 12px 10px" id="asr-iqaamah">--:--</td>
+              </tr>
+              <tr
+                class="hover-row"
+                style="border-bottom: 1px solid rgba(255, 255, 255, 0.05)"
+              >
+                <td style="padding: 12px 10px" data-i18n="maghrib">Maghrib</td>
+                <td style="padding: 12px 10px" id="maghrib-time">--:--</td>
+                <td style="padding: 12px 10px" id="maghrib-iqaamah">--:--</td>
+              </tr>
+              <tr class="hover-row">
+                <td style="padding: 12px 10px" data-i18n="isha">Isha</td>
+                <td style="padding: 12px 10px" id="isha-time">--:--</td>
+                <td style="padding: 12px 10px" id="isha-iqaamah">--:--</td>
               </tr>
             </tbody>
           </table>
@@ -560,6 +464,9 @@
             text-align: center;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
           "
         >
           <div
@@ -568,27 +475,62 @@
               height: 70px;
               background: rgba(255, 255, 255, 0.05);
               border-radius: 50%;
-              margin: 0 auto 15px;
+              margin: 0 auto 10px;
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 2rem;
+              overflow: hidden;
             "
           >
-            👤
+            <!-- Suuraan yoo hin jirre default icon-ni akka mul'atu ta'eera -->
+            <img
+              id="khatibImage"
+              src=""
+              alt="Khatib"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: none;
+              "
+              onerror="
+                this.style.display = 'none';
+                document.getElementById('khatibDefaultIcon').style.display =
+                  'block';
+              "
+            />
+            <span id="khatibDefaultIcon" style="font-size: 2rem">👤</span>
           </div>
+
+          <p
+            style="
+              color: #38bdf8;
+              font-size: 0.85rem;
+              font-weight: 600;
+              margin: 0 0 8px 0;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            "
+            data-i18n="jumma_title"
+          >
+            Maqaa Khaxiiba khuxbaa
+          </p>
+
           <h3
+            id="khatibName"
             style="
               font-size: 1.15rem;
               font-weight: 700;
               color: #ffffff;
               margin: 0 0 10px 0;
             "
-            data-i18n="jumma_title"
+            data-i18n="khatib_default_name"
           >
-            Jumma Khutba Khatib
+            Sheek Abdurahman Muhammad
           </h3>
+
           <p
+            id="khatibDesc"
             style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px"
             data-i18n="jumma_desc"
           >
@@ -631,7 +573,6 @@
 
     <script src="script.js"></script>
     <script>
-      // Translations Dictionary
       const translations = {
         om: {
           home: "Home",
@@ -651,20 +592,18 @@
           hero_desc:
             "Salaanni yeroo walitti-buusiin Rabbii wajjin ta'uu fi mi'raajni mu'iminaa itti raawwatamuudha.",
           view_prayer: "Yeroo Salaataa Ilaali",
-          education: "Barnoota",
-          events: "Qophiilee",
-          social_services: "Tajaajila Hawaasaa",
-          online_shop: "Suuqii Intarneetii",
-          islamic_library: "Mana Kuusaa Kitaaba Islaamaa",
           daily_prayer_title: "Yeroo Salaata Guyyaa Masjiida Huzeeyfaa",
           sunrise: "☀️ Ba'uu Aduu",
           salah: "Salaata",
-          begins: "Eegaluu",
+          adhan: "Azaana",
           iqaamah: "Iqaamaa",
           fajr: "Fajrii",
           dhuhr: "Zuhrrii",
           asr: "Asrii",
-          jumma_title: "Khutbaa Jum'aa Khatibaa",
+          maghrib: "Magribii",
+          isha: "Ishaa'",
+          jumma_title: "Maqaa Khaxiiba Khuxbaa",
+          khatib_default_name: "Sheek Abdurahman Muhammad",
           jumma_desc: "Khutbaan Jum'aa sa'aa 6:30 irratti eegala",
           view_details: "Bal'ina Ilaali",
           footer_text:
@@ -686,20 +625,18 @@
           hero_title: "ቁርአንን እና ሱናን የሚከተል አስተማማኝ የእስልምና ማዕከል",
           hero_desc: "ሶላት ከፈጣሪ ጋር የሚገናኙበት እና አማኝ ወደ ላቀ ደረጃ ከፍ የሚልበት ጊዜ ነው።",
           view_prayer: "የሶላት ሰዓቶችን ይመልከቱ",
-          education: "ትምህርት",
-          events: "ክስተቶች",
-          social_services: "ማህበራዊ አገልግሎቶች",
-          online_shop: "ኦንላይን ሱቅ",
-          islamic_library: "እስልምና ቤተ-መጽሐፍት",
           daily_prayer_title: "የሁዘይፋ መስጊድ የዕለት ሶላት ሰዓቶች",
           sunrise: "☀️ ፀሐይ መውጫ",
           salah: "ሶላት",
-          begins: "የሚጀምርበት",
+          adhan: "አዛን",
           iqaamah: "ኢቃማ",
           fajr: "ፈጅር",
           dhuhr: "ዙሁር",
           asr: "ዐስር",
-          jumma_title: "የጁምዓ ኹጥባ ኸጢብ",
+          maghrib: "መግሪብ",
+          isha: "ኢሻ",
+          jumma_title: "የጁምዓ ኹጥባ ኸጢብ ስም",
+          khatib_default_name: "ሸህ አብዱረህማን ሙሐመድ",
           jumma_desc: "የጁምዓ ኹጥባ ከቀኑ 6:30 ይጀምራል",
           view_details: "ተጨማሪ ይመልከቱ",
           footer_text: "&copy; 2026 የሁዘይፋ ኢብኑል የማን መስጊድ። መብቱ በህግ የተጠበቀ ነው።",
@@ -721,20 +658,18 @@
           hero_desc:
             "The Salat is the time when the meeting with Allah and the ascension (Mi'raj) of the believer takes place.",
           view_prayer: "View Prayer Times",
-          education: "Education",
-          events: "Events",
-          social_services: "Social Services",
-          online_shop: "Online Shop",
-          islamic_library: "Islamic Library",
           daily_prayer_title: "Huzaifa Masjid's Daily Prayers Time",
           sunrise: "☀️ Sun Rise",
           salah: "Salah",
-          begins: "Begins",
+          adhan: "Adhan",
           iqaamah: "Iqaamah",
           fajr: "Fajr",
           dhuhr: "Dhuuhr",
           asr: "Asr",
-          jumma_title: "Jumma Khutba Khatib",
+          maghrib: "Maghrib",
+          isha: "Isha",
+          jumma_title: "Jumma Khutba Khatib Name",
+          khatib_default_name: "Sheikh Abdurahman Muhammad",
           jumma_desc: "Jumma Khutba begins at 12:30 PM",
           view_details: "View Details",
           footer_text:
@@ -757,20 +692,18 @@
           hero_desc:
             "الصلاة هي الوقت الذي يتم فيه اللقاء مع الله ومعراج المؤمن.",
           view_prayer: "عرض مواقيت الصلاة",
-          education: "التعليم",
-          events: "الفعاليات",
-          social_services: "الخدمات الاجتماعية",
-          online_shop: "المتجر الإلكتروني",
-          islamic_library: "المكتبة الإسلامية",
           daily_prayer_title: "مواقيت الصلاة اليومية بمسجد حذيفة",
           sunrise: "☀️ شروق الشمس",
           salah: "الصلاة",
-          begins: "البداية",
+          adhan: "الأذان",
           iqaamah: "الإقامة",
           fajr: "الفجر",
           dhuhr: "الظهر",
           asr: "العصر",
-          jumma_title: "خطيب خطبة الجمعة",
+          maghrib: "المغرب",
+          isha: "العشاء",
+          jumma_title: "اسم خطيب خطبة الجمعة",
+          khatib_default_name: "الشيخ عبد الرحمن محمد",
           jumma_desc: "تبدأ خطبة الجمعة الساعة 12:30 ظهراً",
           view_details: "عرض التفاصيل",
           footer_text: "&copy; 2026 مسجد حذيفة بن اليمان. جميع الحقوق محفوظة.",
@@ -821,6 +754,178 @@
           });
         }
       });
+
+      // --- FETCH PRAYER TIMES AND START COUNTDOWN ---
+      let prayerTimesObj = {};
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          const response = await fetch(
+            "https://api.aladhan.com/v1/timingsByCity?city=Addis%20Ababa&country=Ethiopia&method=5&timezonestring=Africa/Addis_Ababa",
+          );
+          const apiData = await response.json();
+
+          if (apiData && apiData.data) {
+            const timings = apiData.data.timings;
+
+            function format12Hour(time24) {
+              let [hours, minutes] = time24.split(":");
+              let h = parseInt(hours, 10);
+              let ampm = h >= 12 ? "PM" : "AM";
+              h = h % 12;
+              h = h ? h : 12;
+              return `${h}:${minutes} ${ampm}`;
+            }
+
+            function addMinutesAndFormat(time24, minutesToAdd) {
+              let [hours, minutes] = time24.split(":").map(Number);
+              let date = new Date();
+              date.setHours(hours);
+              date.setMinutes(minutes + minutesToAdd);
+
+              let newH = date.getHours();
+              let newM = date.getMinutes();
+              let ampm = newH >= 12 ? "PM" : "AM";
+              newH = newH % 12;
+              newH = newH ? newH : 12;
+              let formattedM = String(newM).padStart(2, "0");
+              return `${newH}:${formattedM} ${ampm}`;
+            }
+
+            document.getElementById("sunrise-time").innerText = format12Hour(
+              timings.Sunrise,
+            );
+            document.getElementById("fajr-time").innerText = format12Hour(
+              timings.Fajr,
+            );
+            document.getElementById("dhuhr-time").innerText = format12Hour(
+              timings.Dhuhr,
+            );
+            document.getElementById("asr-time").innerText = format12Hour(
+              timings.Asr,
+            );
+            document.getElementById("maghrib-time").innerText = format12Hour(
+              timings.Maghrib,
+            );
+            document.getElementById("isha-time").innerText = format12Hour(
+              timings.Isha,
+            );
+
+            document.getElementById("fajr-iqaamah").innerText =
+              addMinutesAndFormat(timings.Fajr, 20);
+            document.getElementById("dhuhr-iqaamah").innerText =
+              addMinutesAndFormat(timings.Dhuhr, 15);
+            document.getElementById("asr-iqaamah").innerText =
+              addMinutesAndFormat(timings.Asr, 15);
+            document.getElementById("maghrib-iqaamah").innerText =
+              addMinutesAndFormat(timings.Maghrib, 10);
+            document.getElementById("isha-iqaamah").innerText =
+              addMinutesAndFormat(timings.Isha, 15);
+
+            prayerTimesObj = {
+              Fajr: timings.Fajr,
+              Dhuhr: timings.Dhuhr,
+              Asr: timings.Asr,
+              Maghrib: timings.Maghrib,
+              Isha: timings.Isha,
+            };
+
+            startCountdown();
+          }
+        } catch (error) {
+          console.error("Yeroo salaataa fiduu irratti rakkoon uumame:", error);
+        }
+
+        // --- SUPABASE DATA FETCHING FOR KHATIB & SETTINGS ---
+        const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+        const SUPABASE_ANON_KEY =
+          "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+
+        if (
+          window.supabase &&
+          typeof window.supabase.createClient === "function"
+        ) {
+          const supabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY,
+          );
+
+          try {
+            const { data, error } = await supabase
+              .from("site_settings")
+              .select("*")
+              .eq("id", 1)
+              .single();
+
+            if (data) {
+              // Maqaa Khatibaa database irraa fiduuf (yoo jiraate)
+              if (data.khatib_name) {
+                document.getElementById("khatibName").innerText =
+                  data.khatib_name;
+              }
+              // Suuraa Khatibaa database irraa fiduuf
+              if (data.khatib_image_url) {
+                const imgEl = document.getElementById("khatibImage");
+                const iconEl = document.getElementById("khatibDefaultIcon");
+                imgEl.src = data.khatib_image_url;
+                imgEl.style.display = "block";
+                iconEl.style.display = "none";
+              }
+            }
+          } catch (err) {
+            console.error("Error fetching site settings:", err);
+          }
+        }
+      });
+
+      function startCountdown() {
+        setInterval(() => {
+          if (!prayerTimesObj.Fajr) return;
+
+          const now = new Date();
+          const currentTotalSeconds =
+            now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+          let nextPrayerName = "";
+          let nextPrayerSeconds = -1;
+
+          const prayersKeys = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+
+          for (let p of prayersKeys) {
+            let [h, m] = prayerTimesObj[p].split(":").map(Number);
+            let pTotalSeconds = h * 3600 + m * 60;
+
+            if (pTotalSeconds > currentTotalSeconds) {
+              nextPrayerName = p;
+              nextPrayerSeconds = pTotalSeconds - currentTotalSeconds;
+              break;
+            }
+          }
+
+          if (nextPrayerSeconds === -1) {
+            let [h, m] = prayerTimesObj["Fajr"].split(":").map(Number);
+            let pTotalSeconds = h * 3600 + m * 60;
+            nextPrayerName = "Fajr (Boru)";
+            nextPrayerSeconds = 24 * 3600 - currentTotalSeconds + pTotalSeconds;
+          }
+
+          const hours = Math.floor(nextPrayerSeconds / 3600);
+          const minutes = Math.floor((nextPrayerSeconds % 3600) / 60);
+          const seconds = nextPrayerSeconds % 60;
+
+          const timeString = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+          const labelEl = document.getElementById("next-prayer-label");
+          const timerEl = document.getElementById("countdown-timer");
+
+          if (timerEl) {
+            timerEl.innerText = timeString;
+            if (labelEl) {
+              labelEl.innerText = `Yeroo hafe Salaata ${nextPrayerName}f:`;
+            }
+          }
+        }, 1000);
+      }
     </script>
   </body>
 </html>

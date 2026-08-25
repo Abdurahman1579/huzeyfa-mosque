@@ -8,29 +8,19 @@
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-      // Supabase Client Initialization wajjin Safe Check
-      const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
-      const SUPABASE_ANON_KEY =
-        "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+      // Function to safely get Supabase client anytime
+      function getSupabaseClient() {
+        const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+        const SUPABASE_ANON_KEY =
+          "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
 
-      let supabase;
-      try {
         if (
           window.supabase &&
           typeof window.supabase.createClient === "function"
         ) {
-          supabase = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY,
-          );
-        } else if (
-          typeof supabasejs !== "undefined" &&
-          typeof supabasejs.createClient === "function"
-        ) {
-          supabase = supabasejs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         }
-      } catch (err) {
-        console.error("Supabase initialization error:", err);
+        return null;
       }
     </script>
     <style>
@@ -614,14 +604,6 @@
           e.preventDefault();
           const statusMsg = document.getElementById("statusMsg");
 
-          // Check if supabase client was initialized successfully
-          if (!supabase) {
-            statusMsg.style.color = "red";
-            statusMsg.textContent =
-              "Dogoggorri: Supabase client hin kaane (Not initialized). Madqaa internetaa kee ykn CDN ilaali.";
-            return;
-          }
-
           const category = pageSelect.value;
           const files = imageFiles.files;
           const vidFile = videoFile.files[0];
@@ -632,6 +614,14 @@
             "Odeeffannoo, suuraa, viidiyoo fi sagalee fe’aa jira / መረጃዎች እና ፋይሎች እየተጫኑ ነው...";
 
           try {
+            // Safely get Supabase client directly at the moment of submission
+            const supabase = getSupabaseClient();
+            if (!supabase) {
+              throw new Error(
+                "Supabase client is not initialized. Check internet connection or CDN.",
+              );
+            }
+
             let imageUrls = [];
             let videoUrl = "";
             let audioUrl = "";
@@ -707,7 +697,7 @@
               const updateData = {};
               if (khatib_name) updateData.khatib_name = khatib_name;
               if (khutba_time) updateData.khutba_time = khutba_time;
-              if (image_url) updateData.mosque_image_url = image_url;
+              if (image_url) updateData.khatib_image_url = image_url;
 
               const { error } = await supabase
                 .from("site_settings")
