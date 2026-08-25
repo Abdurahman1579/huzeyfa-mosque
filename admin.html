@@ -31,7 +31,7 @@
         padding: 0;
         min-height: 100vh;
         background:
-          linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.5)),
+          linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
           url("masjid-bg.jpg") no-repeat center center fixed;
         background-size: cover;
       }
@@ -158,6 +158,16 @@
         color: #ffffff !important;
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        box-sizing: border-box;
+      }
+
+      /* Mobile Responsive Fix: Bitaa fi mirgaan bakki duwwaa akka qabaatuu fi gidduu (center) akka ta'u */
+      @media (max-width: 768px) {
+        main {
+          width: 90% !important;
+          margin: 90px auto 30px auto !important;
+          padding: 18px;
+        }
       }
 
       main h2,
