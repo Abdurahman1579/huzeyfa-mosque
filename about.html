@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-      /* Dark Overlay gara 0.25tti gad buusuu fi background styling */
+      /* Page Layout & Sticky Footer Setup */
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
       body {
         background-color: #1a1c23 !important;
         background-image:
@@ -20,12 +27,29 @@
         background-attachment: fixed !important;
         color: #e2e8f0 !important;
         font-family: inherit;
-        margin: 0;
       }
 
-      .about-container {
+      header {
+        background-color: #161922;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 24px;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      /* Content akka header jala hin dhokanne margin-top kennuu */
+      main.about-container {
+        flex: 1;
         max-width: 1000px;
-        margin: 40px auto;
+        width: 100%;
+        margin: 100px auto 40px auto !important; /* Header jala akka hin galne ol kaaseera */
         padding: 0 24px;
         box-sizing: border-box;
       }
@@ -39,27 +63,9 @@
         margin-bottom: 30px;
       }
 
-      /* Mataduree (Heading) Center godhuu */
       .about-hero-card > div:first-child {
         padding: 40px 40px 10px 40px;
         text-align: center !important;
-      }
-
-      /* Mobile Responsive Fix: Bitaa fi mirgaan bakki duwwaa akka qabaatuu fi gidduu (center) akka ta'u */
-      @media (max-width: 768px) {
-        .about-container {
-          width: 100% !important;
-          padding: 0 15px !important;
-          margin: 90px auto 30px auto !important;
-        }
-
-        .about-hero-card > div:first-child {
-          padding: 25px 20px 10px 20px !important;
-        }
-
-        .about-content-body {
-          padding: 15px 20px 25px 20px !important;
-        }
       }
 
       .about-hero-card h1 {
@@ -107,19 +113,20 @@
         color: #94a3b8;
       }
 
-      header {
-        background-color: #161922;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 24px;
-        z-index: 1000;
-        box-sizing: border-box;
+      /* Mobile Responsive Fix */
+      @media (max-width: 768px) {
+        main.about-container {
+          margin: 90px auto 30px auto !important;
+          padding: 0 15px !important;
+        }
+
+        .about-hero-card > div:first-child {
+          padding: 25px 20px 10px 20px !important;
+        }
+
+        .about-content-body {
+          padding: 15px 20px 25px 20px !important;
+        }
       }
 
       .header-left {
@@ -128,7 +135,6 @@
         gap: 15px;
       }
 
-      /* Mallattoon Hamburger yeroo hunda akka mul'atu gochuu */
       .menu-toggle {
         display: flex !important;
         flex-direction: column !important;
@@ -150,7 +156,6 @@
         border-radius: 2px !important;
       }
 
-      /* Liinkwwan Header hundi Hamburger keessatti dhokfaman (Yeroo click godhamu qofa ba'an) */
       nav .nav-list {
         display: none;
         flex-direction: column;
@@ -179,7 +184,6 @@
         padding: 8px 0;
       }
 
-      /* Halluu Adii fi Bold liinkwwan header-ichaaf */
       nav .nav-list li a {
         color: #ffffff !important;
         font-weight: 700 !important;
@@ -203,6 +207,12 @@
         font-size: 0.9rem;
         cursor: pointer;
         outline: none;
+      }
+
+      footer {
+        background-color: #161922;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        width: 100%;
       }
     </style>
   </head>
@@ -325,10 +335,11 @@
           padding: 20px;
           color: #94a3b8;
           font-size: 0.9rem;
+          margin: 0;
         "
+        data-i18n="footer_rights"
       >
-        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved[cite:
-        3].
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved[cite: 3].
       </p>
     </footer>
 
@@ -363,6 +374,7 @@
           feat_3_title: "📍 Bakka Argamoo",
           feat_3_desc:
             "Addis Ababa, Yeshi Debele keessatti hawaasaaf tajaajila bal'aa kenna.",
+          footer_rights: "© 2026 Masjiida Huzeeyfaa Ibnul Yamanii. Mirgi hundaa eegamaadha."
         },
         am: {
           logo_text: "ሁዘይፋ መስጊድ",
@@ -390,6 +402,7 @@
           feat_2_desc: "የአካባቢውን ማህበረሰብ በመርዳት፣ በማቀራረብ እና ድጋፍ በማድረግ ላይ ይሰራል።",
           feat_3_title: "📍 የሚገኝበት ቦታ",
           feat_3_desc: "በአዲስ አበባ፣ ሺ ደበሌ አካባቢ ለህብረተሰቡ ሰፊ አገልግሎት ይሰጣል።",
+          footer_rights: "© 2026 የሁዘይፋ መስጊድ. መብቱ በህግ የተጠበቀ ነው።"
         },
         en: {
           logo_text: "Huzaifa Mosque",
@@ -419,6 +432,7 @@
           feat_3_title: "📍 Location",
           feat_3_desc:
             "Providing broad services to the community in Yeshi Debele, Addis Ababa.",
+          footer_rights: "© 2026 Huzaifa Mosque. All rights reserved."
         },
         ar: {
           logo_text: "مسجد حذيفة",
@@ -447,6 +461,7 @@
           feat_3_title: "📍 الموقع",
           feat_3_desc:
             "يقدم خدمات واسعة للمجتمع في منطقة شي ديبلي، أديس أبابا.",
+          footer_rights: "© 2026 مسجد حذيفة. جميع الحقوق محفوظة."
         },
         so: {
           logo_text: "Masaajidka Xudeyfa",
@@ -476,6 +491,7 @@
           feat_3_title: "📍 Goobta",
           feat_3_desc:
             "Waxay adeeg ballaadhan u haysaa bulshada ku nool Yeshi Debele, Addis Ababa.",
+          footer_rights: "© 2026 Masaajidka Xudeyfa. Xuquuqda oo dhan waa la dhowrayaa."
         },
       };
 
