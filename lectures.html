@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="lectures">
+      Darsiilee - Masjiida Huzeeyfaa Ibnul Yamanii
+    </title>
+    <!-- style2.css wajjin walitti bu'iinsa dhabuuf inline style cimsineerra -->
+    <link rel="stylesheet" href="style2.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      /* --- RAKKOO WAL ARRA BUUFACHUU (OVERLAPPING) FURUUF --- */
+      html,
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+        background-image: url("masjid-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Header irree cimsineera - Gonkuma gadi bu'ee content irra hin taa'u */
+      header {
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: #000000 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 15px 30px !important;
+        color: white !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-sizing: border-box !important;
+        z-index: 99999 !important;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        padding: 5px;
+      }
+
+      .menu-toggle .bar {
+        width: 28px;
+        height: 3px;
+        background-color: #ffffff;
+        transition: 0.3s ease;
+        border-radius: 2px;
+      }
+
+      .logo-area {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: #ffffff;
+      }
+
+      /* Navbar & Mobile Menu Styles */
+      .nav-list {
+        display: none;
+        list-style: none;
+        flex-direction: column;
+        width: 100%;
+        background: #000000;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 15px 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 100000;
+        margin: 0;
+      }
+
+      .nav-list.show-menu {
+        display: flex !important;
+      }
+
+      .nav-list li {
+        text-align: center;
+        padding: 8px 15px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .nav-list li a {
+        font-size: 1.05rem;
+        display: block;
+        color: #cccccc;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-list li a:hover {
+        color: #ffffff;
+        background: rgba(15, 134, 95, 0.2);
+      }
+
+      /* Language Switcher Styling */
+      .lang-switcher select {
+        background: rgba(15, 23, 42, 0.9);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        width: 100%;
+        max-width: 900px;
+        margin: 30px auto 40px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+
+      /* Hero Card & Content Styling */
+      .hero-card {
+        background: rgba(15, 23, 42, 0.92);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        margin-bottom: 25px;
+      }
+
+      .hero-card h1 {
+        color: #ffffff !important;
+        margin-top: 0;
+      }
+
+      .hero-card p {
+        color: #cccccc;
+      }
+
+      /* Footer Styling */
+      footer {
+        background: #000000;
+        color: #ffffff;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        padding: 15px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: auto;
+      }
+
+      footer p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 992px) {
+        .nav-list {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background: #000000;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          padding: 15px 0;
+        }
+        .nav-list.show-menu {
+          display: flex !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Layout -->
+    <header>
+      <div class="header-left">
+        <button
+          class="menu-toggle"
+          id="mobile-menu"
+          type="button"
+          aria-label="Toggle Navigation"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <a href="index.html" class="logo-area">
+          <span>🕌</span>
+          <span class="logo" data-i18n="home_title">Huzaifa Mosque</span>
+        </a>
+      </div>
+
+    <nav>
+        <ul class="nav-list" id="nav-list">
+          <li><a href="index.html" data-i18n="home">Home</a></li>
+          <li>
+            <a href="about.html" class="active" data-i18n="about">About</a>
+          </li>
+          <li><a href="donation.html" data-i18n="donation">Donation</a></li>
+          <li>
+            <a href="leadership.html" data-i18n="leadership">Leadership</a>
+          </li>
+          <li><a href="waqf.html" data-i18n="waqf">Waqf</a></li>
+          <li>
+            <a href="development.html" data-i18n="development">Development</a>
+          </li>
+          <li><a href="charity.html" data-i18n="charity">Charity</a></li>
+          <li><a href="madrasah.html" data-i18n="madrasah">Madrasah</a></li>
+          <li><a href="staff.html" data-i18n="staff">Staff</a></li>
+          <li><a href="lectures.html" data-i18n="lectures">Lectures</a></li>
+          <li><a href="news.html" data-i18n="news">News</a></li>
+          <li><a href="finance.html" data-i18n="finance">Finance</a></li>
+          <li><a href="admin-finance.html" data-i18n="nav_admin">Admin</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-switcher">
+        <select id="langSelect" onchange="changeLanguage(this.value)">
+          <option value="om">Afaan Oromoo</option>
+          <option value="am">አማርኛ</option>
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="hero-card">
+        <h1 data-i18n="lectures_page_title">
+          Darsiilee fi Sagantaalee Da'awaa
+        </h1>
+        <p
+          data-i18n="lectures_page_desc"
+          style="margin-top: 15px; line-height: 1.6"
+        >
+          Sagantaa da'awaa, darsiilee torbeewwanii fi haasawa juma'aa (Khuxbaa)
+          masjiidicha keessatti kennaman.
+        </p>
+      </div>
+
+      <!-- Supabase irraa data darsiilee fiduuf -->
+      <div
+        id="lectures-container"
+        style="margin-top: 20px; display: grid; gap: 20px"
+      ></div>
+    </div>
+
+    <!-- Footer Layout -->
+    <footer>
+      <p
+        style="text-align: center; margin: 0; font-size: 0.9rem"
+        data-i18n="footer_text"
+      >
+        &copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- Translations & Script Logic -->
+    <script>
+      const translations = {
+        om: {
+          home: "Fuula Guddichaa",
+          about: "Waa'ee Masjiidicha",
+          leadership: "Hooggansa",
+          waqf: "Qabeenya Waqfii",
+          development: "Misooma",
+          charity: "Tola Ooltummaa",
+          madrasah: "Madrasaa",
+          staff: "Hojjattoota",
+          lectures: "Darsiilee",
+          news: "Odeeffannoo Haaraa",
+          finance: "Galii fi Baasii",
+          donation: "Deeggarsa",
+          home_title: "Masjiida Huzeeyfaa",
+          lectures_page_title: "Darsiilee fi Sagantaalee Da'awaa",
+          lectures_page_desc:
+            "Sagantaa da'awaa, darsiilee torbeewwanii fi haasawa juma'aa (Khuxbaa) masjiidicha keessatti kennaman.",
+          footer_text:
+            "&copy; 2026 Masjiida Huzeeyfaa Ibnul Yamanii. Mirgi hundi seeraan eegamaadha.",
+        },
+        am: {
+          home: "መነሻ",
+          about: "ስለ እኛ",
+          leadership: "አመራር",
+          waqf: "ወቅፍ",
+          development: "ልማት",
+          charity: "በጎ አድራጎት",
+          madrasah: "መድረሳ",
+          staff: "ሰራተኞች",
+          lectures: "ደርሶች/ትምህርቶች",
+          news: "ዜናዎች",
+          finance: "ገንዘብ ነክ",
+          donation: "ድጋፍ",
+          home_title: "ሁዘይፋ መስጂድ",
+          lectures_page_title: "ደርሶች እና የዳዕዋ መርሃ ግብሮች",
+          lectures_page_desc:
+            "በመስጂዱ ውስጥ የሚሰጡ የዳዕዋ መርሃ ግብሮች፣ የሳምንት ደርሶች እና የጁምዓ Խuxb-ዎች።",
+          footer_text: "&copy; 2026 የሁዘይፋ ኢብኑል የማን መስጂድ። መብቱ በህግ የተጠበቀ ነው።",
+        },
+        en: {
+          home: "Home",
+          about: "About",
+          leadership: "Leadership",
+          waqf: "Waqf",
+          development: "Development",
+          charity: "Charity",
+          madrasah: "Madrasah",
+          staff: "Staff",
+          lectures: "Lectures",
+          news: "News",
+          finance: "Finance",
+          donation: "Donation",
+          home_title: "Huzaifa Mosque",
+          lectures_page_title: "Lectures & Da'wah Programs",
+          lectures_page_desc:
+            "Da'wah programs, weekly lectures, and Friday Khutbah conducted at the mosque.",
+          footer_text:
+            "&copy; 2026 Huzaifa Ibn Al-Yaman Mosque. All rights reserved.",
+        },
+        ar: {
+          home: "الرئيسية",
+          about: "من نحن",
+          leadership: "القيادة",
+          waqf: "الوقف",
+          development: "التطوير",
+          charity: "العمل الخيري",
+          madrasah: "المدرسة",
+          staff: "الموظفون",
+          lectures: "المحاضرات",
+          news: "الأخبار",
+          finance: "المالية",
+          donation: "التبرعات",
+          home_title: "مسجد حذيفة",
+          lectures_page_title: "المحاضرات وبرامج الدعوة",
+          lectures_page_desc:
+            "برامج الدعوة والمحاضرات الأسبوعية وخطب الجمعة التي تقام في المسجد.",
+          footer_text: "&copy; 2026 مسجد حذيفة بن اليمان. جميع الحقوق محفوظة.",
+        },
+      };
+
+      function setLanguage(lang) {
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (translations[lang] && translations[lang][key]) {
+            if (key === "footer_text") {
+              el.innerHTML = translations[lang][key];
+            } else {
+              el.textContent = translations[lang][key];
+            }
+          }
+        });
+
+        if (lang === "ar") {
+          document.documentElement.setAttribute("dir", "rtl");
+        } else {
+          document.documentElement.setAttribute("dir", "ltr");
+        }
+        document.documentElement.setAttribute("lang", lang);
+
+        const select = document.getElementById("langSelect");
+        if (select) select.value = lang;
+      }
+
+      function changeLanguage(lang) {
+        localStorage.setItem("preferredLang", lang);
+        setLanguage(lang);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navList = document.getElementById("nav-list");
+
+        if (mobileMenu && navList) {
+          mobileMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navList.classList.toggle("show-menu");
+          });
+
+          document.addEventListener("click", (e) => {
+            if (!mobileMenu.contains(e.target) && !navList.contains(e.target)) {
+              navList.classList.remove("show-menu");
+            }
+          });
+        }
+
+        const savedLang = localStorage.getItem("preferredLang") || "en";
+        setLanguage(savedLang);
+        loadLectures();
+      });
+    </script>
+    <script src="script.js"></script>
+    <script>
+      async function loadLectures() {
+        const container = document.getElementById("lectures-container");
+        try {
+          const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+          const SUPABASE_ANON_KEY =
+            "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+
+          const activeSupabase = supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY,
+          );
+
+          if (!activeSupabase) {
+            container.innerHTML =
+              "<p style='color: #ff6b6b; text-align: center;'>Supabase walqunnamuu hin dandeenye.</p>";
+            return;
+          }
+
+          // Data 'posts' table irraa 'lectures' category qabu fiduu
+          const { data, error } = await activeSupabase
+            .from("posts")
+            .select("*")
+            .eq("category", "lectures")
+            .order("created_at", { ascending: false });
+
+          if (error) throw error;
+
+          if (!data || data.length === 0) {
+            container.innerHTML =
+              "<p style='text-align: center; color: #cccccc;'>Odeeffannoon darsiilee ammaa hin jiru.</p>";
+            return;
+          }
+
+          container.innerHTML = "";
+          data.forEach((item) => {
+            const card = document.createElement("div");
+            card.style.background = "rgba(15, 23, 42, 0.9)";
+            card.style.padding = "20px";
+            card.style.borderRadius = "12px";
+            card.style.border = "1px solid rgba(255, 255, 255, 0.15)";
+            card.style.boxShadow = "0 4px 15px rgba(0,0,0,0.5)";
+            card.style.color = "#ffffff";
+
+            let imgTag = item.image_url
+              ? `<img src="${item.image_url}" style="max-width:100%; height:auto; border-radius:6px; margin-bottom:15px;" />`
+              : "";
+
+            card.innerHTML = `
+              ${imgTag}
+              <h3 style="color: #ffffff; margin-bottom: 10px;">${item.title || ""}</h3>
+              <p style="white-space: pre-line; line-height: 1.6; color: #cccccc;">${item.content || ""}</p>
+            `;
+            container.appendChild(card);
+          });
+        } catch (err) {
+          console.error("Error loading lectures data:", err);
+          container.innerHTML =
+            "<p style='color: #ff6b6b; text-align: center;'>Rakkoon uumameera: " +
+            err.message +
+            "</p>";
+        }
+      }
+    </script>
+  </body>
+</html>
